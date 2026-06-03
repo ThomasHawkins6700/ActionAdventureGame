@@ -37,7 +37,7 @@ class AdventureGame {
         // Get the base path for your repo (handles both localhost and GitHub Pages)
         // If the path contains 'ActionAdventureGame', it includes it in the base.
         const pathParts = window.location.pathname.split('/');
-        const repoName = pathParts.includes('ActionAdventureGame') ? '/ActionAdventureGame' : '';
+        const repoName = pathParts.includes('ActionAdventureGame') ? './ActionAdventureGame' : '';
         
         // Consistent use of ./ relative path
         const getPath = (file) => `.${repoName}/assets/${file}`;
