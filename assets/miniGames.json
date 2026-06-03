@@ -1,0 +1,26 @@
+[
+  {
+    "id": "rune_lock",
+    "type": "sequence_lock",
+    "title": "🔴 A Runic Trap Triggers!",
+    "description": "Tap the runes in the correct order to disarm the trap. Beware the timer!",
+    "clue": "Carved into the wall: 'Fire melts Ice, Ice freezes Water, Water douses Fire... Strike them from weakest to strongest.'",
+    "sequence": ["🔥", "💧", "❄️"],
+    "successText": "The runes pulse green and shatter safely into dust!",
+    "failText": "Wrong combination! The runes explode, triggering an alarm.",
+    "successScene": "chamber_treasure", 
+    "failScene": "chamber_dungeon"
+  },
+  {
+    "id": "sphinx_riddle",
+    "type": "trivia_quiz",
+    "title": "🦁 The Sphinx's Trial",
+    "clue": "What has roots as nobody sees, is taller than trees, up, up it goes, and yet never grows?",
+    "choices": ["A Mountain", "An Old Oak Tree", "A Castle Tower", "The Sky"],
+    "answer": "A Mountain",
+    "successText": "The Sphinx purrs approvingly and steps aside.",
+    "failText": "Incorrect! The Sphinx lets out a deafening roar.",
+    "successScene": "chamber_treasure", 
+    "failScene": "chamber_dungeon"
+  }
+]

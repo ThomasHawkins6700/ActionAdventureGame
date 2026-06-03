@@ -1,0 +1,10 @@
+{
+    "game_title_screen": {
+    "title": "The Quest for a perfect slave",
+    "text": "The world of men and slaves awaits, find out who does the taming here...",
+    "options": [
+      { "text": "JOI-self", "nextScene": "forest_01_start", "storyFile": "./assets/story_random.json" },
+      { "text": "Fantasy", "nextScene": "forest_01_start" ,"storyFile": "./assets/story_fantasy.json"}
+    ]
+  }
+}

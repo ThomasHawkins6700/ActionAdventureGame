@@ -1,0 +1,35 @@
+{  
+  "forest_01_start": {
+    "title": "The Whispering Woods",
+    "text": "You wake up at the edge of a dark, whispering forest. Two paths lie before you.",
+    "surprise": false,
+    "options": [
+      { "text": "Take the winding path to the left", "nextScene": "forest_02_river" },
+      { "text": "Take the winding path to the right", "nextScene": "forest_03_river" }
+    ]
+  },
+  "forest_02_river": {
+    "title": "The Riverbank",
+    "text": "A rushing river blocks your path.",
+    "surprise": true,
+    "options": [
+      { "text": "Go back", "nextScene": "forest_01_start" }
+    ]
+  },
+  "forest_03_river": {
+    "title": "The Riverbank",
+    "text": "A rushing river blocks your path.",
+    "surprise": false,
+    "options": [
+      { "text": "Go back", "nextScene": "forest_01_start" }
+    ]
+  },
+  "chamber_dungeon": {
+    "title": "The Dungeon",
+    "text": "A Large cavernous dungeon stretches out before you. There is no sign of the sphinx or the woods you were previously in",
+    "surprise": false,
+    "options": [
+      { "text": "Go back", "nextScene": "forest_01_start" }
+    ]
+  }
+}

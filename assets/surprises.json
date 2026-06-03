@@ -1,0 +1,20 @@
+[
+  {
+    "text": "\n\n⚠️ [SURPRISE ENCOUNTER!] A shadowy thief drops from the branches above! They snatch 5 gold coins from your pouch before vanishing into the thicket.",
+    "effect": "lose_gold"
+  },
+  {
+    "text": "\n\n⚠️ [SURPRISE ENCOUNTER!] You trip over a mossy stone, but underneath it, you spy a glimmering Elven Potion nestled in the roots!",
+    "effect": "find_potion"
+  },
+  {
+    "text": "\n\n⚠️ [SURPRISE ENCOUNTER!] An old wandering hermit steps out from behind an oak tree. He whispers a cryptic riddle about the castle ahead, then steps back into the fog.",
+    "effect": "gain_knowledge",
+    "miniGameId": "sphinx_riddle"
+  },
+  {
+    "text": "\n\n⚠️ You step on a hidden pressure plate! A stone slab drops behind you, trapping you in a small chamber...",
+    "effect": "trigger_trap",
+    "miniGameId": "rune_lock"
+  }
+]

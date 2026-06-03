@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Path Adventure Game</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@700;900&family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="game-container">
+        <div id="game-header">
+            <div id="game-title">Adventure Awaits</div>
+        </div>
+
+        <div id="story-text">Loading your adventure...</div>
+
+        <div id="base-container">
+            <div id="choices-container"></div>
+            <button id="reset-btn">Restart Adventure</button>
+        </div>
+
+        <div id="minigame-modal" style="display: none;">
+            <div id="minigame-header">Runic Puzzle</div>
+            <div id="minigame-clue">Clue goes here...</div>
+            
+            <div id="progress-bar-container">
+                <div id="progress-bar-fill"></div>
+            </div>
+            
+            <div id="minigame-display">Current input: </div>
+            <div id="minigame-buttons"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

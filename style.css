@@ -1,0 +1,245 @@
+/* ==========================================================================
+   1. FANTASY BASE ELEMENT RESET & FONTS
+   ========================================================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Lora', Georgia, serif; /* Readable book style layout font */
+}
+
+body {
+    background-color: #020617; /* Deep slate abyss black */
+    color: #e2e8f0;            /* Soft silver-white text tint */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Container locking layout to look like a mobile application shell */
+#game-container {
+    width: 100%;
+    max-width: 450px;
+    height: 100vh;
+    background-color: #0f172a; /* Slate board hue */
+    border: 2px solid #334155;    
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative; /* Crucial: Locks our absolute overlay modal inside this shell */
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+}
+
+/* ==========================================================================
+   2. MAIN APPLICATION INTERFACE PANELS
+   ========================================================================== */
+
+/* Header / Title Zone */
+#game-header {
+    background-color: #0b0f19;
+    padding: 20px;
+    text-align: center;
+    border-bottom: 2px solid #d4af37; /* Radiant metallic gold divider */
+}
+
+#game-title {
+    font-family: 'Cinzel Decorative', serif; /* Ornate runic header */
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #d4af37; 
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+/* Story Text Zone (The Center Textbox Container) */
+#story-text {
+    flex: 1;                  
+    overflow-y: auto;         
+    padding: 26px;
+    font-size: 1.15rem;
+    line-height: 1.7;
+    font-style: italic;
+    color: #cbd5e1;
+}
+
+/* Base Utility Button Zone (Fixed at bottom) */
+#base-container {
+    padding: 20px;
+    background-color: #0b0f19;
+    border-top: 1px solid #1e293b;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Choice Option Layout Button Frameworks */
+#choices-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.choice-btn {
+    font-family: 'Cinzel', serif; /* Clean sharp runic choice texts */
+    background-color: #1e293b;
+    color: #cbd5e1;
+    border: 1px solid #475569;
+    padding: 14px 20px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;         
+}
+
+.choice-btn:hover {
+    background-color: #334155;
+    color: #fff;
+    border-color: #d4af37; /* Switches to gold outline when selected */
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.25);
+}
+
+/* System Master Reset Utilities */
+#reset-btn {
+    background: transparent;
+    border: none;
+    color: #64748b;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    margin-top: 4px;
+    transition: color 0.2s ease;
+}
+
+#reset-btn:hover {
+    color: #ef4444; /* Flashes dark warning red if user hovers to wipe save */
+}
+
+/* ==========================================================================
+   3. MODULAR MINI-GAME POPUP OVERLAY FRAMEWORKS
+   ========================================================================== */
+#minigame-modal {
+    position: absolute;
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;
+    background-color: rgba(7, 10, 19, 0.97); /* Near-opaque solid black obsidian veil */
+    backdrop-filter: blur(4px);              /* Blurs underlying background text elements */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 32px;
+    z-index: 100;
+    animation: modalFadeIn 0.25s ease-out;
+}
+
+#minigame-header {
+    font-family: 'Cinzel Decorative', serif;
+    color: #f43f5e; /* Vibrant encounter notification title coloring */
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-align: center;
+    text-shadow: 0 0 15px rgba(244, 63, 94, 0.3);
+}
+
+#minigame-clue {
+    font-family: 'Lora', serif;
+    font-size: 1.05rem;
+    font-style: italic;
+    color: #94a3b8; /* Stone grey puzzle text */
+    line-height: 1.6;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+#minigame-display {
+    font-family: 'Cinzel', serif;
+    font-size: 1.25rem;
+    font-weight: 900;
+    color: #d4af37; /* Glimmering amber trackers */
+    margin-bottom: 30px;
+    letter-spacing: 1px;
+}
+
+/* Flex Row holding interactive buttons inside the puzzle frame */
+
+#minigame-buttons {
+    display: flex;
+    flex-direction: column; /* CHANGE THIS from 'row' to 'column' so items stack vertically! */
+    justify-content: center;
+    align-items: center;    /* Keeps items lined up in the center */
+    gap: 16px;
+    width: 100%;
+}
+
+/* Ensure choice buttons stretch out full width inside the modal */
+#minigame-buttons .choice-btn {
+    width: 100%;
+    max-width: 320px;       /* Keeps trivia options from looking absurdly wide */
+    text-align: center;
+}
+
+/* Individual Rune Selection Circle Assets */
+.rune-btn {
+    font-size: 2.2rem;
+    background-color: #1e293b;
+    border: 2px solid #475569;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    flex-shrink: 0;         /* ADD THIS line to prevent emojis from squishing to 0 width */
+}
+
+.rune-btn:hover {
+    border-color: #d4af37;
+    background-color: #334155;
+    transform: scale(1.1) translateY(-2px); /* Slight floating leap effect */
+    box-shadow: 0 10px 15px -3px rgba(212, 175, 55, 0.2);
+}
+
+.rune-btn:active {
+    transform: scale(0.95); /* Tactile compression feel upon tap clicks */
+}
+
+#progress-bar-container {
+    width: 80%;
+    height: 8px;
+    background-color: #1e293b;
+    border-radius: 4px;
+    margin: 15px auto;
+    overflow: hidden;
+}
+
+#progress-bar-fill {
+    height: 100%;
+    background-color: #f43f5e; /* Evil red! */
+    width: 100%;
+    transition: width 0.1s linear;
+}
+
+/* ==========================================================================
+   4. SYSTEM ANIMATIONS
+   ========================================================================== */
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(1.03);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
