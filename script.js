@@ -37,8 +37,8 @@ class AdventureGame {
         const baseUrl = window.location.origin;
         
         // Define the paths
-        const miniGamesPath = '/assets/miniGames.json';
-        const surprisesPath = '/assets/surprises.json'; // Ensure this matches your file path!
+        const miniGamesPath = './assets/miniGames.json';
+        const surprisesPath = './assets/surprises.json'; // Ensure this matches your file path!
 
         try {
             // Fetch both files in parallel for speed
