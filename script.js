@@ -2,6 +2,9 @@
  * Core Adventure Game Engine
  * Manages game state, JSON loading, and navigation.
  */
+/**
+ * Core Adventure Game Engine
+ */
 class AdventureGame {
     constructor() {
         this.storyData = null;
@@ -18,9 +21,6 @@ class AdventureGame {
         this.miniGameEngine = new MiniGameEngine(this);
     }
 
-    /**
-     * Fetches a story asset file safely
-     */
     async loadStoryFile(filePath) {
         try {
             const response = await fetch(filePath);
@@ -33,73 +33,81 @@ class AdventureGame {
         }
     }
 
-    /**
-     * Fetches supplemental game data pools
-     */
     async loadAssetsPools() {
-        // Get the base URL
         const baseUrl = window.location.origin;
         
-        // If you are on GitHub pages, your path usually includes the repo name
-        // e.g., /my-rpg-adventure/assets/minigames.json
-        // We check if we are on localhost vs github.io to be safe
-        const path = window.location.hostname.includes('github.io') 
-            ? '/ActionAdventureGame/assets/miniGames.json' 
-            : '/assets/miniGames.json';
+        // Define the paths
+        const miniGamesPath = '/assets/miniGames.json';
+        const surprisesPath = '/assets/surprises.json'; // Ensure this matches your file path!
 
         try {
-            const miniGameRes = await fetch(baseUrl + path);
-            
-            if (!miniGameRes.ok) {
-                throw new Error(`HTTP error! status: ${miniGameRes.status}`);
+            // Fetch both files in parallel for speed
+            const [miniGamesRes, surprisesRes] = await Promise.all([
+                fetch(baseUrl + miniGamesPath),
+                fetch(baseUrl + surprisesPath)
+            ]);
+
+            if (!miniGamesRes.ok || !surprisesRes.ok) {
+                throw new Error("Failed to load one or more asset files");
             }
+
+            // Parse and assign to the correct pools
+            this.miniGamePool = await miniGamesRes.json();
+            this.surprisePool = await surprisesRes.json(); // Now it will be populated!
             
-            this.miniGamePool = await miniGameRes.json();
-            console.log("Assets loaded successfully!");
+            console.log("Assets loaded! Surprise pool size:", this.surprisePool.length);
         } catch (error) {
             console.error("Critical Failure loading assets:", error);
         }
     }
 
-    /**
-     * Boots up the game engine and attaches clean event listeners
-     */
-    async initGame() {
-        this.loadGame(); 
-        await this.loadStoryFile(this.state.currentStoryFile);
+   async initGame() {
+        this.loadGame();
+        
+        // Explicitly define the path for the initial hub
+        const hubPath = "./assets/mainScreen.json";
+        
+        await this.loadStoryFile(hubPath);
+        
+        // SAFETY CHECK: If it's still null, stop here to avoid the crash
+        if (!this.storyData) {
+            console.error("Critical Failure: Could not load hub file at", hubPath);
+            return;
+        }
+
         await this.loadAssetsPools();
         
-        // Only bind the button if we haven't done it yet
         if (!this.isButtonBound) {
             document.getElementById('reset-btn').addEventListener('click', () => this.resetGame());
-            this.isButtonBound = true; // Mark as bound
+            this.isButtonBound = true;
         }
         
-        this.render();
+        this.handleSceneTransition('game_title_screen');
     }
-
-    /**
-     * DnD Core Check: Rolls a d20 to check for a surprise encounter
-     */
+    // Unified Roll Logic
     rollForSurprise() {
-        if (!this.surprisePool || this.surprisePool.length === 0) return null;
+        console.log("🎲 Dice pool size:", this.surprisePool ? this.surprisePool.length : "NULL/EMPTY");
+
+        if (!this.surprisePool || this.surprisePool.length === 0) {
+            console.error("❌ ERROR: Surprise Pool is empty! Did loadAssetsPools() run?");
+            return null;
+        }
 
         const d20Roll = Math.floor(Math.random() * 20) + 1;
         console.log(`🎲 Systems Check: Rolled a ${d20Roll} for surprise.`);
 
-        if (d20Roll >= 12) {
+        // CHANGE: Force trigger on a roll of 1 for testing
+        if (d20Roll >= 1 || d20Roll >= 12) { 
             const randomIndex = Math.floor(Math.random() * this.surprisePool.length);
+            console.log("✅ Dice check passed! Returning surprise:", this.surprisePool[randomIndex]);
             return this.surprisePool[randomIndex];
         }
+        
         return null; 
     }
 
-    /**
-     * Updates screen layout elements
-     */
     render(node = null, surpriseText = "") {
         if (!node) node = this.storyData[this.state.currentScene];
-        
         const storyTextContainer = document.getElementById('story-text');
         const titleContainer = document.getElementById('game-title');
         const buttonContainer = document.getElementById('choices-container');
@@ -117,43 +125,65 @@ class AdventureGame {
         });
     }
 
+    // Single source of truth for scene movement
+    handleSceneTransition(sceneId) {
+        console.log("🚦 Entering handleSceneTransition for:", sceneId); // LOG 1
+        
+        this.state.currentScene = sceneId;
+        this.saveGame();
+        
+        const node = this.storyData[sceneId];
+        if (!node) {
+            console.error("❌ Node not found:", sceneId);
+            return;
+        }
+
+        console.log("🧐 Node found. Surprise property is:", node.surprise); // LOG 2
+
+        // 1. Check for surprise before rendering
+        if (node.surprise === true) {
+        console.log("🎲 About to roll dice...");
+        const surprise = this.rollForSurprise();
+    
+    if (surprise) {
+        console.log("🎲 Surprise Triggered!");
+        
+        // Render the scene text immediately
+        this.render(node, surprise.text); 
+        
+        // ONLY trigger mini-game if a miniGameId exists
+        if (surprise.miniGameId) {
+            console.log("🎮 Launching associated mini-game:", surprise.miniGameId);
+            setTimeout(() => this.miniGameEngine.start(surprise.miniGameId), 1000);
+        } else {
+            console.log("✨ Surprise effect triggered without a mini-game.");
+        }
+        return; 
+            } else {
+                console.log("🎲 Dice rolled, no surprise triggered.");
+            }
+        } else {
+            console.log("⛔ Surprise property was not true, skipping roll."); // LOG 5
+        }
+
+        // 2. Default path
+        this.render(node);
+    }
+
     async makeChoice(option) {
+        console.log("👉 Button clicked: navigating to", option.nextScene);
         if (option.storyFile) {
             await this.loadStoryFile(option.storyFile);
         }
-        // Redirect to the new handler
+        // This calls the "Brain" that rolls the dice
         this.handleSceneTransition(option.nextScene);
     }
 
     jumpToScene(sceneId) {
-        // Redirect to the new handler
         this.handleSceneTransition(sceneId);
     }
 
-    rollForSurprise() {
-        if (!this.surprisePool || this.surprisePool.length === 0) return null;
-        const d20Roll = Math.floor(Math.random() * 20) + 1;
-        console.log(`🎲 Systems Check: Rolled a ${d20Roll} for surprise.`);
-
-        if (d20Roll >= 12) {
-            const randomIndex = Math.floor(Math.random() * this.surprisePool.length);
-            return this.surprisePool[randomIndex];
-        }
-        return null; 
-    }
-
-    async makeChoice(option) {
-        if (option.storyFile) {
-            await this.loadStoryFile(option.storyFile);
-        }
-        this.state.currentScene = option.nextScene;
-        this.saveGame(); 
-        this.render();
-    }
-
-    saveGame() {
-        localStorage.setItem('adventure_game_save', JSON.stringify(this.state));
-    }
+    saveGame() { localStorage.setItem('adventure_game_save', JSON.stringify(this.state)); }
 
     loadGame() {
         const savedProgress = localStorage.getItem('adventure_game_save');
@@ -163,67 +193,9 @@ class AdventureGame {
     }
 
     resetGame() {
-        this.state = { 
-            currentStoryFile: './assets/mainScreen.json', 
-            currentScene: 'game_title_screen', 
-            inventory: [] 
-        };
+        this.state = { currentStoryFile: './assets/mainScreen.json', currentScene: 'game_title_screen', inventory: [] };
         this.saveGame();
         this.initGame(); 
-    }
-
-    /**
-    * Forces the game to move to a specific scene ID
-    */
-    jumpToScene(sceneId) {
-        this.state.currentScene = sceneId;
-        this.saveGame();
-        
-        // 1. Get the new scene data
-        const scene = this.storyData[sceneId];
-        
-        // 2. CRITICAL: Check for a surprise BEFORE rendering the new scene
-        if (scene.surprise) {
-            const surprise = this.rollForSurprise(); // Your existing dice logic
-            if (surprise) {
-                console.log("🎲 Surprise triggered!");
-                this.miniGameEngine.start(surprise.miniGameId);
-                return; // Stop here so we don't render the scene twice
-            }
-        }
-
-        // 3. Render as normal if no surprise happened
-        this.render();
-    }
-
-    /**
-     * Unified way to enter any scene.
-     * This ensures the surprise check happens exactly once.
-    */
-    handleSceneTransition(sceneId, isFileSwitch = false) {
-        this.state.currentScene = sceneId;
-        this.saveGame();
-        
-        const node = this.storyData[sceneId];
-        if (!node) return;
-
-        // 1. Check for surprise before rendering
-        if (node.surprise) {
-            const surprise = this.rollForSurprise();
-            if (surprise) {
-                console.log("🎲 Surprise Triggered:", surprise.miniGameId);
-                
-                // Render scene with surprise text appended
-                this.render(node, surprise.text); 
-                
-                // Trigger mini-game
-                setTimeout(() => this.miniGameEngine.start(surprise.miniGameId), 1000);
-                return; 
-            }
-        }
-
-        // 2. Default path: just render the scene
-        this.render(node);
     }
 }
 

@@ -20,7 +20,7 @@
   "forest_03_river": {
     "title": "The Riverbank",
     "text": "A rushing river trails along the forest.",
-    "surprise": false,
+    "surprise": true,
     "options": [
       { "text": "Follow river", "nextScene": "forest_04_hovel" },
       { "text": "Jump back", "nextScene": "forest_02_river" }
