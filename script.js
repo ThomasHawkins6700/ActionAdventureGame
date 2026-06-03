@@ -177,7 +177,7 @@ class AdventureGame {
  * Routes and handles puzzle-specific micro-logic states.
  */
 
-class miniGameEngine {
+class MiniGameEngine {
     constructor(gameInstance) {
         this.game = gameInstance; 
         this.currentPuzzle = null;
