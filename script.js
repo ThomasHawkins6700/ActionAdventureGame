@@ -33,29 +33,35 @@ class AdventureGame {
         }
     }
 
-  async loadAssetsPools() {
-    const miniGamesPath = '/ActionAdventureGame/assets/miniGames.json';
-    const surprisesPath = '/ActionAdventureGame/assets/surprises.json';
+ async loadAssetsPools() {
+    // 1. Get the current path (e.g., /ActionAdventureGame/index.html)
+    // 2. We extract the base directory to ensure we always point to the project root
+    const pathParts = window.location.pathname.split('/');
+    const repoName = pathParts[1]; // This captures 'ActionAdventureGame'
+    const baseUrl = `/${repoName}`;
 
-        try {
-            const [miniGamesRes, surprisesRes] = await Promise.all([
-                fetch(miniGamesPath),
-                fetch(surprisesPath)
-            ]);
-    
-            if (!miniGamesRes.ok || !surprisesRes.ok) {
-                throw new Error(`Failed to load: ${miniGamesRes.status} / ${surprisesRes.status}`);
-            }
+    // Now we build the path using the detected base
+    const miniGamesPath = `${baseUrl}/assets/miniGames.json`;
+    const surprisesPath = `${baseUrl}/assets/surprises.json`;
 
-            this.miniGamePool = await miniGamesRes.json();
-            this.surprisePool = await surprisesRes.json();
-            
-            console.log("Assets loaded! Pool size:", this.surprisePool.length);
-        } catch (error) {
-            console.error("Critical Failure loading assets (Check if path exists relative to script.js):", error);
+    try {
+        const [miniGamesRes, surprisesRes] = await Promise.all([
+            fetch(miniGamesPath),
+            fetch(surprisesPath)
+        ]);
+
+        if (!miniGamesRes.ok || !surprisesRes.ok) {
+            throw new Error(`Failed to load: ${miniGamesRes.status}`);
         }
-    }
 
+        this.miniGamePool = await miniGamesRes.json();
+        this.surprisePool = await surprisesRes.json();
+        
+        console.log("Assets loaded! Path used:", miniGamesPath);
+    } catch (error) {
+        console.error("Critical Failure:", error);
+    }
+}
    async initGame() {
         this.loadGame();
         
