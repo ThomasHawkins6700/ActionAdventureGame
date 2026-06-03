@@ -45,8 +45,8 @@ class AdventureGame {
         // e.g., /my-rpg-adventure/assets/minigames.json
         // We check if we are on localhost vs github.io to be safe
         const path = window.location.hostname.includes('github.io') 
-            ? '/your-repo-name-here/assets/minigames.json' 
-            : '/assets/minigames.json';
+            ? '/ActionAdventureGame/assets/miniGames.json' 
+            : '/assets/miniGames.json';
 
         try {
             const miniGameRes = await fetch(baseUrl + path);
