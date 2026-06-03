@@ -38,22 +38,34 @@ class AdventureGame {
      * Fetches supplemental game data pools
      */
     async loadAssetsPools() {
+        // Get the base URL
+        const baseUrl = window.location.origin;
+        
+        // If you are on GitHub pages, your path usually includes the repo name
+        // e.g., /my-rpg-adventure/assets/minigames.json
+        // We check if we are on localhost vs github.io to be safe
+        const path = window.location.hostname.includes('github.io') 
+            ? '/your-repo-name-here/assets/minigames.json' 
+            : '/assets/minigames.json';
+
         try {
-            const surpriseRes = await fetch('./assets/surprises.json');
-            this.surprisePool = await surpriseRes.json();
+            const miniGameRes = await fetch(baseUrl + path);
             
-            // Fix: Load the mini games list asset pool
-            const miniGameRes = await fetch('./assets/minigames.json');
+            if (!miniGameRes.ok) {
+                throw new Error(`HTTP error! status: ${miniGameRes.status}`);
+            }
+            
             this.miniGamePool = await miniGameRes.json();
+            console.log("Assets loaded successfully!");
         } catch (error) {
-            console.error("Error loading asset pools:", error);
+            console.error("Critical Failure loading assets:", error);
         }
     }
 
     /**
      * Boots up the game engine and attaches clean event listeners
      */
-  async initGame() {
+    async initGame() {
         this.loadGame(); 
         await this.loadStoryFile(this.state.currentStoryFile);
         await this.loadAssetsPools();
