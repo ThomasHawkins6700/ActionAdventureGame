@@ -13,7 +13,7 @@
     "text": "A rushing river blocks your path.",
     "surprise": true,
     "options": [
-      { "text": "Go back", "nextScene": "forest_01_start" }
+      { "text": "Go back", "nextScene": "forest_01_start" },
       { "text": "Jump", "nextScene": "forest_03_river" }
     ]
   },
@@ -22,7 +22,7 @@
     "text": "A rushing river trails along the forest.",
     "surprise": false,
     "options": [
-      { "text": "Follow river", "nextScene": "forest_04_hovel" }
+      { "text": "Follow river", "nextScene": "forest_04_hovel" },
       { "text": "Jump back", "nextScene": "forest_02_river" }
     ]
   },
