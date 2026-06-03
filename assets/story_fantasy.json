@@ -24,6 +24,15 @@
       { "text": "Go back", "nextScene": "forest_01_start" }
     ]
   },
+  "forest_04_hovel": {
+    "title": "The Riverbank",
+    "text": "Just adjacent to the riverbank is a cute hovel with smoke peacefully leaving its chimney.",
+    "surprise": false,
+    "options": [
+      { "text": "Continue along river", "nextScene": "forest_01_start" },
+      { "text": "Knock on Door", "nextScene": "forest_01_start" }
+    ]
+  },
   "chamber_dungeon": {
     "title": "The Dungeon",
     "text": "A Large cavernous dungeon stretches out before you. There is no sign of the sphinx or the woods you were previously in",
