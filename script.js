@@ -6,16 +6,15 @@ class AdventureGame {
     constructor() {
         this.storyData = null;
         this.surprisePool = null; 
-        this.miniGamePool = null; // Master database of mini-game puzzles
+        this.miniGamePool = null;
         this.isButtonBound = false;
 
         this.state = { 
             currentStoryFile: './assets/mainScreen.json', 
-            currentScene: 'game_title_screen',       
+            currentScene: 'game_title_screen', 
             inventory: [] 
         };
 
-        // 1. Hook up the Mini-Game Engine and pass this game instance to it
         this.miniGameEngine = new MiniGameEngine(this);
     }
 
@@ -98,43 +97,17 @@ class AdventureGame {
     /**
      * Updates screen layout elements
      */
-    render() {
+    render(node = null, surpriseText = "") {
+        if (!node) node = this.storyData[this.state.currentScene];
+        
         const storyTextContainer = document.getElementById('story-text');
         const titleContainer = document.getElementById('game-title');
         const buttonContainer = document.getElementById('choices-container');
 
-        if (!this.storyData) {
-            storyTextContainer.innerText = "Failed to load game assets.";
-            return;
-        }
-
-        const node = this.storyData[this.state.currentScene];
-        if (!node) {
-            storyTextContainer.innerText = `Error: Scene "${this.state.currentScene}" not found.`;
-            return;
-        }
-
         titleContainer.innerText = node.title || "Adventure Quest";
-
-        // --- SURPRISE EVENT TRIGGER WORKFLOW ---
-        let finalDisplayTxt = node.text;
-
-        if (node.surprise) {
-            const triggeredSurprise = this.rollForSurprise();
-            if (triggeredSurprise) {
-                finalDisplayTxt += triggeredSurprise.text;
-                console.log(`Triggered Effect: ${triggeredSurprise.effect}`);
-                
-                // Fix: Call the mini-game engine if the surprise features a challenge
-                if (triggeredSurprise.miniGameId) {
-                    setTimeout(() => this.miniGameEngine.start(triggeredSurprise.miniGameId), 1200);
-                }
-            }
-        }
-
-        storyTextContainer.innerText = finalDisplayTxt;
-        buttonContainer.innerHTML = '';
+        storyTextContainer.innerText = (node.text || "") + surpriseText;
         
+        buttonContainer.innerHTML = '';
         node.options.forEach(option => {
             const button = document.createElement('button');
             button.innerText = option.text;
@@ -142,6 +115,31 @@ class AdventureGame {
             button.addEventListener('click', () => this.makeChoice(option));
             buttonContainer.appendChild(button);
         });
+    }
+
+    async makeChoice(option) {
+        if (option.storyFile) {
+            await this.loadStoryFile(option.storyFile);
+        }
+        // Redirect to the new handler
+        this.handleSceneTransition(option.nextScene);
+    }
+
+    jumpToScene(sceneId) {
+        // Redirect to the new handler
+        this.handleSceneTransition(sceneId);
+    }
+
+    rollForSurprise() {
+        if (!this.surprisePool || this.surprisePool.length === 0) return null;
+        const d20Roll = Math.floor(Math.random() * 20) + 1;
+        console.log(`🎲 Systems Check: Rolled a ${d20Roll} for surprise.`);
+
+        if (d20Roll >= 12) {
+            const randomIndex = Math.floor(Math.random() * this.surprisePool.length);
+            return this.surprisePool[randomIndex];
+        }
+        return null; 
     }
 
     async makeChoice(option) {
@@ -175,12 +173,57 @@ class AdventureGame {
     }
 
     /**
- * Forces the game to move to a specific scene ID
+    * Forces the game to move to a specific scene ID
     */
     jumpToScene(sceneId) {
         this.state.currentScene = sceneId;
         this.saveGame();
+        
+        // 1. Get the new scene data
+        const scene = this.storyData[sceneId];
+        
+        // 2. CRITICAL: Check for a surprise BEFORE rendering the new scene
+        if (scene.surprise) {
+            const surprise = this.rollForSurprise(); // Your existing dice logic
+            if (surprise) {
+                console.log("🎲 Surprise triggered!");
+                this.miniGameEngine.start(surprise.miniGameId);
+                return; // Stop here so we don't render the scene twice
+            }
+        }
+
+        // 3. Render as normal if no surprise happened
         this.render();
+    }
+
+    /**
+     * Unified way to enter any scene.
+     * This ensures the surprise check happens exactly once.
+    */
+    handleSceneTransition(sceneId, isFileSwitch = false) {
+        this.state.currentScene = sceneId;
+        this.saveGame();
+        
+        const node = this.storyData[sceneId];
+        if (!node) return;
+
+        // 1. Check for surprise before rendering
+        if (node.surprise) {
+            const surprise = this.rollForSurprise();
+            if (surprise) {
+                console.log("🎲 Surprise Triggered:", surprise.miniGameId);
+                
+                // Render scene with surprise text appended
+                this.render(node, surprise.text); 
+                
+                // Trigger mini-game
+                setTimeout(() => this.miniGameEngine.start(surprise.miniGameId), 1000);
+                return; 
+            }
+        }
+
+        // 2. Default path: just render the scene
+        this.render(node);
     }
 }
 
