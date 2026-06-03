@@ -33,33 +33,30 @@ class AdventureGame {
         }
     }
 
-    async loadAssetsPools() {
-        // Get the base path for your repo (handles both localhost and GitHub Pages)
-        // If the path contains 'ActionAdventureGame', it includes it in the base.
-        const pathParts = window.location.pathname.split('/');
-        const repoName = pathParts.includes('ActionAdventureGame') ? '/ActionAdventureGame' : '';
-        
-        // Consistent use of ./ relative path
-        const getPath = (file) => `.${repoName}/assets/${file}`;
+  async loadAssetsPools() {
+    // These paths are relative to the current file (script.js)
+    // If script.js and /assets/ are in the same folder, this is the universal way
+    const miniGamesPath = './assets/miniGames.json';
+    const surprisesPath = './assets/surprises.json';
 
-        try {
-            const [miniGamesRes, surprisesRes] = await Promise.all([
-                fetch(getPath('miniGames.json')),
-                fetch(getPath('surprises.json'))
-            ]);
+    try {
+        const [miniGamesRes, surprisesRes] = await Promise.all([
+            fetch(miniGamesPath),
+            fetch(surprisesPath)
+        ]);
 
-            if (!miniGamesRes.ok || !surprisesRes.ok) {
-                throw new Error(`Failed to load: ${miniGamesRes.status} / ${surprisesRes.status}`);
-            }
-
-            this.miniGamePool = await miniGamesRes.json();
-            this.surprisePool = await surprisesRes.json();
-            
-            console.log("Assets loaded! Pool size:", this.surprisePool.length);
-        } catch (error) {
-            console.error("Critical Failure loading assets:", error);
+        if (!miniGamesRes.ok || !surprisesRes.ok) {
+            throw new Error(`Failed to load: ${miniGamesRes.status} / ${surprisesRes.status}`);
         }
+
+        this.miniGamePool = await miniGamesRes.json();
+        this.surprisePool = await surprisesRes.json();
+        
+        console.log("Assets loaded! Pool size:", this.surprisePool.length);
+    } catch (error) {
+        console.error("Critical Failure loading assets (Check if path exists relative to script.js):", error);
     }
+}
 
    async initGame() {
         this.loadGame();
