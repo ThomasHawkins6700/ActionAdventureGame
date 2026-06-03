@@ -34,28 +34,28 @@ class AdventureGame {
     }
 
     async loadAssetsPools() {
-        const baseUrl = window.location.origin;
+        // Get the base path for your repo (handles both localhost and GitHub Pages)
+        // If the path contains 'ActionAdventureGame', it includes it in the base.
+        const pathParts = window.location.pathname.split('/');
+        const repoName = pathParts.includes('ActionAdventureGame') ? '/ActionAdventureGame' : '';
         
-        // Define the paths
-        const miniGamesPath = './assets/miniGames.json';
-        const surprisesPath = './assets/surprises.json'; // Ensure this matches your file path!
+        // Consistent use of ./ relative path
+        const getPath = (file) => `.${repoName}/assets/${file}`;
 
         try {
-            // Fetch both files in parallel for speed
             const [miniGamesRes, surprisesRes] = await Promise.all([
-                fetch(baseUrl + miniGamesPath),
-                fetch(baseUrl + surprisesPath)
+                fetch(getPath('miniGames.json')),
+                fetch(getPath('surprises.json'))
             ]);
 
             if (!miniGamesRes.ok || !surprisesRes.ok) {
-                throw new Error("Failed to load one or more asset files");
+                throw new Error(`Failed to load: ${miniGamesRes.status} / ${surprisesRes.status}`);
             }
 
-            // Parse and assign to the correct pools
             this.miniGamePool = await miniGamesRes.json();
-            this.surprisePool = await surprisesRes.json(); // Now it will be populated!
+            this.surprisePool = await surprisesRes.json();
             
-            console.log("Assets loaded! Surprise pool size:", this.surprisePool.length);
+            console.log("Assets loaded! Pool size:", this.surprisePool.length);
         } catch (error) {
             console.error("Critical Failure loading assets:", error);
         }
