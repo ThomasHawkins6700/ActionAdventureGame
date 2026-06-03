@@ -189,6 +189,18 @@ class MiniGameEngine {
      * Entry Router: Directs the game to its specific puzzle structure execution block
      */
     start(gameId) {
+        if (!this.game.miniGamePool) {
+            console.warn("Mini-game data not loaded yet. Skipping trigger.");
+            return;
+        }
+
+        this.currentPuzzle = this.game.miniGamePool.find(g => g.id === gameId);
+        
+        // 2. Also handle cases where the ID might be valid but the game doesn't exist
+        if (!this.currentPuzzle) {
+            console.error(`Mini-game with ID "${gameId}" not found in pool.`);
+            return;
+        }
         this.currentPuzzle = this.game.miniGamePool.find(g => g.id === gameId);
         if (!this.currentPuzzle) return;
 
