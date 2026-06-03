@@ -173,11 +173,11 @@ class AdventureGame {
 }
 
 /**
- * Modular Mini-Game Engine
+ * Modular mini-Game Engine
  * Routes and handles puzzle-specific micro-logic states.
  */
 
-class MiniGameEngine {
+class miniGameEngine {
     constructor(gameInstance) {
         this.game = gameInstance; 
         this.currentPuzzle = null;
@@ -190,7 +190,7 @@ class MiniGameEngine {
      */
     start(gameId) {
         if (!this.game.miniGamePool) {
-            console.warn("Mini-game data not loaded yet. Skipping trigger.");
+            console.warn("mini-game data not loaded yet. Skipping trigger.");
             return;
         }
 
@@ -198,7 +198,7 @@ class MiniGameEngine {
         
         // 2. Also handle cases where the ID might be valid but the game doesn't exist
         if (!this.currentPuzzle) {
-            console.error(`Mini-game with ID "${gameId}" not found in pool.`);
+            console.error(`mini-game with ID "${gameId}" not found in pool.`);
             return;
         }
         this.currentPuzzle = this.game.miniGamePool.find(g => g.id === gameId);
