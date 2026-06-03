@@ -40,7 +40,7 @@
     "text": "A Large cavernous dungeon stretches out before you. There is no sign of the sphinx or the woods you were previously in",
     "surprise": false,
     "options": [
-      { "text": "Go back", "nextScene": "game_title_screen" }
+      { "text": "Go back", "nextScene": "forest_01_start" }
     ]
   },
   "chamber_treasure": {
@@ -48,7 +48,7 @@
     "text": "A huge glittering treasure trove of jewels and relics awaits.",
     "surprise": false,
     "options": [
-      { "text": "Go back", "nextScene": "game_title_screen" }
+      { "text": "Go back", "nextScene": "forest_01_start" }
     ]
   }
 }

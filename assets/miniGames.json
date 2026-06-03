@@ -22,5 +22,17 @@
     "failText": "Incorrect! The Sphinx lets out a deafening roar.",
     "successScene": "chamber_treasure", 
     "failScene": "chamber_dungeon"
+  },
+  {
+    "id": "dot_tap_challenge",
+    "type": "dot_tap",
+    "title": "⚡ Quick Reflexes",
+    "description": "Tap the runes in numerical order.",
+    "clue": "Speed is the essence of survival.",
+    "sequence": [1, 2, 3, 4, 5],
+    "successText": "Fast as a shadow!",
+    "failText": "Too slow!",
+    "successScene": "chamber_treasure",
+    "failScene": "chamber_dungeon"
   }
 ]

@@ -247,10 +247,12 @@ class MiniGameEngine {
 
         this.startTimer(10);
 
-        if (this.currentPuzzle.type === "sequence_lock") {
+       if (this.currentPuzzle.type === "sequence_lock") {
             this.initRunePuzzle();
         } else if (this.currentPuzzle.type === "trivia_quiz") {
             this.initTriviaPuzzle();
+        } else if (this.currentPuzzle.type === "dot_tap") { // Add this
+            this.initDotTapPuzzle();
         }
     }
 
@@ -326,6 +328,44 @@ class MiniGameEngine {
         });
     }
 
+    // ==========================================
+    // MODULE 3: SPEED TAPPING
+    // ==========================================
+    
+    initDotTapPuzzle() {
+    document.getElementById('minigame-display').innerText = "Tap in order: 1-5";
+    const buttonsContainer = document.getElementById('minigame-buttons');
+    buttonsContainer.innerHTML = '';
+    
+    // Create dots with random positioning
+    this.currentPuzzle.sequence.forEach((num) => {
+        const btn = document.createElement('button');
+        btn.innerText = num;
+        btn.className = 'dot-btn'; // Define this in your CSS
+        btn.style.position = 'absolute';
+        btn.style.left = `${10 + Math.random() * 70}%`;
+        btn.style.top = `${20 + Math.random() * 50}%`;
+        
+        btn.addEventListener('click', () => this.handleDotTap(num, btn));
+        buttonsContainer.appendChild(btn);
+    });
+}
+
+handleDotTap(num, btn) {
+    const nextExpected = this.playerSequence.length + 1;
+    
+    if (num === nextExpected) {
+        btn.style.backgroundColor = '#10b981'; // Success green
+        btn.disabled = true;
+        this.playerSequence.push(num);
+        
+        if (this.playerSequence.length === this.currentPuzzle.sequence.length) {
+            this.endMiniGame(true);
+        }
+    } else {
+        this.endMiniGame(false); // Wrong number = instant fail
+    }
+}
     /**
      * Clean Closing Sequence with Scenario Branching
      */
