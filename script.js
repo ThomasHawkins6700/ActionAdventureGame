@@ -34,29 +34,27 @@ class AdventureGame {
     }
 
   async loadAssetsPools() {
-    // These paths are relative to the current file (script.js)
-    // If script.js and /assets/ are in the same folder, this is the universal way
-    const miniGamesPath = './assets/miniGames.json';
-    const surprisesPath = './assets/surprises.json';
+    const miniGamesPath = '/ActionAdventureGame/assets/miniGames.json';
+    const surprisesPath = '/ActionAdventureGame/assets/surprises.json';
 
-    try {
-        const [miniGamesRes, surprisesRes] = await Promise.all([
-            fetch(miniGamesPath),
-            fetch(surprisesPath)
-        ]);
+        try {
+            const [miniGamesRes, surprisesRes] = await Promise.all([
+                fetch(miniGamesPath),
+                fetch(surprisesPath)
+            ]);
+    
+            if (!miniGamesRes.ok || !surprisesRes.ok) {
+                throw new Error(`Failed to load: ${miniGamesRes.status} / ${surprisesRes.status}`);
+            }
 
-        if (!miniGamesRes.ok || !surprisesRes.ok) {
-            throw new Error(`Failed to load: ${miniGamesRes.status} / ${surprisesRes.status}`);
+            this.miniGamePool = await miniGamesRes.json();
+            this.surprisePool = await surprisesRes.json();
+            
+            console.log("Assets loaded! Pool size:", this.surprisePool.length);
+        } catch (error) {
+            console.error("Critical Failure loading assets (Check if path exists relative to script.js):", error);
         }
-
-        this.miniGamePool = await miniGamesRes.json();
-        this.surprisePool = await surprisesRes.json();
-        
-        console.log("Assets loaded! Pool size:", this.surprisePool.length);
-    } catch (error) {
-        console.error("Critical Failure loading assets (Check if path exists relative to script.js):", error);
     }
-}
 
    async initGame() {
         this.loadGame();
