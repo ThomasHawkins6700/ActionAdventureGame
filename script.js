@@ -159,21 +159,22 @@ class AdventureGame {
         console.log("🎲 About to roll dice...");
         const surprise = this.rollForSurprise(node);
     
-    if (surprise) {
-        console.log("🎲 Surprise Triggered!");
-        
-        // Render the scene text immediately
-        this.render(node, surprise.text); 
-        
-        // ONLY trigger mini-game if a miniGameId exists
-        if (surprise.miniGameId) {
-            console.log("🎮 Launching associated mini-game:", surprise.miniGameId);
-            setTimeout(() => this.miniGameEngine.start(surprise.miniGameId), 1000);
+        if (node.surprise === true) {
+            const surprise = this.rollForSurprise(node);
+            
+            if (surprise) {
+                // Resolve the difficulty range (default to 1 if no range exists)
+                let difficulty = 1;
+                if (node.surpriseDifficultyRange && Array.isArray(node.surpriseDifficultyRange)) {
+                    const [min, max] = node.surpriseDifficultyRange;
+                    difficulty = Math.floor(Math.random() * (max - min + 1)) + min;
+                }
+                
+                if (surprise.miniGameId) {
+                    this.miniGameEngine.start(surprise.miniGameId, difficulty);
+                }
+            }
         } else {
-            console.log("✨ Surprise effect triggered without a mini-game.");
-        }
-        return; 
-            } else {
                 console.log("🎲 Dice rolled, no surprise triggered.");
             }
         } else {
@@ -346,31 +347,29 @@ class MiniGameEngine {
     // ==========================================
     
     initDotTapPuzzle() {
-        document.getElementById('minigame-display').innerText = "Tap in order: 1-5";
+        document.getElementById('minigame-display').innerText = `Tap 1 to ${this.currentPuzzle.level}`;
         const buttonsContainer = document.getElementById('minigame-buttons');
         buttonsContainer.innerHTML = '';
-        buttonsContainer.style.position = 'relative';
-
-        // 1. Define a 3x2 grid (Total 6 slots for 5 dots)
+        
+        // Create an array [1, 2, ... level]
+        const sequence = Array.from({ length: this.currentPuzzle.level }, (_, i) => i + 1);
+        
+        // Grid Setup: Calculate slots based on level to keep spacing clean
         const gridRows = 2;
-        const gridCols = 3;
+        const gridCols = Math.ceil(this.currentPuzzle.level / 2) + 1;
         const slots = [];
         for (let r = 0; r < gridRows; r++) {
             for (let c = 0; c < gridCols; c++) {
-                slots.push({ top: r * 50 + 10, left: c * 30 + 5 });
+                slots.push({ top: r * 40 + 20, left: c * 25 + 10 });
             }
         }
-
-        // 2. Shuffle slots to randomize positions
         slots.sort(() => Math.random() - 0.5);
 
-        // 3. Place buttons in unique slots
-        this.currentPuzzle.sequence.forEach((num, index) => {
+        sequence.forEach((num, index) => {
             const btn = document.createElement('button');
             btn.innerText = num;
             btn.className = 'dot-btn';
             
-            // Use pre-calculated grid slot
             const slot = slots[index];
             btn.style.position = 'absolute';
             btn.style.top = `${slot.top}%`;
@@ -381,44 +380,45 @@ class MiniGameEngine {
         });
     }
 
-handleDotTap(num, btn) {
-    const nextExpected = this.playerSequence.length + 1;
-    
-    if (num === nextExpected) {
-        btn.style.backgroundColor = '#10b981'; // Success green
-        btn.disabled = true;
-        this.playerSequence.push(num);
+    handleDotTap(num, btn) {
+        const nextExpected = this.playerSequence.length + 1;
         
-        if (this.playerSequence.length === this.currentPuzzle.sequence.length) {
-            this.endMiniGame(true);
-        }
-    } else {
-        this.endMiniGame(false); // Wrong number = instant fail
-    }
-}
-    /**
-     * Clean Closing Sequence with Scenario Branching
-     */
-    endMiniGame(isCorrect) {
-        // Stop the timer immediately
-        clearInterval(this.timer);
-
-        // Determine outcome destination
-        const nextSceneId = isCorrect ? this.currentPuzzle.successScene : this.currentPuzzle.failScene;
-
-        setTimeout(() => {
-            alert(isCorrect ? this.currentPuzzle.successText : this.currentPuzzle.failText);
+        if (num === nextExpected) {
+            btn.style.backgroundColor = '#10b981';
+            btn.disabled = true;
+            this.playerSequence.push(num);
             
-            // Close modal
-            document.getElementById('minigame-modal').style.display = 'none';
-
-            // Branch to next location
-            if (nextSceneId) {
-                this.game.jumpToScene(nextSceneId);
+            // Use the level property instead of hardcoding a sequence length
+            if (this.playerSequence.length === this.currentPuzzle.level) {
+                this.endMiniGame(true);
             }
-        }, 300);
+        } else {
+            this.endMiniGame(false);
+        }
     }
-}
+        /**
+         * Clean Closing Sequence with Scenario Branching
+         */
+        endMiniGame(isCorrect) {
+            // Stop the timer immediately
+            clearInterval(this.timer);
+
+            // Determine outcome destination
+            const nextSceneId = isCorrect ? this.currentPuzzle.successScene : this.currentPuzzle.failScene;
+
+            setTimeout(() => {
+                alert(isCorrect ? this.currentPuzzle.successText : this.currentPuzzle.failText);
+                
+                // Close modal
+                document.getElementById('minigame-modal').style.display = 'none';
+
+                // Branch to next location
+                if (nextSceneId) {
+                    this.game.jumpToScene(nextSceneId);
+                }
+            }, 300);
+        }
+    }
 
 // Global initialization hook
 const game = new AdventureGame();

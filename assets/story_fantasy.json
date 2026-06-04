@@ -13,6 +13,7 @@
     "text": "A rushing river blocks your path.",
     "surprise": true,
     "allowedSurpriseEffects": ["find_potion", "trigger_trap"],
+    "surpriseDifficultyRange": [1, 3],
     "options": [
       { "text": "Go back", "nextScene": "forest_01_start" },
       { "text": "Jump", "nextScene": "forest_03_river" }
