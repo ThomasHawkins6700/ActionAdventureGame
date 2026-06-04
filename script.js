@@ -338,7 +338,7 @@ class MiniGameEngine {
     // MODULE 2: TRIVIA / RIDDLE PUZZLE LOGIC
     // ==========================================
     
-   initTriviaPuzzle() {
+    initTriviaPuzzle() {
         // 1. Pick a random question from the pool
         const questions = this.currentPuzzle.questions;
         const randomQuestion = questions[Math.floor(Math.random() * questions.length)];
@@ -433,7 +433,7 @@ class MiniGameEngine {
         /**
          * Clean Closing Sequence with Scenario Branching
          */
-        endMiniGame(isCorrect) {
+    endMiniGame(isCorrect) {
             // Stop the timer immediately
             clearInterval(this.timer);
 
@@ -451,8 +451,8 @@ class MiniGameEngine {
                     this.game.jumpToScene(nextSceneId);
                 }
             }, 300);
-        }
     }
+}
 
 // Global initialization hook
 const game = new AdventureGame();
