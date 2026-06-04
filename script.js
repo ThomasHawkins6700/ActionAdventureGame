@@ -168,6 +168,7 @@ class AdventureGame {
                 if (node.surpriseDifficultyRange && Array.isArray(node.surpriseDifficultyRange)) {
                     const [min, max] = node.surpriseDifficultyRange;
                     difficulty = Math.floor(Math.random() * (max - min + 1)) + min;
+                    console.log(`🎲 Difficulty Roll: Range [${min}, ${max}] resulted in: ${difficulty}`);
                 }
                 
                 if (surprise.miniGameId) {
