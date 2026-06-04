@@ -86,7 +86,7 @@ class AdventureGame {
         this.handleSceneTransition('game_title_screen');
     }
     // Unified Roll Logic
-    rollForSurprise() {
+    rollForSurprise(node) {
         console.log("🎲 Dice pool size:", this.surprisePool ? this.surprisePool.length : "NULL/EMPTY");
 
         if (!this.surprisePool || this.surprisePool.length === 0) {
@@ -94,14 +94,27 @@ class AdventureGame {
             return null;
         }
 
+        // 1. Filter the pool based on the node's allowed effects (if defined)
+        let pool = this.surprisePool;
+        if (node && node.allowedSurpriseEffects) {
+            pool = this.surprisePool.filter(s => node.allowedSurpriseEffects.includes(s.effect));
+            console.log(`🎲 Filtered pool to ${pool.length} candidates for this node.`);
+        }
+
+        // Safety check for empty filtered pool
+        if (pool.length === 0) {
+            console.warn("🎲 No surprises matched the filter for this node.");
+            return null;
+        }
+
         const d20Roll = Math.floor(Math.random() * 20) + 1;
         console.log(`🎲 Systems Check: Rolled a ${d20Roll} for surprise.`);
 
-        // CHANGE: Force trigger on a roll of 1 for testing
+        // 2. Perform roll against the (potentially filtered) pool
         if (d20Roll >= 1 || d20Roll >= 12) { 
-            const randomIndex = Math.floor(Math.random() * this.surprisePool.length);
-            console.log("✅ Dice check passed! Returning surprise:", this.surprisePool[randomIndex]);
-            return this.surprisePool[randomIndex];
+            const randomIndex = Math.floor(Math.random() * pool.length);
+            console.log("✅ Dice check passed! Returning surprise:", pool[randomIndex]);
+            return pool[randomIndex];
         }
         
         return null; 
@@ -144,7 +157,7 @@ class AdventureGame {
         // 1. Check for surprise before rendering
         if (node.surprise === true) {
         console.log("🎲 About to roll dice...");
-        const surprise = this.rollForSurprise();
+        const surprise = this.rollForSurprise(node);
     
     if (surprise) {
         console.log("🎲 Surprise Triggered!");

@@ -4,8 +4,9 @@
     "effect": "lose_gold"
   },
   {
-    "text": "\n\n⚠️ [SURPRISE ENCOUNTER!] You trip over a mossy stone, but underneath it, you spy a glimmering Elven Potion nestled in the roots!",
-    "effect": "find_potion"
+    "text": "\n\n⚠️ [SURPRISE ENCOUNTER!] A bunch of wisps appear clouding your vision!",
+    "effect": "find_potion",
+    "miniGameId": "dot_tap_challenge"
   },
   {
     "text": "\n\n⚠️ [SURPRISE ENCOUNTER!] An old wandering hermit steps out from behind an oak tree. He whispers a cryptic riddle about the castle ahead, then steps back into the fog.",
