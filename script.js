@@ -231,45 +231,50 @@ class MiniGameEngine {
     /**
      * Entry Router: Directs the game to its specific puzzle structure execution block
      */
-    start(gameId) {
-        if (!this.game.miniGamePool) {
-            console.warn("mini-game data not loaded yet. Skipping trigger.");
-            return;
-        }
-
-        this.currentPuzzle = this.game.miniGamePool.find(g => g.id === gameId);
-        
-        // 2. Also handle cases where the ID might be valid but the game doesn't exist
-        if (!this.currentPuzzle) {
-            console.error(`mini-game with ID "${gameId}" not found in pool.`);
-            return;
-        }
-        this.currentPuzzle = this.game.miniGamePool.find(g => g.id === gameId);
-        if (!this.currentPuzzle) return;
-
-        this.playerSequence = [];
-        
-        document.getElementById('minigame-modal').style.display = 'flex';
-        document.getElementById('minigame-header').innerText = this.currentPuzzle.title;
-        
-        // ─── UPDATE: ADD THE DESCRIPTION FIELD ───
-        // We can add a new div in your HTML or just append it to the clue area.
-        // Let's add a clear distinction:
-        document.getElementById('minigame-clue').innerHTML = `
-            <div style="margin-bottom: 10px; font-weight: bold; color: #fff;">${this.currentPuzzle.description}</div>
-            <div style="font-style: italic;">"${this.currentPuzzle.clue}"</div>
-        `;
-
-        this.startTimer(10);
-
-       if (this.currentPuzzle.type === "sequence_lock") {
-            this.initRunePuzzle();
-        } else if (this.currentPuzzle.type === "trivia_quiz") {
-            this.initTriviaPuzzle();
-        } else if (this.currentPuzzle.type === "dot_tap") { // Add this
-            this.initDotTapPuzzle();
-        }
+    start(gameId, difficulty) {
+    if (!this.game.miniGamePool) {
+        console.warn("mini-game data not loaded yet. Skipping trigger.");
+        return;
     }
+
+    // Find the puzzle data
+    const puzzleData = this.game.miniGamePool.find(g => g.id === gameId);
+    
+    if (!puzzleData) {
+        console.error(`mini-game with ID "${gameId}" not found in pool.`);
+        return;
+    }
+
+    // 1. Create a clean working copy so we don't mutate the original data in the pool
+    this.currentPuzzle = { ...puzzleData };
+    
+    // 2. Override the level if a difficulty was provided
+    if (difficulty) {
+        this.currentPuzzle.level = difficulty;
+    }
+
+    this.playerSequence = [];
+    
+    document.getElementById('minigame-modal').style.display = 'flex';
+    document.getElementById('minigame-header').innerText = this.currentPuzzle.title;
+    
+    document.getElementById('minigame-clue').innerHTML = `
+        <div style="margin-bottom: 10px; font-weight: bold; color: #fff;">${this.currentPuzzle.description}</div>
+        <div style="font-style: italic;">"${this.currentPuzzle.clue}"</div>
+    `;
+
+    this.startTimer(10);
+
+    // 3. Router
+    if (this.currentPuzzle.type === "sequence_lock") {
+        this.initRunePuzzle();
+    } else if (this.currentPuzzle.type === "trivia_quiz") {
+        this.initTriviaPuzzle();
+    } else if (this.currentPuzzle.type === "dot_tap") {
+        // Now this.currentPuzzle.level is guaranteed to be set correctly
+        this.initDotTapPuzzle();
+    }
+}
 
     /**
      * Manages the "Evil" timer and visual progress bar
