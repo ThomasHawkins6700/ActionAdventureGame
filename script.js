@@ -253,6 +253,14 @@ class MiniGameEngine {
         this.currentPuzzle.level = difficulty;
     }
 
+    // MAP: Level 1 -> 3 dots, Level 2 -> 5 dots, Level 3 -> 7 dots
+    const dotMap = { 1: 3, 2: 5, 3: 7 };
+    
+    // Use the map, or default to 3 if difficulty is unknown
+    const actualDotCount = dotMap[difficulty] || 3;
+
+    this.currentPuzzle.level = actualDotCount;
+
     this.playerSequence = [];
     
     document.getElementById('minigame-modal').style.display = 'flex';
@@ -353,12 +361,9 @@ class MiniGameEngine {
     // ==========================================
     
     initDotTapPuzzle() {
-        console.log("DEBUG: initDotTapPuzzle reading this.currentPuzzle.level:", this.currentPuzzle.level);
-
-        const numDots = parseInt(this.currentPuzzle.level) || 3; 
-        
-        console.log("DEBUG: Rendering with dot count:", numDots);
-
+       
+        const numDots = this.currentPuzzle.level; 
+       
         document.getElementById('minigame-display').innerText = `Tap 1 to ${numDots}`;
 
         const buttonsContainer = document.getElementById('minigame-buttons');
