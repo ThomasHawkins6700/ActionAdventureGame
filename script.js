@@ -87,34 +87,35 @@ class AdventureGame {
     }
     // Unified Roll Logic
     rollForSurprise(node) {
-        console.log("🎲 Dice pool size:", this.surprisePool ? this.surprisePool.length : "NULL/EMPTY");
-
         if (!this.surprisePool || this.surprisePool.length === 0) {
-            console.error("❌ ERROR: Surprise Pool is empty! Did loadAssetsPools() run?");
+            console.error("❌ ERROR: Surprise Pool is empty!");
             return null;
         }
 
-        // 1. Filter the pool based on the node's allowed effects (if defined)
         let pool = this.surprisePool;
+        
+        // 1. Filter and clean the pool
         if (node && node.allowedSurpriseEffects) {
-            pool = this.surprisePool.filter(s => node.allowedSurpriseEffects.includes(s.effect));
-            console.log(`🎲 Filtered pool to ${pool.length} candidates for this node.`);
+            // Use a Set to ensure node.allowedSurpriseEffects has no internal duplicates
+            const uniqueAllowed = [...new Set(node.allowedSurpriseEffects)];
+            
+            // Filter the pool
+            pool = this.surprisePool.filter(s => uniqueAllowed.includes(s.effect));
+            
+            console.log(`🎲 Filtered pool to ${pool.length} candidates.`);
         }
 
-        // Safety check for empty filtered pool
-        if (pool.length === 0) {
-            console.warn("🎲 No surprises matched the filter for this node.");
-            return null;
-        }
+        if (pool.length === 0) return null;
 
+        // 2. Perform the roll (e.g., 12 or higher for a surprise)
         const d20Roll = Math.floor(Math.random() * 20) + 1;
-        console.log(`🎲 Systems Check: Rolled a ${d20Roll} for surprise.`);
+        console.log(`🎲 Systems Check: Rolled a ${d20Roll}`);
 
-        // 2. Perform roll against the (potentially filtered) pool
-        if (d20Roll >= 1 || d20Roll >= 12) { 
+        if (d20Roll >= 12) { 
             const randomIndex = Math.floor(Math.random() * pool.length);
-            console.log("✅ Dice check passed! Returning surprise:", pool[randomIndex]);
-            return pool[randomIndex];
+            const selected = pool[randomIndex];
+            console.log("✅ Surprise triggered:", selected.effect);
+            return selected;
         }
         
         return null; 
