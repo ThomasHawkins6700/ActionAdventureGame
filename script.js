@@ -34,7 +34,10 @@ class AdventureGame {
     }
 
  async loadAssetsPools() {
-
+    const miniGamesRes = await fetch(`./assets/miniGames.json?t=${Date.now()}`);
+    this.miniGamePool = await miniGamesRes.json();
+    
+    console.log("✅ New Pool Loaded:", this.miniGamePool);
     // 1. Get the current path (e.g., /ActionAdventureGame/index.html)
     // 2. We extract the base directory to ensure we always point to the project root
     const pathParts = window.location.pathname.split('/');
