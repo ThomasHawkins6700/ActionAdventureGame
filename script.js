@@ -338,21 +338,35 @@ class MiniGameEngine {
     // MODULE 2: TRIVIA / RIDDLE PUZZLE LOGIC
     // ==========================================
     
-    initTriviaPuzzle() {
-        document.getElementById('minigame-display').innerText = "Choose wisely...";
-        const buttonsContainer = document.getElementById('minigame-buttons');
-        buttonsContainer.innerHTML = '';
-
-        this.currentPuzzle.choices.forEach(choice => {
+   initTriviaPuzzle() {
+        // 1. Pick a random question from the pool
+        const questions = this.currentPuzzle.questions;
+        const randomQuestion = questions[Math.floor(Math.random() * questions.length)];
+        
+        // 2. Save this question to the instance so we can check it later
+        this.activeQuestion = randomQuestion;
+        
+        // 3. Update the UI
+        document.getElementById('minigame-clue').innerText = this.activeQuestion.clue;
+        
+        const choicesContainer = document.getElementById('minigame-buttons');
+        choicesContainer.innerHTML = '';
+        
+        this.activeQuestion.choices.forEach(choice => {
             const btn = document.createElement('button');
             btn.innerText = choice;
-            btn.className = 'choice-btn';
-            btn.addEventListener('click', () => {
-                const isCorrect = (choice === this.currentPuzzle.answer);
-                this.endMiniGame(isCorrect);
-            });
-            buttonsContainer.appendChild(btn);
+            btn.className = 'trivia-btn';
+            btn.addEventListener('click', () => this.checkTriviaAnswer(choice));
+            choicesContainer.appendChild(btn);
         });
+    }
+
+    checkTriviaAnswer(selectedAnswer) {
+        if (selectedAnswer === this.activeQuestion.answer) {
+            this.endMiniGame(true); // Success logic
+        } else {
+            this.endMiniGame(false); // Fail logic
+        }
     }
 
     // ==========================================

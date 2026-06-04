@@ -16,14 +16,21 @@
     "id": "sphinx_riddle",
     "type": "trivia_quiz",
     "title": "🦁 The Sphinx's Trial",
-    "clue": "What has roots as nobody sees, is taller than trees, up, up it goes, and yet never grows?",
-    "choices": ["A Mountain", "An Old Oak Tree", "A Castle Tower", "The Sky"],
-    "answer": "A Mountain",
-    "successText": "The Sphinx purrs approvingly and steps aside.",
-    "failText": "Incorrect! The Sphinx lets out a deafening roar.",
-    "successScene": "chamber_treasure", 
-    "failScene": "chamber_dungeon",
-    "timeLimit": 15
+    "timeLimit": 15,
+    "questions": [
+      {
+        "clue": "What has roots as nobody sees, is taller than trees, up, up it goes, and yet never grows?",
+        "choices": ["A Mountain", "An Old Oak Tree", "A Castle Tower", "The Sky"],
+        "answer": "A Mountain"
+      },
+      {
+        "clue": "What has keys but can't open locks?",
+        "choices": ["A Map", "A Piano", "A Computer", "A Compass"],
+        "answer": "A Piano"
+      }
+    ],
+    "successScene": "chamber_treasure",
+    "failScene": "chamber_dungeon"
   },
   {
     "id": "dot_tap_challenge",
