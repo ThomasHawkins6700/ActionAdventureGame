@@ -230,6 +230,9 @@ class MiniGameEngine {
      * Entry Router: Directs the game to its specific puzzle structure execution block
      */
     start(gameId, difficultyTier) {
+        this.currentPuzzle = null;
+        this.playerSequence = [];
+        if (this.timer) clearInterval(this.timer);
         // 1. Initial Validation
         if (!this.game.miniGamePool) {
             console.warn("mini-game data not loaded yet. Skipping trigger.");
