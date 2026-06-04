@@ -96,13 +96,13 @@ class AdventureGame {
         
         // 1. Filter and clean the pool
         if (node && node.allowedSurpriseEffects) {
-            // Use a Set to ensure node.allowedSurpriseEffects has no internal duplicates
-            const uniqueAllowed = [...new Set(node.allowedSurpriseEffects)];
+            const uniqueAllowed = [...new Set(node.allowedSurpriseEffects)];            
             
-            // Filter the pool
-            pool = this.surprisePool.filter(s => uniqueAllowed.includes(s.effect));
+            const tempPool = this.surprisePool.filter(s => uniqueAllowed.includes(s.effect));
+                        
+            pool = [...new Map(tempPool.map(item => [item.effect, item])).values()];
             
-            console.log(`🎲 Filtered pool to ${pool.length} candidates.`);
+            console.log(`🎲 Filtered pool to ${pool.length} UNIQUE candidates.`);
         }
 
         if (pool.length === 0) return null;
@@ -142,8 +142,6 @@ class AdventureGame {
 
     // Single source of truth for scene movement
     handleSceneTransition(sceneId) {
-        console.log("🚦 Entering handleSceneTransition for:", sceneId); // LOG 1
-        
         this.state.currentScene = sceneId;
         this.saveGame();
         
@@ -153,37 +151,29 @@ class AdventureGame {
             return;
         }
 
-        console.log("🧐 Node found. Surprise property is:", node.surprise); // LOG 2
-
-        // 1. Check for surprise before rendering
-        if (node.surprise === true) {
-        console.log("🎲 About to roll dice...");
-        const surprise = this.rollForSurprise(node);
-    
+        // 1. Process Surprise once
         if (node.surprise === true) {
             const surprise = this.rollForSurprise(node);
             
             if (surprise) {
-                // Resolve the difficulty range (default to 1 if no range exists)
+                // Difficulty Roll
                 let difficulty = 1;
-                if (node.surpriseDifficultyRange && Array.isArray(node.surpriseDifficultyRange)) {
+                if (Array.isArray(node.surpriseDifficultyRange)) {
                     const [min, max] = node.surpriseDifficultyRange;
                     difficulty = Math.floor(Math.random() * (max - min + 1)) + min;
-                    console.log(`🎲 Difficulty Roll: Range [${min}, ${max}] resulted in: ${difficulty}`);
+                    console.log(`🎲 Difficulty Roll: [${min}, ${max}] = ${difficulty}`);
                 }
                 
+                // Only trigger engine if we have a valid miniGameId
                 if (surprise.miniGameId) {
                     this.miniGameEngine.start(surprise.miniGameId, difficulty);
                 }
-            }
-        } else {
+            } else {
                 console.log("🎲 Dice rolled, no surprise triggered.");
             }
-        } else {
-            console.log("⛔ Surprise property was not true, skipping roll."); // LOG 5
         }
 
-        // 2. Default path
+        // 2. Render the scene
         this.render(node);
     }
 
