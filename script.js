@@ -231,58 +231,56 @@ class MiniGameEngine {
     /**
      * Entry Router: Directs the game to its specific puzzle structure execution block
      */
-    start(gameId, difficulty) {
-    if (!this.game.miniGamePool) {
-        console.warn("mini-game data not loaded yet. Skipping trigger.");
-        return;
+    start(gameId, difficultyTier) {
+        // 1. Initial Validation
+        if (!this.game.miniGamePool) {
+            console.warn("mini-game data not loaded yet. Skipping trigger.");
+            return;
+        }
+
+        // 2. Locate the game configuration
+        const puzzleData = this.game.miniGamePool.find(g => g.id === gameId);
+        if (!puzzleData) {
+            console.error(`mini-game with ID "${gameId}" not found in pool.`);
+            return;
+        }
+
+        // 3. Create a clean working instance and apply mapping
+        // We clone to prevent modifying the source data
+        this.currentPuzzle = { ...puzzleData }; 
+        
+        // Mapping: Tier 1 = 3 dots, Tier 2 = 5 dots, Tier 3 = 7 dots
+        // If no difficulty is passed, default to tier 1
+        const dotMap = { 1: 3, 2: 5, 3: 7 };
+        const validatedTier = difficultyTier || 1;
+        this.currentPuzzle.level = dotMap[validatedTier] || 3;
+
+        console.log(`🎮 Engine: Difficulty Tier ${validatedTier} mapped to ${this.currentPuzzle.level} dots.`);
+
+        // 4. Initialize game session state
+        this.playerSequence = [];
+        
+        // 5. Update UI
+        document.getElementById('minigame-modal').style.display = 'flex';
+        document.getElementById('minigame-header').innerText = this.currentPuzzle.title;
+        
+        document.getElementById('minigame-clue').innerHTML = `
+            <div style="margin-bottom: 10px; font-weight: bold; color: #fff;">${this.currentPuzzle.description}</div>
+            <div style="font-style: italic;">"${this.currentPuzzle.clue}"</div>
+        `;
+
+        this.startTimer(10);
+
+        // 6. Route to specific game initialization
+        if (this.currentPuzzle.type === "sequence_lock") {
+            this.initRunePuzzle();
+        } else if (this.currentPuzzle.type === "trivia_quiz") {
+            this.initTriviaPuzzle();
+        } else if (this.currentPuzzle.type === "dot_tap") {
+            // This will now use the mapped level (3, 5, or 7)
+            this.initDotTapPuzzle();
+        }
     }
-
-    // Find the puzzle data
-    const puzzleData = this.game.miniGamePool.find(g => g.id === gameId);
-    
-    if (!puzzleData) {
-        console.error(`mini-game with ID "${gameId}" not found in pool.`);
-        return;
-    }
-
-    // 1. Create a clean working copy so we don't mutate the original data in the pool
-    this.currentPuzzle = { ...puzzleData };    
-    
-    // 2. Override the level if a difficulty was provided
-    if (difficulty) {
-        this.currentPuzzle.level = difficulty;
-    }
-
-    // MAP: Level 1 -> 3 dots, Level 2 -> 5 dots, Level 3 -> 7 dots
-    const dotMap = { 1: 3, 2: 5, 3: 7 };
-    
-    // Use the map, or default to 3 if difficulty is unknown
-    const actualDotCount = dotMap[difficulty] || 3;
-
-    this.currentPuzzle.level = actualDotCount;
-
-    this.playerSequence = [];
-    
-    document.getElementById('minigame-modal').style.display = 'flex';
-    document.getElementById('minigame-header').innerText = this.currentPuzzle.title;
-    
-    document.getElementById('minigame-clue').innerHTML = `
-        <div style="margin-bottom: 10px; font-weight: bold; color: #fff;">${this.currentPuzzle.description}</div>
-        <div style="font-style: italic;">"${this.currentPuzzle.clue}"</div>
-    `;
-
-    this.startTimer(10);
-
-    // 3. Router
-    if (this.currentPuzzle.type === "sequence_lock") {
-        this.initRunePuzzle();
-    } else if (this.currentPuzzle.type === "trivia_quiz") {
-        this.initTriviaPuzzle();
-    } else if (this.currentPuzzle.type === "dot_tap") {
-        // Now this.currentPuzzle.level is guaranteed to be set correctly
-        this.initDotTapPuzzle();
-    }
-}
 
     /**
      * Manages the "Evil" timer and visual progress bar
