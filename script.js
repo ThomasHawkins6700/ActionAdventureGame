@@ -346,23 +346,40 @@ class MiniGameEngine {
     // ==========================================
     
     initDotTapPuzzle() {
-    document.getElementById('minigame-display').innerText = "Tap in order: 1-5";
-    const buttonsContainer = document.getElementById('minigame-buttons');
-    buttonsContainer.innerHTML = '';
-    
-    // Create dots with random positioning
-    this.currentPuzzle.sequence.forEach((num) => {
-        const btn = document.createElement('button');
-        btn.innerText = num;
-        btn.className = 'dot-btn'; // Define this in your CSS
-        btn.style.position = 'absolute';
-        btn.style.left = `${10 + Math.random() * 70}%`;
-        btn.style.top = `${20 + Math.random() * 50}%`;
-        
-        btn.addEventListener('click', () => this.handleDotTap(num, btn));
-        buttonsContainer.appendChild(btn);
-    });
-}
+        document.getElementById('minigame-display').innerText = "Tap in order: 1-5";
+        const buttonsContainer = document.getElementById('minigame-buttons');
+        buttonsContainer.innerHTML = '';
+        buttonsContainer.style.position = 'relative';
+
+        // 1. Define a 3x2 grid (Total 6 slots for 5 dots)
+        const gridRows = 2;
+        const gridCols = 3;
+        const slots = [];
+        for (let r = 0; r < gridRows; r++) {
+            for (let c = 0; c < gridCols; c++) {
+                slots.push({ top: r * 50 + 10, left: c * 30 + 5 });
+            }
+        }
+
+        // 2. Shuffle slots to randomize positions
+        slots.sort(() => Math.random() - 0.5);
+
+        // 3. Place buttons in unique slots
+        this.currentPuzzle.sequence.forEach((num, index) => {
+            const btn = document.createElement('button');
+            btn.innerText = num;
+            btn.className = 'dot-btn';
+            
+            // Use pre-calculated grid slot
+            const slot = slots[index];
+            btn.style.position = 'absolute';
+            btn.style.top = `${slot.top}%`;
+            btn.style.left = `${slot.left}%`;
+            
+            btn.addEventListener('click', () => this.handleDotTap(num, btn));
+            buttonsContainer.appendChild(btn);
+        });
+    }
 
 handleDotTap(num, btn) {
     const nextExpected = this.playerSequence.length + 1;
