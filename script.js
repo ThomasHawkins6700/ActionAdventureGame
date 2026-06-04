@@ -246,7 +246,7 @@ class MiniGameEngine {
     }
 
     // 1. Create a clean working copy so we don't mutate the original data in the pool
-    this.currentPuzzle = { ...puzzleData };
+    this.currentPuzzle = { ...puzzleData };    
     
     // 2. Override the level if a difficulty was provided
     if (difficulty) {
@@ -353,7 +353,14 @@ class MiniGameEngine {
     // ==========================================
     
     initDotTapPuzzle() {
-        document.getElementById('minigame-display').innerText = `Tap 1 to ${this.currentPuzzle.level}`;
+        console.log("DEBUG: initDotTapPuzzle reading this.currentPuzzle.level:", this.currentPuzzle.level);
+
+        const numDots = parseInt(this.currentPuzzle.level) || 3; 
+        
+        console.log("DEBUG: Rendering with dot count:", numDots);
+
+        document.getElementById('minigame-display').innerText = `Tap 1 to ${numDots}`;
+
         const buttonsContainer = document.getElementById('minigame-buttons');
         buttonsContainer.innerHTML = '';
         
