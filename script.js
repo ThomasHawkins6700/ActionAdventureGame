@@ -358,34 +358,43 @@ class MiniGameEngine {
     // MODULE 3: SPEED TAPPING
     // ==========================================
     
-    initDotTapPuzzle() {
-       
-        const numDots = this.currentPuzzle.level; 
-       
+   initDotTapPuzzle() {
+        const numDots = this.currentPuzzle.level; // Now 3, 5, or 7
+        console.log("🎨 Rendering dots:", numDots);
+        
         document.getElementById('minigame-display').innerText = `Tap 1 to ${numDots}`;
-
         const buttonsContainer = document.getElementById('minigame-buttons');
         buttonsContainer.innerHTML = '';
         
-        // Create an array [1, 2, ... level]
-        const sequence = Array.from({ length: this.currentPuzzle.level }, (_, i) => i + 1);
+        // 1. Calculate a dynamic grid (e.g., 7 dots = 3x3 grid)
+        const gridSize = Math.ceil(Math.sqrt(numDots)); 
         
-        // Grid Setup: Calculate slots based on level to keep spacing clean
-        const gridRows = 2;
-        const gridCols = Math.ceil(this.currentPuzzle.level / 2) + 1;
+        // 2. Create all possible slots in a grid
         const slots = [];
-        for (let r = 0; r < gridRows; r++) {
-            for (let c = 0; c < gridCols; c++) {
-                slots.push({ top: r * 40 + 20, left: c * 25 + 10 });
+        // Using 15% to 85% range to keep buttons away from the very edges
+        const step = 70 / (gridSize - 1 || 1); 
+        
+        for (let r = 0; r < gridSize; r++) {
+            for (let c = 0; c < gridSize; c++) {
+                slots.push({
+                    top: 15 + (r * step),
+                    left: 15 + (c * step)
+                });
             }
         }
+
+        // 3. Shuffle the slots so dots appear in random locations
         slots.sort(() => Math.random() - 0.5);
 
+        // 4. Generate and place the buttons
+        const sequence = Array.from({ length: numDots }, (_, i) => i + 1);
+        
         sequence.forEach((num, index) => {
             const btn = document.createElement('button');
             btn.innerText = num;
             btn.className = 'dot-btn';
             
+            // Use the shuffled slots
             const slot = slots[index];
             btn.style.position = 'absolute';
             btn.style.top = `${slot.top}%`;
