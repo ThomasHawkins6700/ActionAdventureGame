@@ -213,10 +213,17 @@ class AdventureGame {
 
 class MiniGameEngine {
     constructor(gameInstance) {
-        this.game = gameInstance; 
+        this.game = gameInstance;
         this.currentPuzzle = null;
-        this.playerSequence = []; 
-        this.timer = null; // Timer reference for the "Evil" progress bar
+        this.playerSequence = [];
+        this.timer = null;
+
+        // 1. Define the Registry Map here
+        this.puzzleRegistry = {
+            "sequence_lock": () => this.initRunePuzzle(),
+            "trivia_quiz": () => this.initTriviaPuzzle(),
+            "dot_tap": () => this.initDotTapPuzzle()
+        };
     }
 
     /**
@@ -264,15 +271,12 @@ class MiniGameEngine {
         this.startTimer(duration);
 
         // 6. Route to specific game initialization
-        if (this.currentPuzzle.type === "sequence_lock") {
-            this.initRunePuzzle();
-        } else if (this.currentPuzzle.type === "trivia_quiz") {
-            this.initTriviaPuzzle();
-        } else if (this.currentPuzzle.type === "dot_tap") {
-            // This will now use the mapped level (3, 5, or 7)
-            this.initDotTapPuzzle();
+        if (puzzleRegistry[this.currentPuzzle.type]) {
+            puzzleRegistry[this.currentPuzzle.type]();
+        } else {
+            console.error(`Unknown puzzle type: ${this.currentPuzzle.type}`);
         }
-    }
+            }
 
     /**
      * Manages the "Evil" timer and visual progress bar
