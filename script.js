@@ -34,7 +34,7 @@ class AdventureGame {
     }
 
  async loadAssetsPools() {
-    console.log("🔍 DEBUG: Full MiniGame Pool Loaded:", JSON.stringify(this.game.miniGamePool, null, 2));
+
     // 1. Get the current path (e.g., /ActionAdventureGame/index.html)
     // 2. We extract the base directory to ensure we always point to the project root
     const pathParts = window.location.pathname.split('/');
