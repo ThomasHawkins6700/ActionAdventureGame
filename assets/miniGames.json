@@ -9,7 +9,8 @@
     "successText": "The runes pulse green and shatter safely into dust!",
     "failText": "Wrong combination! The runes explode, triggering an alarm.",
     "successScene": "chamber_treasure", 
-    "failScene": "chamber_dungeon"
+    "failScene": "chamber_dungeon",
+    "timeLimit": 10
   },
   {
     "id": "sphinx_riddle",
@@ -21,7 +22,8 @@
     "successText": "The Sphinx purrs approvingly and steps aside.",
     "failText": "Incorrect! The Sphinx lets out a deafening roar.",
     "successScene": "chamber_treasure", 
-    "failScene": "chamber_dungeon"
+    "failScene": "chamber_dungeon",
+    "timeLimit": 15
   },
   {
     "id": "dot_tap_challenge",
@@ -34,6 +36,7 @@
     "successText": "Fast as a shadow!",
     "failText": "Too slow!",
     "successScene": "chamber_treasure",
-    "failScene": "chamber_dungeon"
+    "failScene": "chamber_dungeon",
+    "timeLimit": 5
   }
 ]

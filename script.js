@@ -269,7 +269,8 @@ class MiniGameEngine {
             <div style="font-style: italic;">"${this.currentPuzzle.clue}"</div>
         `;
 
-        this.startTimer(10);
+        const duration = this.currentPuzzle.timeLimit || 10;
+        this.startTimer(duration);
 
         // 6. Route to specific game initialization
         if (this.currentPuzzle.type === "sequence_lock") {
