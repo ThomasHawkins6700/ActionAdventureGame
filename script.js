@@ -121,23 +121,28 @@ class AdventureGame {
         return null; 
     }
 
-    render(node = null, surpriseText = "") {
+    // AdventureGame.js
+    render(node = null) {
         if (!node) node = this.storyData[this.state.currentScene];
-        const storyTextContainer = document.getElementById('story-text');
-        const titleContainer = document.getElementById('game-title');
-        const buttonContainer = document.getElementById('choices-container');
-
-        titleContainer.innerText = node.title || "Adventure Quest";
-        storyTextContainer.innerText = (node.text || "") + surpriseText;
         
+        // 1. Update UI elements
+        document.getElementById('game-title').innerText = node.title || "Adventure Quest";
+        document.getElementById('story-text').innerText = node.text || "";
+        
+        // 2. Clear and rebuild buttons
+        const buttonContainer = document.getElementById('choices-container');
         buttonContainer.innerHTML = '';
-        node.options.forEach(option => {
+        
+        // Ensure node.options exists before looping
+        (node.options || []).forEach(option => {
             const button = document.createElement('button');
             button.innerText = option.text;
             button.className = 'choice-btn';
+            // ONLY call makeChoice here
             button.addEventListener('click', () => this.makeChoice(option));
             buttonContainer.appendChild(button);
         });
+        // REMOVE any call to handleSceneTransition here!
     }
 
     // Single source of truth for scene movement
@@ -187,7 +192,15 @@ class AdventureGame {
     }
 
     jumpToScene(sceneId) {
-        this.handleSceneTransition(sceneId);
+        console.log("🚀 Jumping to:", sceneId);
+        
+        // Force hide modals before jumping
+        document.getElementById('minigame-modal').style.display = 'none';
+        
+        // Use a tiny delay to allow the browser to repaint
+        setTimeout(() => {
+            this.handleSceneTransition(sceneId);
+        }, 100);
     }
 
     saveGame() { localStorage.setItem('adventure_game_save', JSON.stringify(this.state)); }
@@ -217,8 +230,9 @@ class MiniGameEngine {
         this.currentPuzzle = null;
         this.playerSequence = [];
         this.timer = null;
+        this.isGameActive = false;
 
-        // 1. Define the Registry Map here
+        // FIX: Ensure puzzleRegistry is attached to the instance using 'this.'
         this.puzzleRegistry = {
             "sequence_lock": () => this.initRunePuzzle(),
             "trivia_quiz": () => this.initTriviaPuzzle(),
@@ -226,61 +240,41 @@ class MiniGameEngine {
         };
     }
 
-    /**
-     * Entry Router: Directs the game to its specific puzzle structure execution block
-     */
     start(gameId, difficultyTier) {
+        this.isGameActive = true;
         this.currentPuzzle = null;
         this.playerSequence = [];
         if (this.timer) clearInterval(this.timer);
-        // 1. Initial Validation
-        if (!this.game.miniGamePool) {
-            console.warn("mini-game data not loaded yet. Skipping trigger.");
-            return;
-        }
 
-        // 2. Locate the game configuration
+        // 2. Validate
+        if (!this.game.miniGamePool) return;
         const puzzleData = this.game.miniGamePool.find(g => g.id === gameId);
         if (!puzzleData) {
-            console.error(`mini-game with ID "${gameId}" not found in pool.`);
+            console.error(`mini-game with ID "${gameId}" not found.`);
             return;
         }
 
-        // 3. Create a clean working instance and apply mapping
-        // We clone to prevent modifying the source data
-        this.currentPuzzle = { ...puzzleData }; 
-        
-        // Mapping: Tier 1 = 3 dots, Tier 2 = 5 dots, Tier 3 = 7 dots
-        // If no difficulty is passed, default to tier 1
+        // 3. Mapping
+        this.currentPuzzle = { ...puzzleData };
         const dotMap = { 1: 3, 2: 5, 3: 7 };
-        const validatedTier = difficultyTier || 1;
-        this.currentPuzzle.level = dotMap[validatedTier] || 3;
+        this.currentPuzzle.level = dotMap[difficultyTier] || 3;
 
-        console.log(`🎮 Engine: Difficulty Tier ${validatedTier} mapped to ${this.currentPuzzle.level} dots.`);
+        console.log(`🎮 Engine: Starting ${gameId}. Type: ${this.currentPuzzle.type}`);
 
-        // 4. Initialize game session state
-        this.playerSequence = [];
-        
-        // 5. Update UI
+        // 4. UI Setup
         document.getElementById('minigame-modal').style.display = 'flex';
         document.getElementById('minigame-header').innerText = this.currentPuzzle.title;
         
-        document.getElementById('minigame-clue').innerHTML = `
-            <div style="margin-bottom: 10px; font-weight: bold; color: #fff;">${this.currentPuzzle.description}</div>
-            <div style="font-style: italic;">"${this.currentPuzzle.clue}"</div>
-        `;
-
         const duration = this.currentPuzzle.timeLimit || 10;
         this.startTimer(duration);
 
-        // 6. Route to specific game initialization
-        if (puzzleRegistry[this.currentPuzzle.type]) {
-            puzzleRegistry[this.currentPuzzle.type]();
+        // 5. ROUTER: Correctly using 'this.puzzleRegistry'
+        if (this.puzzleRegistry[this.currentPuzzle.type]) {
+            this.puzzleRegistry[this.currentPuzzle.type]();
         } else {
             console.error(`Unknown puzzle type: ${this.currentPuzzle.type}`);
         }
-            }
-
+    }
     /**
      * Manages the "Evil" timer and visual progress bar
      */
@@ -428,27 +422,31 @@ class MiniGameEngine {
             this.endMiniGame(false);
         }
     }
-        /**
-         * Clean Closing Sequence with Scenario Branching
-         */
+
+    /**
+     * Clean Closing Sequence with Scenario Branching
+     */
     endMiniGame(isCorrect) {
-            // Stop the timer immediately
-            clearInterval(this.timer);
+        if (!this.isGameActive) return; 
+        this.isGameActive = false;      
 
-            // Determine outcome destination
-            const nextSceneId = isCorrect ? this.currentPuzzle.successScene : this.currentPuzzle.failScene;
+        // Stop the timer immediately
+        clearInterval(this.timer);
 
-            setTimeout(() => {
-                alert(isCorrect ? this.currentPuzzle.successText : this.currentPuzzle.failText);
-                
-                // Close modal
-                document.getElementById('minigame-modal').style.display = 'none';
+        // Determine outcome destination
+        const nextSceneId = isCorrect ? this.currentPuzzle.successScene : this.currentPuzzle.failScene;
 
-                // Branch to next location
-                if (nextSceneId) {
-                    this.game.jumpToScene(nextSceneId);
-                }
-            }, 300);
+        setTimeout(() => {
+            alert(isCorrect ? this.currentPuzzle.successText : this.currentPuzzle.failText);
+            
+            // Close modal
+            document.getElementById('minigame-modal').style.display = 'none';
+
+            // Branch to next location
+            if (nextSceneId) {
+                this.game.jumpToScene(nextSceneId);
+            }
+        }, 300);
     }
 }
 
