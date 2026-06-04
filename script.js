@@ -360,34 +360,21 @@ class MiniGameEngine {
     // ==========================================
     
    initDotTapPuzzle() {
-        const numDots = this.currentPuzzle.level; // Now 3, 5, or 7
-        console.log("🎨 Rendering dots:", numDots);
-        
-        document.getElementById('minigame-display').innerText = `Tap 1 to ${numDots}`;
+        const numDots = this.currentPuzzle.level; 
         const buttonsContainer = document.getElementById('minigame-buttons');
         buttonsContainer.innerHTML = '';
         
-        // 1. Calculate a dynamic grid (e.g., 7 dots = 3x3 grid)
-        const gridSize = Math.ceil(Math.sqrt(numDots)); 
+        const gridSize = Math.ceil(Math.sqrt(numDots));
+        const step = 70 / (gridSize - 1 || 1);
         
-        // 2. Create all possible slots in a grid
         const slots = [];
-        // Using 15% to 85% range to keep buttons away from the very edges
-        const step = 70 / (gridSize - 1 || 1); 
-        
         for (let r = 0; r < gridSize; r++) {
             for (let c = 0; c < gridSize; c++) {
-                slots.push({
-                    top: 15 + (r * step),
-                    left: 15 + (c * step)
-                });
+                slots.push({ top: 15 + (r * step), left: 15 + (c * step) });
             }
         }
-
-        // 3. Shuffle the slots so dots appear in random locations
         slots.sort(() => Math.random() - 0.5);
 
-        // 4. Generate and place the buttons
         const sequence = Array.from({ length: numDots }, (_, i) => i + 1);
         
         sequence.forEach((num, index) => {
@@ -395,7 +382,14 @@ class MiniGameEngine {
             btn.innerText = num;
             btn.className = 'dot-btn';
             
-            // Use the shuffled slots
+            // --- RANDOM SIZE LOGIC ---
+            // Random size between 40px and 70px
+            const randomSize = Math.floor(Math.random() * 30) + 40;
+            btn.style.width = `${randomSize}px`;
+            btn.style.height = `${randomSize}px`;
+            btn.style.fontSize = `${randomSize * 0.4}px`; // Scale font with button
+            // -------------------------
+
             const slot = slots[index];
             btn.style.position = 'absolute';
             btn.style.top = `${slot.top}%`;

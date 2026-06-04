@@ -230,23 +230,20 @@ body {
     transition: width 0.1s linear;
 }
 
-#minigame-buttons {
-    position: relative;
-    min-height: 200px; /* Ensures space for absolute dots */
-}
-
+/* Ensure your base CSS doesn't force a single size */
 .dot-btn {
-    width: 60px;
-    height: 60px;
     border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.1s;
+    /* Remove fixed width/height here if you want the JS to handle it entirely */
     display: flex;
     align-items: center;
     justify-content: center;
-    border: none;
-    background: #3b82f6;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
+}
+
+.dot-btn:hover {
+    transform: scale(1.1);
 }
 
 /* ==========================================================================
