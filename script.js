@@ -100,11 +100,14 @@ class AdventureGame {
         
         // 1. Filter and clean the pool
         if (node && node.allowedSurpriseEffects) {
-            const uniqueAllowed = [...new Set(node.allowedSurpriseEffects)];            
+            const uniqueAllowed = [...new Set(node.allowedSurpriseEffects)];
             
-            const tempPool = this.surprisePool.filter(s => uniqueAllowed.includes(s.effect));
-                        
-            pool = [...new Map(tempPool.map(item => [item.effect, item])).values()];
+            // Check if the allowed effect is in either the effect OR the miniGameId field
+            const tempPool = this.surprisePool.filter(s => 
+                uniqueAllowed.includes(s.effect) || uniqueAllowed.includes(s.miniGameId)
+            );
+                            
+            pool = [...new Map(tempPool.map(item => [item.effect || item.miniGameId, item])).values()];
             
             console.log(`🎲 Filtered pool to ${pool.length} UNIQUE candidates.`);
         }
