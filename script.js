@@ -245,6 +245,7 @@ class MiniGameEngine {
     }
 
     start(gameId, difficultyTier) {
+        console.log(`🚀 Engine received request for: "${gameId}" at difficulty ${difficultyTier}`);
         this.isGameActive = true;
         this.currentPuzzle = null;
         this.playerSequence = [];
