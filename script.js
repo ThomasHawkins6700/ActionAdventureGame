@@ -270,10 +270,7 @@ class AdventureGame {
     renderHUD() {
         // Update numerical energy
         document.getElementById('energy-val').innerText = this.player.energy;
-        
-        // Update bar
-        const bar = document.getElementById('energy-bar-fill');
-        bar.style.width = `${(this.player.energy / this.player.maxEnergy) * 100}%`;
+                
 
         // Update inventory list
         const list = document.getElementById('inventory-list');
