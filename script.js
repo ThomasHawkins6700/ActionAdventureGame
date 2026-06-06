@@ -587,17 +587,31 @@ class MiniGameEngine {
     }
 
     async handleOptionClick(option) {
+        // 1. Check if this option is a Mini-Game
         if (option.miniGame) {
             this.miniGameEngine.start(
-                option.miniGame, // Pass the whole object (id, diff, success/fail paths)
+                option.miniGame, 
+                null, // No legacy difficulty needed here
                 (result) => {
-                    // The engine calls this callback when finished
+                    // Determine destination from the miniGame object
                     const nextScene = result ? option.miniGame.onSuccess : option.miniGame.onFailure;
-                    this.loadScene(nextScene);
+                    
+                    // Safety check
+                    if (nextScene) {
+                        this.loadScene(nextScene);
+                    } else {
+                        console.error("❌ No path defined in miniGame for result:", result);
+                    }
                 }
             );
-        } else {
+        } 
+        // 2. Check if this is a standard scene transition
+        else if (option.nextScene) {
             this.loadScene(option.nextScene);
+        } 
+        // 3. Fallback/Error
+        else {
+            console.warn("⚠️ Option has no miniGame and no nextScene:", option);
         }
     }
     /**
