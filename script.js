@@ -236,83 +236,55 @@ class AdventureGame {
     }
 
     async makeChoice(option) {
-        console.log("👉 Button clicked: navigating to", option.nextScene);
+        console.log("👉 Button clicked");
 
-        // 1. Handle Item FIRST (Data Update)
-        if (option.miniGame && option.miniGame.removeItems) {
-            option.miniGame.removeItems.forEach(item => {
-                const success = this.player.removeItem(item);
-                if (success) {
-                    this.renderHUD(); // Update the inventory UI immediately
-                }
-            });
+        // 1. Handle Item/Energy (Always do this first)
+        if (option.item) this.player.addItem(option.item);
+        if (option.energyCost > 0) this.player.modifyEnergy(-option.energyCost);
+        this.renderHUD();
+
+        // 2. Load story file if needed
+        if (option.storyFile) {
+            await this.loadStoryFile(option.storyFile);
         }
 
-        if (option.miniGame) {
-        // We have a MiniGame, so we ignore 'nextScene' and use the object's logic
+        // 3. THE UNIFIED MINI-GAME / TRANSITION LOGIC
+        // We treat miniGame and triggerMiniGame as the same goal
+        const miniGameConfig = option.miniGame || option.triggerMiniGame;
 
-            if (option.miniGame && option.miniGame.removeItems) {
-                option.miniGame.removeItems.forEach(item => {
-                    this.player.removeItem(item);
-                });
-                this.renderHUD(); 
-            }
+        if (miniGameConfig) {
+            // Normalize: if it's just a string ID, wrap it in an object
+            const config = typeof miniGameConfig === 'string' ? { id: miniGameConfig } : miniGameConfig;
 
-            this.miniGameEngine.start(option.miniGame, (isSuccess) => {
-                const nextScene = isSuccess ? option.miniGame.onSuccess : option.miniGame.onFailure;
+            this.miniGameEngine.start(config, (isSuccess) => {
+                // A. Consumption Logic
+                const policy = config.consumptionPolicy;
+                const itemToConsume = option.requiredItem; // Your JSON defines this
+                
+                let shouldConsume = false;
+                if (policy === "always") shouldConsume = true;
+                else if (policy === "success" && isSuccess) shouldConsume = true;
+                else if (policy === "failure" && !isSuccess) shouldConsume = true;
+
+                if (shouldConsume && itemToConsume) {
+                    this.player.removeItem(itemToConsume);
+                    this.renderHUD();
+                }
+
+                // B. Navigation Logic
+                // Prioritize: Success/Fail paths > nextScene > default
+                const nextScene = isSuccess 
+                    ? (config.onSuccess || option.nextScene) 
+                    : (config.onFailure || option.failScene || "chamber_dungeon");
+
                 this.handleSceneTransition(nextScene);
             });
-
-            } else if (option.nextScene) {
-                // Standard non-game choice
-                this.handleSceneTransition(option.nextScene);
-            } else {
-                console.error("❌ Choice has neither miniGame nor nextScene:", option);
-            }
-
-            // 3. Load story file if needed
-            if (option.storyFile) {
-                await this.loadStoryFile(option.storyFile);
-            }
-
-            // 4. Transition      
-            if (option.triggerMiniGame) {
-                // We pass the full miniGame config (or a lookup object)
-                this.miniGameEngine.start(option.triggerMiniGame, 1, (isSuccess) => {
-                    
-                    const policy = option.miniGame.consumptionPolicy;
-                    let shouldConsume = false;
-                    switch (policy) {
-                        case "always": shouldConsume = true; break;
-                        case "success": shouldConsume = isSuccess; break;
-                        case "failure": shouldConsume = !isSuccess; break;
-                    }
-
-                    // 3. This executes for BOTH success and failure if the policy allows
-                    if (shouldConsume && item) {
-                        this.player.removeItem(item);
-                        this.renderHUD();
-                    }
-
-                    // Prioritize paths defined in the miniGame object, fallback to legacy option.nextScene
-                    let nextScene = option.nextScene;
-                    
-                    if (option.miniGameData) { // Ensure your JSON has this property
-                        nextScene = isSuccess ? option.miniGameData.onSuccess : option.miniGameData.onFailure;
-                    } else if (!isSuccess && option.failScene) {
-                        nextScene = option.failScene;
-                    }
-                    
-                    // Final fallback to avoid undefined
-                    nextScene = nextScene || "chamber_dungeon"; 
-                    // --- THE FIX ENDS HERE ---
-
-                    this.handleSceneTransition(nextScene);
-                });
-            } else {
-                this.handleSceneTransition(option.nextScene);
-            }
+        } 
+        // 4. Standard Transition
+        else {
+            this.handleSceneTransition(option.nextScene);
         }
+    }
 
     jumpToScene(sceneId) {
         console.log("🚀 Jumping to:", sceneId);
