@@ -650,7 +650,7 @@ class MiniGameEngine {
         const feedbackEl = document.getElementById('minigame-feedback-text');
         const container = document.getElementById('minigame-feedback');
         
-        const message = isSuccess 
+        const message = isCorrect 
         ? (this.currentPuzzle.successText || "Success!") 
         : (this.currentPuzzle.failText || "Failed!");
 
