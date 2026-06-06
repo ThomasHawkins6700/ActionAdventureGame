@@ -132,23 +132,35 @@ class AdventureGame {
     render(node = null) {
         if (!node) node = this.storyData[this.state.currentScene];
         
-        // Clear existing timer
+        // Clear existing timer and reset UI
         if (this.sceneTimer) clearTimeout(this.sceneTimer);
+        const container = document.getElementById('game-container');
+        const timerBar = document.getElementById('timer-bar-bg');
+        const timerFill = document.getElementById('timer-bar-fill');
 
-        // 1. Handle Timed "Quick Action"
-        const container = document.getElementById('game-container'); // Ensure your main game wrapper has this ID
+        // Handle Timed Scene
         if (node.timer) {
             container.classList.add('timed-scene');
+            timerBar.style.display = 'block';
             
-            // Start timer
+            // Setup transition
+            timerFill.style.transition = `width ${node.timer}s linear`;
+            timerFill.style.width = '100%';
+            
+            // Trigger shrink (delayed slightly so the CSS transition kicks in)
+            requestAnimationFrame(() => {
+                timerFill.style.width = '0%';
+            });
+
             this.sceneTimer = setTimeout(() => {
                 this.handleSceneTransition(node.timeoutScene);
             }, node.timer * 1000);
         } else {
             container.classList.remove('timed-scene');
+            timerBar.style.display = 'none';
         }
-        
-        // 2. Update Text UI
+
+        // Update Text and Buttons (as before)
         document.getElementById('game-title').innerText = node.title || "Adventure Quest";
         document.getElementById('story-text').innerText = node.text || "";
         
@@ -280,8 +292,13 @@ class AdventureGame {
     
     renderHUD() {
         // Update numerical energy
-        document.getElementById('energy-val').innerText = this.player.energy;
-                
+        const invList = document.getElementById('inventory-list');
+        if (invList) {
+            invList.innerHTML = this.player.inventory
+                .map(item => `<li>${item}</li>`)
+                .join('');
+        }
+        document.getElementById('energy-val').innerText = this.player.energy;                
 
         // Update inventory list
         const list = document.getElementById('inventory-list');

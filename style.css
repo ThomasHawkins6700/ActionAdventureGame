@@ -297,7 +297,7 @@ body {
 
 
 /* Highlight the timed transition screen */
-.timed-scene {
+#game-container.timed-scene {
     border: 2px solid #ef4444; /* Red border to indicate urgency */
     border-radius: 8px;
     padding: 10px;

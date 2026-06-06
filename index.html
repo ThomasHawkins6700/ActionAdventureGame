@@ -17,9 +17,14 @@
         <div id="game-header">
             <div id="game-title">Adventure Awaits</div>
         </div>
+
+        <div id="timer-bar-bg" style="display: none; width: 100%; height: 6px; background: #334155; margin-bottom: 10px;">
+            <div id="timer-bar-fill" style="width: 100%; height: 100%; background: #ef4444; transition: width 0s linear;"></div>
+        </div>
+
         <header id="top-bar">
             <div id="stats-container">
-                <div id="energy-display">Energy: <span id="energy-val">100</span>/100</div>              
+                <div id="energy-display">Energy: <span id="energy-val">100</span>/100</div>             
             </div>
             
             <div id="backpack-container">
@@ -34,7 +39,6 @@
             <div id="choices-container"></div>
             <button id="reset-btn">Restart Adventure</button>
         </div>
-    
 
         <div id="minigame-modal" style="display: none;">
             <div id="minigame-header">Runic Puzzle</div>
