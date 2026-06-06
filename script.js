@@ -523,8 +523,13 @@ class Player {
 
     // Logic for taking damage/healing
     modifyEnergy(amount) {
+        if (amount === 0) return; // Do nothing if the change is zero
+
         this.energy = Math.min(this.maxEnergy, Math.max(0, this.energy + amount));
-        if (this.energy <= 0) this.handleLose();
+        
+        if (this.energy <= 0) {
+            this.handleLose();
+        }
     }
 
     // Logic for items
