@@ -85,10 +85,30 @@
   "hard_option_bedroom_1_reversed_doorway": {
     "title": "Bedroom doorway",        
     "text": "You're deep in thought about how to submit him, if the pills failed then maybe some seduction followed by bondage would land you this catch. You pass through and he follows you in.",
-    "surprise": false,
+    "surprise": true,
+    "descriptionOverride":"Suddenly he has an arm around your neck and begins to tighten!!",
+    "successTextOverride":"You twist, your knee goes straight to hs groin and your forhead smashes his mouth, he stagges back cursing.",
+    "failureTextOverride":"His grip is too much and his other arm traps yours behind your back, you begin to slip into darknes....",
     "allowedSurpriseEffects": ["reflex_check"],
     "surpriseDifficultyRange": [1, 3],
-    "onSurpriseSuccess": "doorway_B_recovered",
-    "onSurpriseFailure": "doorway_B_caught"    
+    "onSurpriseSuccess": "hard_option_bedroom_1_reversed_recovered",
+    "onSurpriseFailure": "hard_option_bedroom_1_reversed_caught"    
+  },
+   "hard_option_bedroom_1_reversed_recovered": {
+    "title": "Bedroom",        
+    "text": "You are stuck in the room now but free what do you do!!?",
+    "surprise": false,
+    "options": [  
+      { "text": "Move Upstairs", "nextScene": "hard_option_bedroom_1_reversed_doorway" }     
+    ]
+  },
+  "hard_option_bedroom_1_reversed_caught": {
+    "title": "Bedroom",        
+    "text": "Pressure. \nSound and light fade in slowly\n Tight \nYou see him seated in front of and go to scream - but your words are a muffled nothing that barely travel past your own ears.",
+    "surprise": false,
+    "options": [  
+      { "text": "Move Upstairs", "nextScene": "hard_option_bedroom_1_reversed_doorway" }     
+    ]
   }
+
 }

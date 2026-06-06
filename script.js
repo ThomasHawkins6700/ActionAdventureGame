@@ -349,15 +349,29 @@ class MiniGameEngine {
 
         // 2. Validate
         if (!this.game.miniGamePool) return;
+        
         const puzzleData = this.game.miniGamePool.find(g => g.id === gameId);
+
         if (!puzzleData) {
             console.error(`mini-game with ID "${gameId}" not found.`);
             return;
         }
 
         // 3. Mapping: Merge base data with specific config (success/fail paths, difficulty)
-        this.currentPuzzle = { ...puzzleData, ...config };
+        this.currentPuzzle = { 
+            ...puzzleData, 
+            ...config,
+            description: config.descriptionOverride || puzzleData.description,
+            successText: config.successTextOverride || puzzleData.successText,
+            failText: config.failureTextOverride || puzzleData.failureText,
+        };
         
+        document.getElementById('minigame-description').innerText = this.currentPuzzle.description;
+    
+        // Hide old feedback from previous games
+        const feedbackContainer = document.getElementById('minigame-feedback');
+        if (feedbackContainer) feedbackContainer.style.display = 'none';
+
         // Set difficulty: use config.difficulty if provided, else use legacy param
         const diff = config.difficulty || difficultyTier || 1;
         const dotMap = { 1: 3, 2: 5, 3: 7 };
@@ -627,7 +641,21 @@ class MiniGameEngine {
         this.isGameActive = false;
         clearInterval(this.timer);
 
-        document.getElementById('minigame-modal').style.display = 'none';
+        const feedbackEl = document.getElementById('minigame-feedback-text');
+        const container = document.getElementById('minigame-feedback');
+        
+        const message = isSuccess 
+        ? (this.currentPuzzle.successText || "Success!") 
+        : (this.currentPuzzle.failText || "Failed!");
+
+        // 2. Inject the text
+        feedbackText.innerText = message;
+
+        // 3. Show the container, hide the game elements
+        feedbackContainer.style.display = 'block';
+        
+        // Optional: Hide the game sequence/runes here so only the feedback is visible
+        document.getElementById('minigame-runes-container').style.display = 'none';
 
         // Instead of just calling onComplete(isCorrect), you can handle pathing here
         // or just pass the boolean back to your handleOptionClick
