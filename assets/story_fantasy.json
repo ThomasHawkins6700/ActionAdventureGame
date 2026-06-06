@@ -4,7 +4,7 @@
     "text": "A normal day around 2pm, you are watching TV and scrolling on your phone whilst the snow falls gently outside.\n Your peace is broken by a shy knock on your front door.",
     "surprise": false,
     "options": [
-      { "text": "Go to answer", "nextScene": "main_game_hallway_1", "energyCost": 0 }
+      { "text": "Go to answer", "nextScene": "main_game_hallway_1"}
     ]
   },
   "main_game_hallway_1": {
@@ -12,8 +12,8 @@
     "text": "A tall and slender but cute man stands at your front door behind him, down the path, a car with a dented fender. 'Sorry miss' - foreign, British maybe, 'my car.. I'm not used to such conditions..' he trails off, his clothes are sodden from where he's been standing. 'I've called someone out, but given the weather it could be a while, is there any chance to loiter around your place?' Oh yes, he is going to make your perfect subsmissive slave this weekend",
     "surprise": false,
     "options": [
-      { "text": "Invite him in to your kitchen", "nextScene": "main_game_hallway_1_hard_option_kitchen_1_transition", "energyCost": 0 },
-      { "text": "Leave him out there whilst you change into something... fresher", "nextScene": "soft_option_hallway_1", "energyCost": 5  }
+      { "text": "Invite him in to your kitchen", "nextScene": "main_game_hallway_1_hard_option_kitchen_1_transition" },
+      { "text": "Leave him out there whilst you change into something... fresher", "nextScene": "soft_option_hallway_1" }
     ]
   },
   "main_game_hallway_1_hard_option_kitchen_1_transition": {
@@ -23,8 +23,8 @@
     "timeoutScene": "hard_option_kitchen_1",
     "surprise": false,
     "options": [  
-      { "text": "Yes", "nextScene": "hard_option_kitchen_1", "energyCost": 5, "item":"Sleeping Pills" },
-      { "text": "No", "nextScene": "hard_option_kitchen_1", "energyCost": 0  }
+      { "text": "Yes", "nextScene": "hard_option_kitchen_1", "item":"Sleeping Pills" },
+      { "text": "No", "nextScene": "hard_option_kitchen_1"}
     ]
   },
   "hard_option_kitchen_1": {
@@ -32,9 +32,9 @@
     "text": "In the kitchen you offer him a seat and begin to make some tea, once made you - ",
     "surprise": false,
     "options": [  
-      { "text": "use pills", "nextScene": "soft_option_kitchen_1", "energyCost": 5, "requiredItem": "Sleeping Pills" },
-      { "text": "hand drink", "nextScene": "soft_option_hallway_1", "energyCost": 0  },
-      { "text": "Offer Food", "nextScene": "soft_option_hallway_1", "energyCost": 0  }
+      { "text": "try to add the pills discreetly to his drink", "nextScene": "soft_option_kitchen_1",   "requiredItem": "Sleeping Pills" },
+      { "text": "hand him the drink", "nextScene": "soft_option_hallway_1" },
+      { "text": "Offer food as well", "nextScene": "soft_option_hallway_1"  }
     ]
   },
 

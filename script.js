@@ -226,45 +226,35 @@ class AdventureGame {
     async makeChoice(option) {
         console.log("👉 Button clicked: navigating to", option.nextScene);
 
-        // 1. ENERGY CHECK
-        const cost = option.energyCost || 0;
-
-        if (cost > 0 && this.player.energy < cost) {
-            alert("You're too exhausted to continue!");
-            return;
+        // 1. Handle Item FIRST (Data Update)
+        if (option.item) {
+            const added = this.player.addItem(option.item);
+            if (added) {
+                console.log(`🎒 Picked up: ${option.item}`);
+                this.renderHUD(); // Update UI immediately after successful add
+            } else {
+                return; // Stop if inventory full
+            }
         }
 
-        // 2. APPLY COST (Only if it's > 0)
-        if (cost > 0) {
-            this.player.modifyEnergy(-cost);
-            this.renderHUD();
+        // 2. Handle Energy
+        if (option.energyCost > 0) {
+            this.player.modifyEnergy(-option.energyCost);
+            this.renderHUD(); // Update UI after energy change
         }
 
-        // 2. APPLY COST & UPDATE HUD
-        this.player.modifyEnergy(-cost);
-        this.renderHUD();
-
-        // 3. LOAD STORY FILE
+        // 3. Load story file if needed
         if (option.storyFile) {
             await this.loadStoryFile(option.storyFile);
         }
 
-        // 4. ADD ITEM
-        if (option.item) {
-            this.player.addItem(option.item);
-            console.log(`🎒 Picked up: ${option.item}`);
-        }
-
-        // 5. CONDITIONAL TRANSITION: Mini-game OR Direct Jump
+        // 4. Transition
         if (option.triggerMiniGame) {
-            // Trigger the engine with a dynamic callback
             this.miniGameEngine.start(option.triggerMiniGame, 1, (isSuccess) => {
-                // Logic handled here keeps your JSON clean and your scenes dynamic
                 const nextScene = isSuccess ? option.nextScene : (option.failScene || "chamber_dungeon");
                 this.handleSceneTransition(nextScene);
             });
         } else {
-            // Standard non-game transition
             this.handleSceneTransition(option.nextScene);
         }
     }
@@ -291,20 +281,18 @@ class AdventureGame {
     }
     
     renderHUD() {
-        // Update numerical energy
+        // Update Energy
+        const energyVal = document.getElementById('energy-val');
+        if (energyVal) energyVal.innerText = this.player.energy;
+
+        // Update inventory - Single Source of Truth
         const invList = document.getElementById('inventory-list');
         if (invList) {
+            // We use the player's internal inventory array directly
             invList.innerHTML = this.player.inventory
                 .map(item => `<li>${item}</li>`)
                 .join('');
         }
-        document.getElementById('energy-val').innerText = this.player.energy;                
-
-        // Update inventory list
-        const list = document.getElementById('inventory-list');
-        list.innerHTML = this.player.inventory
-            .map(item => `<li>${item}</li>`)
-            .join('');
     }
 
     resetGame() {
@@ -539,23 +527,10 @@ class MiniGameEngine {
 class Player {
     constructor(name) {
         this.name = name;
-        this.energy = 100;
-        this.maxEnergy = 100;
         this.inventory = [];
         this.maxInventoryCount = 3;
-        this.gold = 50;
     }
 
-    // Logic for taking damage/healing
-    modifyEnergy(amount) {
-        if (amount === 0) return; // Do nothing if the change is zero
-
-        this.energy = Math.min(this.maxEnergy, Math.max(0, this.energy + amount));
-        
-        if (this.energy <= 0) {
-            this.handleLose();
-        }
-    }
 
     // Logic for items
     addItem(item) {

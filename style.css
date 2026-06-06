@@ -263,13 +263,6 @@ body {
     gap: 4px;
 }
 
-#energy-bar-bg {
-    width: 150px; /* Smaller bar to save space */
-    height: 8px;
-    background: #0f172a;
-    border-radius: 4px;
-}
-
 #backpack-container {
     display: flex;
     flex-direction: column;
