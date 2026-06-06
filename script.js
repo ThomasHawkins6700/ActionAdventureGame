@@ -596,14 +596,14 @@ class MiniGameEngine {
 
             // Success check
             if (this.playerSequence.length === this.currentPuzzle.activeSequence.length) {
-                this.endGame(true);
+                this.endMiniGame(true);
             }
         } else {
             this.currentPuzzle.mistakesMade++;
             console.log("Mistake!", this.currentPuzzle.mistakesMade);
 
             if (this.currentPuzzle.mistakesMade >= this.currentPuzzle.maxMistakes) {
-                this.endGame(false);
+                this.endMiniGame(false);
             }
         }
     }

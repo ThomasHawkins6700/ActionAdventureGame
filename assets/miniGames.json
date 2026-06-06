@@ -40,6 +40,7 @@
     "failText": "Too slow!",  
     "timeLimit": 5
   },
+  
   {
     "id": "discretion_check_pill_bottle",
     "type": "discretion_check",

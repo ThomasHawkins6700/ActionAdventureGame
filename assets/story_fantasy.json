@@ -45,5 +45,23 @@
       { "text": "hand him the drink", "nextScene": "soft_option_kitchen_1" },
       { "text": "Offer food as well", "nextScene": "soft_option_kitchen_2"  }
     ]
-  }
+  },
+  "hard_option_kitchen_2": {
+    "title": "Kitchen",        
+    "text": "You succeed! The pill is slowly dissolving in the hot liquid and you hand it to him none the wiser <span class='speech-player'>Enjoy sweetie, you look so cold</span>. He takes it and starts drinking whilst you make light talk.",
+    "surprise": false,
+    "options": [  
+      { "text": "Stay here", "nextScene": "hard_option_kitchen_3" },
+      { "text": "Try to move him upstairs", "nextScene": "hard_option_bedroom_1"}
+    ]
+  },
+  "hard_option_kitchen_1_reversed": {
+    "title": "Kitchen",        
+    "text": "You succeed! The pill is slowly dissolving in the hot liquid and you hand it to him none the wiser <span class='speech-player'>Enjoy sweetie, you look so cold</span>. He takes it and starts drinking whilst you make light talk.",
+    "surprise": false,
+    "options": [  
+      { "text": "Stay here", "nextScene": "hard_option_kitchen_3" },
+      { "text": "Try to move him upstairs", "nextScene": "hard_option_bedroom_1"}
+    ]
+  },
 }
