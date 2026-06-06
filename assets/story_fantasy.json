@@ -29,11 +29,12 @@
   },
   "hard_option_kitchen_1": {
     "title": "Kitchen",    
-    "text": "In the kitchen you offer him a seat and begin to make some tea",
+    "text": "In the kitchen you offer him a seat and begin to make some tea, once made you - ",
     "surprise": false,
     "options": [  
-      { "text": "use pills", "nextScene": "soft_option_kitchen_1", "energyCost": 0 },
-      { "text": "hand drink", "nextScene": "soft_option_hallway_1", "energyCost": 5  }
+      { "text": "use pills", "nextScene": "soft_option_kitchen_1", "energyCost": 5, "requiredItem": "Sleeping Pills" },
+      { "text": "hand drink", "nextScene": "soft_option_hallway_1", "energyCost": 0  },
+      { "text": "Offer Food", "nextScene": "soft_option_hallway_1", "energyCost": 0  }
     ]
   },
 

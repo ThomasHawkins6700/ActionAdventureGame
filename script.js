@@ -131,10 +131,11 @@ class AdventureGame {
     // AdventureGame.js
     render(node = null) {
         if (!node) node = this.storyData[this.state.currentScene];
-        //check for scenes that have times on them to act
+        
+        // Clear existing timer
         if (this.sceneTimer) clearTimeout(this.sceneTimer);
 
-        // 2. Check if this scene is a timed "Quick Action"
+        // 1. Handle Timed "Quick Action"
         if (node.timer) {
             console.log(`⏱️ Timer started: ${node.timer}s`);
             this.sceneTimer = setTimeout(() => {
@@ -143,24 +144,30 @@ class AdventureGame {
             }, node.timer * 1000);
         }
         
-        // 1. Update UI elements
+        // 2. Update Text UI
         document.getElementById('game-title').innerText = node.title || "Adventure Quest";
         document.getElementById('story-text').innerText = node.text || "";
         
-        // 2. Clear and rebuild buttons
+        // 3. Clear and Rebuild Buttons
         const buttonContainer = document.getElementById('choices-container');
         buttonContainer.innerHTML = '';
         
-        // Ensure node.options exists before looping
         (node.options || []).forEach(option => {
+            // --- ADDED: Requirement Logic ---
+            if (option.requiredItem) {
+                // If player doesn't have the item, skip creating this button
+                if (!this.player.inventory.includes(option.requiredItem)) {
+                    return; 
+                }
+            }
+            // --------------------------------
+
             const button = document.createElement('button');
             button.innerText = option.text;
             button.className = 'choice-btn';
-            // ONLY call makeChoice here
             button.addEventListener('click', () => this.makeChoice(option));
             buttonContainer.appendChild(button);
         });
-        // REMOVE any call to handleSceneTransition here!
     }
 
     // Single source of truth for scene movement
