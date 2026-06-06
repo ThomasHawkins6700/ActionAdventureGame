@@ -331,7 +331,8 @@ class MiniGameEngine {
         this.puzzleRegistry = {
             "sequence_lock": () => this.initRunePuzzle(),
             "trivia_quiz": () => this.initTriviaPuzzle(),
-            "dot_tap": () => this.initDotTapPuzzle()
+            "dot_tap": () => this.initDotTapPuzzle(),
+            "discretion_check": () => this.initDiscretionCheck()
         };
     }
 
@@ -460,6 +461,7 @@ class MiniGameEngine {
     // ==========================================
     // MODULE 3: SPEED TAPPING
     // ==========================================
+
     
    initDotTapPuzzle() {
         const numDots = this.currentPuzzle.level; 
@@ -519,6 +521,70 @@ class MiniGameEngine {
         }
     }
 
+    // ==========================================
+    // MODULE 3: SPEED TAPPING
+    // ==========================================
+    initDiscretionCheck() {
+        // 1. Pick the scenario based on the difficulty tier we already set in start()
+        const difficulty = this.currentPuzzle.level === 3 ? "3" : (this.currentPuzzle.level === 5 ? "2" : "1");
+        const scenarios = this.currentPuzzle.scenarios[difficulty];
+        const scenario = scenarios[Math.floor(Math.random() * scenarios.length)];
+        
+        // Store the sequence to validate against
+        this.currentPuzzle.activeSequence = scenario.sequence;
+        this.currentPuzzle.maxMistakes = this.currentPuzzle.settings.mistakeLimit[difficulty];
+        this.currentPuzzle.mistakesMade = 0;
+
+        // 2. Update UI
+        document.getElementById('minigame-clue').innerText = scenario.clue;
+        const btnContainer = document.getElementById('minigame-buttons');
+        btnContainer.innerHTML = '';
+
+        // 3. Create Gesture Buttons
+        const gestures = ["PUSH_DOWN", "ROTATE_LEFT", "ROTATE_RIGHT", "PAUSE"];
+        gestures.forEach(action => {
+            const btn = document.createElement('button');
+            btn.innerText = action.replace('_', ' ');
+            btn.onclick = () => this.validateGesture(action);
+            btnContainer.appendChild(btn);
+        });
+    }
+
+    validateGesture(action) {
+        const expected = this.currentPuzzle.activeSequence[this.playerSequence.length];
+
+        if (action === expected) {
+            this.playerSequence.push(action);
+            console.log("Correct gesture!");
+
+            // Success check
+            if (this.playerSequence.length === this.currentPuzzle.activeSequence.length) {
+                this.endGame(true);
+            }
+        } else {
+            this.currentPuzzle.mistakesMade++;
+            console.log("Mistake!", this.currentPuzzle.mistakesMade);
+
+            if (this.currentPuzzle.mistakesMade >= this.currentPuzzle.maxMistakes) {
+                this.endGame(false);
+            }
+        }
+    }
+
+    async handleOptionClick(option) {
+        if (option.miniGame) {
+            this.miniGameEngine.start(
+                option.miniGame, // Pass the whole object (id, diff, success/fail paths)
+                (result) => {
+                    // The engine calls this callback when finished
+                    const nextScene = result ? option.miniGame.onSuccess : option.miniGame.onFailure;
+                    this.loadScene(nextScene);
+                }
+            );
+        } else {
+            this.loadScene(option.nextScene);
+        }
+    }
     /**
      * Clean Closing Sequence with Scenario Branching
      */

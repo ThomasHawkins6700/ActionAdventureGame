@@ -32,60 +32,18 @@
     "text": "In the kitchen you offer him a seat and begin to make some tea, once made you - ",
     "surprise": false,
     "options": [  
-      { "text": "try to add the pills discreetly to his drink", "nextScene": "soft_option_kitchen_1",   "requiredItem": "Sleeping Pills" },
-      { "text": "hand him the drink", "nextScene": "soft_option_hallway_1" },
-      { "text": "Offer food as well", "nextScene": "soft_option_hallway_1"  }
-    ]
-  },
-
-
-
-
-
-  "forest_02_river": {
-    "title": "The Riverbank",
-    "text": "A rushing river blocks your path.",
-    "surprise": true,
-    "allowedSurpriseEffects": ["sphinx_riddle","rune_lock"],
-    "surpriseDifficultyRange": [1, 3],
-    "options": [
-      { "text": "Go back", "nextScene": "forest_01_start" },
-      { "text": "Jump", "nextScene": "forest_03_river" }
-    ]
-  },
-  "forest_03_river": {
-    "title": "The Riverbank",
-    "text": "A rushing river trails along the forest.",
-    "surprise": true,
-    "allowedSurpriseEffects": ["find_potion","sphinx_riddle","rune_lock"],
-    "options": [
-      { "text": "Follow river", "nextScene": "forest_04_hovel" },
-      { "text": "Jump back", "nextScene": "forest_02_river" }
-    ]
-  },
-  "forest_04_hovel": {
-    "title": "The Riverbank",
-    "text": "Just adjacent to the riverbank is a cute hovel with smoke peacefully leaving its chimney.",
-    "surprise": false,
-    "options": [
-      { "text": "Continue along river", "nextScene": "forest_01_start" },
-      { "text": "Knock on Door", "nextScene": "forest_03_river" }
-    ]
-  },
-  "chamber_dungeon": {
-    "title": "The Dungeon",
-    "text": "A Large cavernous dungeon stretches out before you. There is no sign of the sphinx or the woods you were previously in",
-    "surprise": false,
-    "options": [
-      { "text": "Go back", "nextScene": "forest_01_start" }
-    ]
-  },
-  "chamber_treasure": {
-    "title": "The Treasure Trove",
-    "text": "A huge glittering treasure trove of jewels and relics awaits.",
-    "surprise": false,
-    "options": [
-      { "text": "Go back", "nextScene": "forest_01_start" }
+      {
+        "text": "Try to add the pills discreetly to his drink",      
+        "requiredItem": "Sleeping Pills",
+        "miniGame": {
+          "id": "discretion_check_pill_bottle",
+          "difficulty": 2,
+          "onSuccess": "hard_option_kitchen_2",
+          "onFailure": "hard_option_kitchen_1_reversed"
+        }
+      },
+      { "text": "hand him the drink", "nextScene": "soft_option_kitchen_1" },
+      { "text": "Offer food as well", "nextScene": "soft_option_kitchen_2"  }
     ]
   }
 }

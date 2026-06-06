@@ -2,8 +2,8 @@
   {
     "id": "rune_lock",
     "type": "sequence_lock",
-    "title": "🔴 A Runic Trap Triggers!",
-    "description": "Tap the runes in the correct order to disarm the trap. Beware the timer!",
+    "title": "Be careful!",
+    "description": "Tap the correct order of",
     "clue": "Carved into the wall: 'Fire melts Ice, Ice freezes Water, Water douses Fire... Strike them from weakest to strongest.'",
     "sequence": ["🔥", "💧", "❄️"],
     "successText": "The runes pulse green and shatter safely into dust!",
@@ -39,5 +39,42 @@
     "successText": "Fast as a shadow!",
     "failText": "Too slow!",  
     "timeLimit": 5
+  },
+  {
+    "id": "discretion_check_pill_bottle",
+    "type": "gesture_sequence",
+    "title": "Opening the Medication",
+    "scenarios": {
+      "1": [
+        {
+          "clue": "The cap is loose. Just a quick twist and a lift.",
+          "sequence": ["ROTATE_RIGHT", "PUSH_DOWN"]
+        }
+      ],
+      "2": [
+        {
+          "clue": "The cap is jammed. Push to engage, then turn against the locking mechanism.",
+          "sequence": ["PUSH_DOWN", "ROTATE_LEFT", "PAUSE"]
+        },
+        {
+          "clue": "The child-proof seal is worn. Gentle pressure, then a steady rotation.",
+          "sequence": ["PUSH_DOWN", "ROTATE_RIGHT", "ROTATE_RIGHT"]
+        }
+      ],
+      "3": [
+        {
+          "clue": "The plastic has expanded. You need to wiggle it back and forth to release the seal.",
+          "sequence": ["ROTATE_LEFT", "ROTATE_RIGHT", "ROTATE_LEFT", "PUSH_DOWN", "PAUSE"]
+        },
+        {
+          "clue": "Extreme caution: it's fused. Apply pressure, hold, then rotate slowly in reverse.",
+          "sequence": ["PUSH_DOWN", "PAUSE", "ROTATE_LEFT", "ROTATE_LEFT", "ROTATE_RIGHT"]
+        }
+      ]
+    },
+    "settings": {
+      "mistakeLimit": { "1": 3, "2": 2, "3": 1 }
+    }
   }
+  
 ]
