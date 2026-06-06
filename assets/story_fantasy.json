@@ -29,11 +29,11 @@
   },
   "hard_option_kitchen_1": {
     "title": "Kitchen",    
-    "text": "",
+    "text": "In the kitchen you offer him a seat and begin to make some tea",
     "surprise": false,
     "options": [  
-      { "text": "Invite him in to your kitchen", "nextScene": "soft_option_kitchen_1", "energyCost": 0 },
-      { "text": "Leave him out there whilst you change into something... fresher", "nextScene": "soft_option_hallway_1", "energyCost": 5  }
+      { "text": "use pills", "nextScene": "soft_option_kitchen_1", "energyCost": 0 },
+      { "text": "hand drink", "nextScene": "soft_option_hallway_1", "energyCost": 5  }
     ]
   },
 

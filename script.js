@@ -261,21 +261,18 @@ class AdventureGame {
     }
     
     renderHUD() {
-        // 1. Update Energy (as before)
-        const energyBar = document.getElementById('energy-bar-fill');
-        const percent = (this.player.energy / this.player.maxEnergy) * 100;
-        if (energyBar) energyBar.style.width = `${percent}%`;
+        // Update numerical energy
+        document.getElementById('energy-val').innerText = this.player.energy;
+        
+        // Update bar
+        const bar = document.getElementById('energy-bar-fill');
+        bar.style.width = `${(this.player.energy / this.player.maxEnergy) * 100}%`;
 
-        // 2. Update Inventory
-        const invList = document.getElementById('inventory-list');
-        if (invList) {
-            invList.innerHTML = ''; // Clear current list
-            this.player.inventory.forEach(item => {
-                const li = document.createElement('li');
-                li.textContent = `🎒 ${item}`;
-                invList.appendChild(li);
-            });
-        }
+        // Update inventory list
+        const list = document.getElementById('inventory-list');
+        list.innerHTML = this.player.inventory
+            .map(item => `<li>${item}</li>`)
+            .join('');
     }
 
     resetGame() {
