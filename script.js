@@ -336,7 +336,18 @@ class MiniGameEngine {
         };
     }
 
-    start(gameId, difficultyTier, onComplete) {        
+    start(gameConfig, difficultyTier, onComplete) {
+        // 1. Detect if we are getting a new-style config object or legacy ID string
+        let gameId = gameConfig;
+        let config = {};
+
+        if (typeof gameConfig === 'object') {
+            gameId = gameConfig.id;
+            config = gameConfig;
+            // If an onComplete was passed as the 2nd argument (when no difficulty), reassign
+            onComplete = difficultyTier; 
+        }
+
         this.onComplete = onComplete;
         this.isGameActive = true;
         this.currentPuzzle = null;
@@ -351,21 +362,25 @@ class MiniGameEngine {
             return;
         }
 
-        // 3. Mapping
-        this.currentPuzzle = { ...puzzleData };
+        // 3. Mapping: Merge base data with specific config (success/fail paths, difficulty)
+        this.currentPuzzle = { ...puzzleData, ...config };
+        
+        // Set difficulty: use config.difficulty if provided, else use legacy param
+        const diff = config.difficulty || difficultyTier || 1;
         const dotMap = { 1: 3, 2: 5, 3: 7 };
-        this.currentPuzzle.level = dotMap[difficultyTier] || 3;
-
-        console.log(`🎮 Engine: Starting ${gameId}. Type: ${this.currentPuzzle.type}`);
+        this.currentPuzzle.level = dotMap[diff] || 3;
 
         // 4. UI Setup
         document.getElementById('minigame-modal').style.display = 'flex';
         document.getElementById('minigame-header').innerText = this.currentPuzzle.title;
         
-        const duration = this.currentPuzzle.timeLimit || 10;
-        this.startTimer(duration);
+        // Only start timer if it's not the new gesture-based check (which has no timer)
+        if (this.currentPuzzle.type !== "discretion_check") {
+            const duration = this.currentPuzzle.timeLimit || 10;
+            this.startTimer(duration);
+        }
 
-        // 5. ROUTER: Correctly using 'this.puzzleRegistry'
+        // 5. ROUTER
         if (this.puzzleRegistry[this.currentPuzzle.type]) {
             this.puzzleRegistry[this.currentPuzzle.type]();
         } else {
@@ -591,14 +606,15 @@ class MiniGameEngine {
     endMiniGame(isCorrect) {
         if (!this.isGameActive) return;
         this.isGameActive = false;
-        clearInterval(this.timer);  
+        clearInterval(this.timer);
 
-        // Determine outcome destination
+        document.getElementById('minigame-modal').style.display = 'none';
+
+        // Instead of just calling onComplete(isCorrect), you can handle pathing here
+        // or just pass the boolean back to your handleOptionClick
         if (this.onComplete) {
             this.onComplete(isCorrect);
         }
-
-        document.getElementById('minigame-modal').style.display = 'none';
     }
 }
 
