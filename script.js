@@ -251,47 +251,56 @@ class AdventureGame {
 
         if (option.miniGame) {
         // We have a MiniGame, so we ignore 'nextScene' and use the object's logic
+
+            if (option.miniGame && option.miniGame.removeItems) {
+                option.miniGame.removeItems.forEach(item => {
+                    this.player.removeItem(item);
+                });
+                this.renderHUD(); 
+            }
+
             this.miniGameEngine.start(option.miniGame, (isSuccess) => {
                 const nextScene = isSuccess ? option.miniGame.onSuccess : option.miniGame.onFailure;
                 this.handleSceneTransition(nextScene);
             });
-        } else if (option.nextScene) {
-            // Standard non-game choice
-            this.handleSceneTransition(option.nextScene);
-        } else {
-            console.error("❌ Choice has neither miniGame nor nextScene:", option);
-        }
+            
+            } else if (option.nextScene) {
+                // Standard non-game choice
+                this.handleSceneTransition(option.nextScene);
+            } else {
+                console.error("❌ Choice has neither miniGame nor nextScene:", option);
+            }
 
-        // 3. Load story file if needed
-        if (option.storyFile) {
-            await this.loadStoryFile(option.storyFile);
-        }
+            // 3. Load story file if needed
+            if (option.storyFile) {
+                await this.loadStoryFile(option.storyFile);
+            }
 
-        // 4. Transition      
-        if (option.triggerMiniGame) {
-            // We pass the full miniGame config (or a lookup object)
-            this.miniGameEngine.start(option.triggerMiniGame, 1, (isSuccess) => {
-                
-                // --- THE FIX STARTS HERE ---
-                // Prioritize paths defined in the miniGame object, fallback to legacy option.nextScene
-                let nextScene = option.nextScene;
-                
-                if (option.miniGameData) { // Ensure your JSON has this property
-                    nextScene = isSuccess ? option.miniGameData.onSuccess : option.miniGameData.onFailure;
-                } else if (!isSuccess && option.failScene) {
-                    nextScene = option.failScene;
-                }
-                
-                // Final fallback to avoid undefined
-                nextScene = nextScene || "chamber_dungeon"; 
-                // --- THE FIX ENDS HERE ---
+            // 4. Transition      
+            if (option.triggerMiniGame) {
+                // We pass the full miniGame config (or a lookup object)
+                this.miniGameEngine.start(option.triggerMiniGame, 1, (isSuccess) => {
+                    
+                    // --- THE FIX STARTS HERE ---
+                    // Prioritize paths defined in the miniGame object, fallback to legacy option.nextScene
+                    let nextScene = option.nextScene;
+                    
+                    if (option.miniGameData) { // Ensure your JSON has this property
+                        nextScene = isSuccess ? option.miniGameData.onSuccess : option.miniGameData.onFailure;
+                    } else if (!isSuccess && option.failScene) {
+                        nextScene = option.failScene;
+                    }
+                    
+                    // Final fallback to avoid undefined
+                    nextScene = nextScene || "chamber_dungeon"; 
+                    // --- THE FIX ENDS HERE ---
 
-                this.handleSceneTransition(nextScene);
-            });
-        } else {
-            this.handleSceneTransition(option.nextScene);
+                    this.handleSceneTransition(nextScene);
+                });
+            } else {
+                this.handleSceneTransition(option.nextScene);
+            }
         }
-    }
 
     jumpToScene(sceneId) {
         console.log("🚀 Jumping to:", sceneId);

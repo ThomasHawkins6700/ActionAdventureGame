@@ -39,7 +39,8 @@
           "id": "discretion_check_pill_bottle",
           "difficulty": 2,
           "onSuccess": "hard_option_kitchen_2",
-          "onFailure": "hard_option_kitchen_1_reversed"
+          "onFailure": "hard_option_kitchen_1_reversed",
+          "removeItems": ["Sleeping Pills"]
         }
       },
       { "text": "hand him the drink", "nextScene": "soft_option_kitchen_1" },
