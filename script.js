@@ -672,9 +672,13 @@ class MiniGameEngine {
         }
 
         // Pass the boolean back
-        if (this.onComplete) {
-            this.onComplete(isCorrect);
-        }
+       setTimeout(() => {
+            // Is this line being called?
+            if (this.onComplete) {
+                console.log("🚀 Calling onComplete...");
+                this.onComplete(isCorrect);
+            }
+        }, 2000);
     }
 }
 
