@@ -385,6 +385,18 @@ class MiniGameEngine {
         const dotMap = { 1: 3, 2: 5, 3: 7 };
         this.currentPuzzle.level = dotMap[diff] || 3;
 
+        const levelKey = diff.toString();
+        const possibleScenarios = this.currentPuzzle.scenarios[levelKey];
+
+        if (possibleScenarios) {
+            // Pick one at random if there are multiple, or just the first one
+            const randomIndex = Math.floor(Math.random() * possibleScenarios.length);
+            this.currentPuzzle.activeScenario = possibleScenarios[randomIndex];
+            console.log("🧩 Scenario selected:", this.currentPuzzle.activeScenario.clue);
+        } else {
+            console.error("❌ No scenarios found for level:", levelKey);
+        }
+
         // 4. UI Setup
         document.getElementById('minigame-modal').style.display = 'flex';
         document.getElementById('minigame-header').innerText = this.currentPuzzle.title;
