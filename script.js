@@ -239,14 +239,13 @@ class AdventureGame {
         console.log("👉 Button clicked: navigating to", option.nextScene);
 
         // 1. Handle Item FIRST (Data Update)
-        if (option.item) {
-            const added = this.player.addItem(option.item);
-            if (added) {
-                console.log(`🎒 Picked up: ${option.item}`);
-                this.renderHUD(); // Update UI immediately after successful add
-            } else {
-                return; // Stop if inventory full
-            }
+        if (option.miniGame && option.miniGame.removeItems) {
+            option.miniGame.removeItems.forEach(item => {
+                const success = this.player.removeItem(item);
+                if (success) {
+                    this.renderHUD(); // Update the inventory UI immediately
+                }
+            });
         }
 
         if (option.miniGame) {
@@ -263,7 +262,7 @@ class AdventureGame {
                 const nextScene = isSuccess ? option.miniGame.onSuccess : option.miniGame.onFailure;
                 this.handleSceneTransition(nextScene);
             });
-            
+
             } else if (option.nextScene) {
                 // Standard non-game choice
                 this.handleSceneTransition(option.nextScene);
@@ -670,7 +669,6 @@ class Player {
         this.maxInventoryCount = 3;
     }
 
-
     // Logic for items
     addItem(item) {
     if (this.inventory.length >= this.maxInventoryCount) {
@@ -681,6 +679,18 @@ class Player {
         this.inventory.push(item);
         console.log(`${item} added to pack.`);
         return true; // Return true on success
+    }
+
+    // Inside your Player class
+    removeItem(itemName) {
+        const index = this.inventory.indexOf(itemName);
+        if (index !== -1) {
+            this.inventory.splice(index, 1);
+            console.log(`🗑️ Item removed: ${itemName}`);
+            return true;
+        }
+        console.warn(`⚠️ Attempted to remove non-existent item: ${itemName}`);
+        return false;
     }
 
     // Encapsulated death check
