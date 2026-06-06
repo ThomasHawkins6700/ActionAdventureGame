@@ -95,7 +95,7 @@ class AdventureGame {
             console.error("❌ ERROR: Surprise Pool is empty!");
             return null;
         }
-
+ 
         let pool = this.surprisePool;
         
         // 1. Filter and clean the pool
@@ -131,6 +131,17 @@ class AdventureGame {
     // AdventureGame.js
     render(node = null) {
         if (!node) node = this.storyData[this.state.currentScene];
+        //check for scenes that have times on them to act
+        if (this.sceneTimer) clearTimeout(this.sceneTimer);
+
+        // 2. Check if this scene is a timed "Quick Action"
+        if (node.timer) {
+            console.log(`⏱️ Timer started: ${node.timer}s`);
+            this.sceneTimer = setTimeout(() => {
+                console.log("⏰ Time expired!");
+                this.handleSceneTransition(node.timeoutScene);
+            }, node.timer * 1000);
+        }
         
         // 1. Update UI elements
         document.getElementById('game-title').innerText = node.title || "Adventure Quest";
@@ -191,11 +202,41 @@ class AdventureGame {
 
     async makeChoice(option) {
         console.log("👉 Button clicked: navigating to", option.nextScene);
+
+        // 1. ENERGY CHECK
+        const cost = option.energyCost || 2;
+        if (this.player.energy < cost) {
+            alert("You're too exhausted to continue!");
+            return;
+        }
+
+        // 2. APPLY COST & UPDATE HUD
+        this.player.modifyEnergy(-cost);
+        this.renderHUD();
+
+        // 3. LOAD STORY FILE
         if (option.storyFile) {
             await this.loadStoryFile(option.storyFile);
         }
-        // This calls the "Brain" that rolls the dice
-        this.handleSceneTransition(option.nextScene);
+
+        // 4. ADD ITEM
+        if (option.item) {
+            this.player.addItem(option.item);
+            console.log(`🎒 Picked up: ${option.item}`);
+        }
+
+        // 5. CONDITIONAL TRANSITION: Mini-game OR Direct Jump
+        if (option.triggerMiniGame) {
+            // Trigger the engine with a dynamic callback
+            this.miniGameEngine.start(option.triggerMiniGame, 1, (isSuccess) => {
+                // Logic handled here keeps your JSON clean and your scenes dynamic
+                const nextScene = isSuccess ? option.nextScene : (option.failScene || "chamber_dungeon");
+                this.handleSceneTransition(nextScene);
+            });
+        } else {
+            // Standard non-game transition
+            this.handleSceneTransition(option.nextScene);
+        }
     }
 
     jumpToScene(sceneId) {
@@ -216,6 +257,24 @@ class AdventureGame {
         const savedProgress = localStorage.getItem('adventure_game_save');
         if (savedProgress) {
             try { this.state = JSON.parse(savedProgress); } catch (e) { this.resetGame(); }
+        }
+    }
+    
+    renderHUD() {
+        // 1. Update Energy (as before)
+        const energyBar = document.getElementById('energy-bar-fill');
+        const percent = (this.player.energy / this.player.maxEnergy) * 100;
+        if (energyBar) energyBar.style.width = `${percent}%`;
+
+        // 2. Update Inventory
+        const invList = document.getElementById('inventory-list');
+        if (invList) {
+            invList.innerHTML = ''; // Clear current list
+            this.player.inventory.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = `🎒 ${item}`;
+                invList.appendChild(li);
+            });
         }
     }
 
@@ -247,8 +306,8 @@ class MiniGameEngine {
         };
     }
 
-    start(gameId, difficultyTier) {
-        console.log(`🚀 Engine received request for: "${gameId}" at difficulty ${difficultyTier}`);
+    start(gameId, difficultyTier, onComplete) {        
+        this.onComplete = onComplete;
         this.isGameActive = true;
         this.currentPuzzle = null;
         this.playerSequence = [];
@@ -435,29 +494,52 @@ class MiniGameEngine {
      * Clean Closing Sequence with Scenario Branching
      */
     endMiniGame(isCorrect) {
-        if (!this.isGameActive) return; 
-        this.isGameActive = false;      
-
-        // Stop the timer immediately
-        clearInterval(this.timer);
+        if (!this.isGameActive) return;
+        this.isGameActive = false;
+        clearInterval(this.timer);  
 
         // Determine outcome destination
-        const nextSceneId = isCorrect ? this.currentPuzzle.successScene : this.currentPuzzle.failScene;
+        if (this.onComplete) {
+            this.onComplete(isCorrect);
+        }
 
-        setTimeout(() => {
-            alert(isCorrect ? this.currentPuzzle.successText : this.currentPuzzle.failText);
-            
-            // Close modal
-            document.getElementById('minigame-modal').style.display = 'none';
-
-            // Branch to next location
-            if (nextSceneId) {
-                this.game.jumpToScene(nextSceneId);
-            }
-        }, 300);
+        document.getElementById('minigame-modal').style.display = 'none';
     }
 }
 
+class Player {
+    constructor(name) {
+        this.name = name;
+        this.energy = 100;
+        this.maxEnergy = 100;
+        this.inventory = [];
+        this.maxInventoryCount = 3;
+        this.gold = 50;
+    }
+
+    // Logic for taking damage/healing
+    modifyEnergy(amount) {
+        this.energy = Math.min(this.maxEnergy, Math.max(0, this.energy + amount));
+        if (this.energy <= 0) this.handleLose();
+    }
+
+    // Logic for items
+    addItem(item) {
+        if (this.inventory.length() == this.maxInventoryCount){
+            console.log("Cant add anymore items.")
+            //need to have a UI change too
+            return
+        }
+        this.inventory.push(item);
+        console.log(`${item} added to pack.`);
+    }
+
+    // Encapsulated death check
+    handleLose() {
+        console.log("The journey ends here...");
+        // Trigger game over logic
+    }
+}
 // Global initialization hook
 const game = new AdventureGame();
 window.onload = () => game.initGame();

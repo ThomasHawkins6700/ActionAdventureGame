@@ -8,8 +8,6 @@
     "sequence": ["🔥", "💧", "❄️"],
     "successText": "The runes pulse green and shatter safely into dust!",
     "failText": "Wrong combination! The runes explode, triggering an alarm.",
-    "successScene": "chamber_treasure", 
-    "failScene": "chamber_dungeon",
     "timeLimit": 10
   },
   {
@@ -28,9 +26,7 @@
         "choices": ["A Map", "A Piano", "A Computer", "A Compass"],
         "answer": "A Piano"
       }
-    ],
-    "successScene": "chamber_treasure",
-    "failScene": "chamber_dungeon"
+    ] 
   },
   {
     "id": "dot_tap_challenge",
@@ -41,9 +37,7 @@
     "level": 3, 
     "sequence": [1, 2, 3],
     "successText": "Fast as a shadow!",
-    "failText": "Too slow!",
-    "successScene": "chamber_treasure",
-    "failScene": "chamber_dungeon",
+    "failText": "Too slow!",  
     "timeLimit": 5
   }
 ]

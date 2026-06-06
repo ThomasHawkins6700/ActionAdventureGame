@@ -1,10 +1,9 @@
 {
     "game_title_screen": {
     "title": "The Quest for a perfect slave",
-    "text": "The world of men and slaves awaits, find out who does the taming here...",
-    "options": [
-      { "text": "JOI-self", "nextScene": "forest_01_start", "storyFile": "./assets/story_random.json" },
-      { "text": "Fantasy", "nextScene": "forest_01_start" ,"storyFile": "./assets/story_fantasy.json"}
+    "text": "You are used to being the one in charge, will you maintain this, or will you find yourself in a new and exciting role...?",
+    "options": [      
+      { "text": "The New Boy", "nextScene": "game_start_scene" ,"storyFile": "./assets/story_fantasy.json"}
     ]
   }
 }

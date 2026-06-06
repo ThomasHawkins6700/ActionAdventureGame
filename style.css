@@ -246,6 +246,76 @@ body {
     transform: scale(1.1);
 }
 
+
+/* HUD Container */
+#hud-container {
+    padding: 15px;
+    background: #1e293b;
+    color: #f8fafc;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-family: sans-serif;
+}
+
+#energy-bar-bg {
+    width: 200px;
+    height: 12px;
+    background: #334155;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+#energy-bar-fill {
+    height: 100%;
+    background: #fbbf24;
+    width: 100%;
+    transition: width 0.4s ease-out;
+}
+
+/* Inventory List */
+#inventory-container {
+    padding: 15px;
+    background: #0f172a;
+    color: #e2e8f0;
+    border-radius: 8px;
+}
+
+#inventory-list {
+    padding: 0;
+    margin: 10px 0 0 0;
+}
+
+
+#inventory-list li {
+    list-style: none;
+    padding: 6px;
+    background: #1e293b;
+    margin-bottom: 4px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    border-left: 3px solid #fbbf24;
+} 
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+/* Highlight the timed transition screen */
+.timed-scene {
+    border: 2px solid #ef4444; /* Red border to indicate urgency */
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+}
 /* ==========================================================================
    4. SYSTEM ANIMATIONS
    ========================================================================== */

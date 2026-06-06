@@ -1,13 +1,46 @@
 {  
-  "forest_01_start": {
-    "title": "The Whispering Woods",
-    "text": "You wake up at the edge of a dark, whispering forest. Two paths lie before you.",
+  "game_start_scene": {
+    "title": "Living room",
+    "text": "A normal day around 2pm, you are watching TV and scrolling on your phone whilst the snow falls gently outside.\n Your peace is broken by a shy knock on your front door.",
     "surprise": false,
     "options": [
-      { "text": "Take the winding path to the left", "nextScene": "forest_02_river" },
-      { "text": "Take the winding path to the right", "nextScene": "forest_03_river" }
+      { "text": "Go to answer", "nextScene": "main_game_hallway_1", "energyCost": 0 }
     ]
   },
+  "main_game_hallway_1": {
+    "title": "Hallway",
+    "text": "A tall and slender but cute man stands at your front door behind him, down the path, a car with a dented fender. 'Sorry miss' - foreign, British maybe, 'my car.. I'm not used to such conditions..' he trails off, his clothes are sodden from where he's been standing. 'I've called someone out, but given the weather it could be a while, is there any chance to loiter around your place?' Oh yes, he is going to make your perfect subsmissive slave this weekend",
+    "surprise": false,
+    "options": [
+      { "text": "Invite him in to your kitchen", "nextScene": "main_game_hallway_1_hard_option_kitchen_1_transition", "energyCost": 0 },
+      { "text": "Leave him out there whilst you change into something... fresher", "nextScene": "soft_option_hallway_1", "energyCost": 5  }
+    ]
+  },
+  "main_game_hallway_1_hard_option_kitchen_1_transition": {
+    "title": "Hallway - Kitchen",        
+    "text": "On the way to the kitchen you see your sleeping pills on the side table, pick them up?",
+    "timer": 5,
+    "timeoutScene": "hard_option_kitchen_1",
+    "surprise": false,
+    "options": [  
+      { "text": "Yes", "nextScene": "hard_option_kitchen_1", "energyCost": 5, "item":"Sleeping Pills" },
+      { "text": "No", "nextScene": "hard_option_kitchen_1", "energyCost": 0  }
+    ]
+  },
+  "hard_option_kitchen_1": {
+    "title": "Kitchen",    
+    "text": "",
+    "surprise": false,
+    "options": [  
+      { "text": "Invite him in to your kitchen", "nextScene": "soft_option_kitchen_1", "energyCost": 0 },
+      { "text": "Leave him out there whilst you change into something... fresher", "nextScene": "soft_option_hallway_1", "energyCost": 5  }
+    ]
+  },
+
+
+
+
+
   "forest_02_river": {
     "title": "The Riverbank",
     "text": "A rushing river blocks your path.",
