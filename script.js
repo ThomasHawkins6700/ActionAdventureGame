@@ -204,10 +204,17 @@ class AdventureGame {
         console.log("👉 Button clicked: navigating to", option.nextScene);
 
         // 1. ENERGY CHECK
-        const cost = option.energyCost || 2;
-        if (this.player.energy < cost) {
+        const cost = option.energyCost || 0;
+
+        if (cost > 0 && this.player.energy < cost) {
             alert("You're too exhausted to continue!");
             return;
+        }
+
+        // 2. APPLY COST (Only if it's > 0)
+        if (cost > 0) {
+            this.player.modifyEnergy(-cost);
+            this.renderHUD();
         }
 
         // 2. APPLY COST & UPDATE HUD
