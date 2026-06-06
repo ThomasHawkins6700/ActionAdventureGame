@@ -39,8 +39,7 @@
           "id": "discretion_check_pill_bottle",
           "difficulty": 2,
           "onSuccess": "hard_option_kitchen_2",
-          "onFailure": "hard_option_kitchen_1_reversed",
-          "removeItems": ["Sleeping Pills"]
+          "onFailure": "hard_option_kitchen_1_reversed"
         }
       },
       { "text": "hand him the drink", "nextScene": "soft_option_kitchen_1" },
@@ -51,6 +50,7 @@
     "title": "Kitchen",        
     "text": "You succeed! The pill is slowly dissolving in the hot liquid and you hand it to him none the wiser <span class='speech-player'>Enjoy sweetie, you look so cold</span>. He takes it and starts drinking whilst you make light talk.",
     "surprise": false,
+    "removeItems": ["Sleeping Pills"],
     "options": [  
       { "text": "Stay here", "nextScene": "hard_option_kitchen_3" },
       { "text": "Try to move him upstairs", "nextScene": "hard_option_bedroom_1"}
@@ -60,6 +60,7 @@
     "title": "Kitchen",        
     "text": "The pills make a loud noise and you decide not to bother, there will be other chances... you hand it to him regardless <span class='speech-player'>Enjoy sweetie, you look so cold</span>. He takes it and starts drinking whilst you make light talk.",
     "surprise": false,
+    "removeItems": ["Sleeping Pills"],
     "options": [  
       { "text": "Stay here", "nextScene": "hard_option_kitchen_2_reversed" },
       { "text": "Try to move him upstairs", "nextScene": "hard_option_bedroom_1_reversed"}
