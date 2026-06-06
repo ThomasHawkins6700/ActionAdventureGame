@@ -280,7 +280,20 @@ class AdventureGame {
                 // We pass the full miniGame config (or a lookup object)
                 this.miniGameEngine.start(option.triggerMiniGame, 1, (isSuccess) => {
                     
-                    // --- THE FIX STARTS HERE ---
+                    const policy = option.miniGame.consumptionPolicy;
+                    let shouldConsume = false;
+                    switch (policy) {
+                        case "always": shouldConsume = true; break;
+                        case "success": shouldConsume = isSuccess; break;
+                        case "failure": shouldConsume = !isSuccess; break;
+                    }
+
+                    // 3. This executes for BOTH success and failure if the policy allows
+                    if (shouldConsume && item) {
+                        this.player.removeItem(item);
+                        this.renderHUD();
+                    }
+
                     // Prioritize paths defined in the miniGame object, fallback to legacy option.nextScene
                     let nextScene = option.nextScene;
                     
