@@ -17,7 +17,7 @@ class AdventureGame {
             currentScene: 'game_title_screen', 
             inventory: [] 
         };
-
+        this.player = new Player("Ashton");
         this.miniGameEngine = new MiniGameEngine(this);
     }
 
