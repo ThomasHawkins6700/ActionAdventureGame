@@ -672,13 +672,13 @@ class MiniGameEngine {
         }
 
         // Pass the boolean back
-       setTimeout(() => {
-            // Is this line being called?
-            if (this.onComplete) {
-                console.log("🚀 Calling onComplete...");
-                this.onComplete(isCorrect);
-            }
-        }, 2000);
+      setTimeout(() => {
+        document.getElementById('minigame-modal').style.display = 'none'; // Close modal
+        
+        if (this.onComplete) {
+            this.onComplete(isCorrect);
+        }
+    }, 2000);
     }
 }
 
