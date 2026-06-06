@@ -260,10 +260,25 @@ class AdventureGame {
             await this.loadStoryFile(option.storyFile);
         }
 
-        // 4. Transition
+        // 4. Transition      
         if (option.triggerMiniGame) {
+            // We pass the full miniGame config (or a lookup object)
             this.miniGameEngine.start(option.triggerMiniGame, 1, (isSuccess) => {
-                const nextScene = isSuccess ? option.nextScene : (option.failScene || "chamber_dungeon");
+                
+                // --- THE FIX STARTS HERE ---
+                // Prioritize paths defined in the miniGame object, fallback to legacy option.nextScene
+                let nextScene = option.nextScene;
+                
+                if (option.miniGameData) { // Ensure your JSON has this property
+                    nextScene = isSuccess ? option.miniGameData.onSuccess : option.miniGameData.onFailure;
+                } else if (!isSuccess && option.failScene) {
+                    nextScene = option.failScene;
+                }
+                
+                // Final fallback to avoid undefined
+                nextScene = nextScene || "chamber_dungeon"; 
+                // --- THE FIX ENDS HERE ---
+
                 this.handleSceneTransition(nextScene);
             });
         } else {
