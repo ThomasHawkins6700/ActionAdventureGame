@@ -91,41 +91,20 @@ class AdventureGame {
     }
     // Unified Roll Logic
     rollForSurprise(node) {
-        if (!this.surprisePool || this.surprisePool.length === 0) {
-            console.error("❌ ERROR: Surprise Pool is empty!");
-            return null;
-        }
- 
-        let pool = this.surprisePool;
-        
-        // 1. Filter and clean the pool
-        if (node && node.allowedSurpriseEffects) {
-            const uniqueAllowed = [...new Set(node.allowedSurpriseEffects)];
-            
-            // Check if the allowed effect is in either the effect OR the miniGameId field
-            const tempPool = this.surprisePool.filter(s => 
-                uniqueAllowed.includes(s.effect) || uniqueAllowed.includes(s.miniGameId)
-            );
-                            
-            pool = [...new Map(tempPool.map(item => [item.effect || item.miniGameId, item])).values()];
-            
-            console.log(`🎲 Filtered pool to ${pool.length} UNIQUE candidates.`);
-        }
+        // 1. Only roll if the node actually has a surprise defined
+        if (!node.surprise) return null;
 
-        if (pool.length === 0) return null;
-
-        // 2. Perform the roll (e.g., 12 or higher for a surprise)
+        // 2. Perform the roll
         const d20Roll = Math.floor(Math.random() * 20) + 1;
-        console.log(`🎲 Systems Check: Rolled a ${d20Roll}`);
+        if (d20Roll < 12) return null; // Or use node.surpriseChance
 
-        if (d20Roll >= 12) { 
-            const randomIndex = Math.floor(Math.random() * pool.length);
-            const selected = pool[randomIndex];
-            console.log("✅ Surprise triggered:", selected.effect);
-            return selected;
-        }
-        
-        return null; 
+        // 3. Return a standard "Surprise Object"
+        // We pull the ID directly from the node or a default
+        return {
+            miniGameId: node.surpriseMiniGameId, 
+            onSuccess: node.onSurpriseSuccess,
+            onFailure: node.onSurpriseFailure
+        };
     }
 
     // AdventureGame.js
@@ -200,38 +179,37 @@ class AdventureGame {
 
     // Single source of truth for scene movement
     handleSceneTransition(sceneId) {
+        const node = this.storyData[sceneId];
+        if (!node) return console.error("❌ Node not found:", sceneId);
+
         this.state.currentScene = sceneId;
         this.saveGame();
-        
-        const node = this.storyData[sceneId];
-        if (!node) {
-            console.error("❌ Node not found:", sceneId);
-            return;
-        }
 
-        // 1. Process Surprise once
+        // 1. Check for Surprise
         if (node.surprise === true) {
             const surprise = this.rollForSurprise(node);
             
             if (surprise) {
-                // Difficulty Roll
+                // Logic for SURPRISE B
                 let difficulty = 1;
                 if (Array.isArray(node.surpriseDifficultyRange)) {
                     const [min, max] = node.surpriseDifficultyRange;
                     difficulty = Math.floor(Math.random() * (max - min + 1)) + min;
-                    console.log(`🎲 Difficulty Roll: [${min}, ${max}] = ${difficulty}`);
                 }
-                
-                // Only trigger engine if we have a valid miniGameId
-                if (surprise.miniGameId) {
-                    this.miniGameEngine.start(surprise.miniGameId, difficulty);
-                }
-            } else {
-                console.log("🎲 Dice rolled, no surprise triggered.");
+
+                // We hide the standard content temporarily
+                this.render(node, { hideContent: true }); 
+
+                this.miniGameEngine.start(surprise.miniGameId, difficulty, (isSuccess) => {
+                    // Now we navigate to the outcome, NOT the node itself
+                    const nextScene = isSuccess ? node.onSurpriseSuccess : node.onSurpriseFailure;
+                    this.handleSceneTransition(nextScene);
+                });
+                return; // EXIT: We don't render the default node yet
             }
         }
 
-        // 2. Render the scene
+        // 2. Logic for SAFE B (Default path)
         this.render(node);
     }
 

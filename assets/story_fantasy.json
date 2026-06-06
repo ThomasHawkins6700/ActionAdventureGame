@@ -58,7 +58,7 @@
   },
   "hard_option_kitchen_1_reversed": {
     "title": "Kitchen",        
-    "text": "The pills make a loud noise and you decide not to bother, there will be other chances... you hand it to him regardless <span class='speech-player'>Enjoy sweetie, you look so cold</span>. He takes it and starts drinking whilst you make light talk.",
+    "text": "The pills make a loud noise and you decide not to bother, there will be other chances... you hand it to him regardless <span class='speech-player'>'Enjoy sweetie, you look so cold'</span>. He takes it and starts drinking whilst you make light talk.",
     "surprise": false,
     "options": [  
       { "text": "Stay here", "nextScene": "hard_option_kitchen_2_reversed" },
@@ -73,5 +73,22 @@
       { "text": "Sit close and stroke his leg", "nextScene": "hard_option_kitchen_3_reversed" },
       { "text": "Show cleavage", "nextScene": "hard_option_bedroom_1_reversed"}
     ]
+  },
+  "hard_option_bedroom_1_reversed": {
+    "title": "Kitchen-Bedroom",        
+    "text": "<span class='speech-player'>'Let's get you out of the clothes though, I'm sure I have something upstairs'</span>, you start leaving and gesture for him to follow you, before heading out and turning to the stairs. Pausing a couple of seconds and he emerges following you.",
+    "surprise": false,
+    "options": [  
+      { "text": "Move Upstairs", "nextScene": "hard_option_bedroom_1_reversed_doorway" }     
+    ]
+  },
+  "hard_option_bedroom_1_reversed_doorway": {
+    "title": "Bedroom doorway",        
+    "text": "You're deep in thought about how to submit him, if the pills failed then maybe some seduction followed by bondage would land you this catch. You pass through and he follows you in.",
+    "surprise": false,
+    "allowedSurpriseEffects": ["reflex_check"],
+    "surpriseDifficultyRange": [1, 3],
+    "onSurpriseSuccess": "doorway_B_recovered",
+    "onSurpriseFailure": "doorway_B_caught"    
   }
 }

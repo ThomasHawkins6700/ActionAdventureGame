@@ -30,7 +30,7 @@
   },
   {
     "id": "dot_tap_challenge",
-    "type": "dot_tap",
+    "type": "reflex_check",
     "title": "⚡ Quick Reflexes",
     "description": "Tap the runes in numerical order.",
     "clue": "Speed is the essence of survival.",
@@ -40,7 +40,7 @@
     "failText": "Too slow!",  
     "timeLimit": 5
   },
-  
+
   {
     "id": "discretion_check_pill_bottle",
     "type": "discretion_check",
