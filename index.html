@@ -36,11 +36,18 @@
             <button id="reset-btn">Restart Adventure</button>
         </div>
 
-        <div id="minigame-modal" style="display:none;">
-            <h2 id="minigame-header">Title</h2>
-            <p id="minigame-description">Description goes here</p>
+        <div id="minigame-modal" style="display: none;">
+            <div id="minigame-header">Runic Puzzle</div>
+            <div id="minigame-clue">Clue goes here...</div>
             
-            <div id="minigame-feedback" style="display:none;">
+            <div id="progress-bar-container">
+                <div id="progress-bar-fill"></div>
+            </div>
+
+            <div id="minigame-display">Current input: </div>
+            <div id="minigame-buttons"></div>
+
+            <div id="minigame-feedback" style="display: none;">
                 <p id="minigame-feedback-text"></p>
             </div>
         </div>
