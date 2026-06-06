@@ -299,6 +299,8 @@ body {
 /* Highlight the timed transition screen */
 .timed-scene {
     border: 2px solid #ef4444; /* Red border to indicate urgency */
+    border-radius: 8px;
+    padding: 10px;
     animation: pulse 1s infinite;
 }
 

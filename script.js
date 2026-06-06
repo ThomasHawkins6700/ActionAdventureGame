@@ -136,12 +136,16 @@ class AdventureGame {
         if (this.sceneTimer) clearTimeout(this.sceneTimer);
 
         // 1. Handle Timed "Quick Action"
+        const container = document.getElementById('game-container'); // Ensure your main game wrapper has this ID
         if (node.timer) {
-            console.log(`⏱️ Timer started: ${node.timer}s`);
+            container.classList.add('timed-scene');
+            
+            // Start timer
             this.sceneTimer = setTimeout(() => {
-                console.log("⏰ Time expired!");
                 this.handleSceneTransition(node.timeoutScene);
             }, node.timer * 1000);
+        } else {
+            container.classList.remove('timed-scene');
         }
         
         // 2. Update Text UI
@@ -538,13 +542,14 @@ class Player {
 
     // Logic for items
     addItem(item) {
-        if (this.inventory.length() == this.maxInventoryCount){
-            console.log("Cant add anymore items.")
-            //need to have a UI change too
-            return
+    if (this.inventory.length >= this.maxInventoryCount) {
+            console.warn("🎒 Backpack is full!");
+            alert("Your backpack is too full to carry anything else!"); 
+            return false; // Return false so the game knows it failed
         }
         this.inventory.push(item);
         console.log(`${item} added to pack.`);
+        return true; // Return true on success
     }
 
     // Encapsulated death check
