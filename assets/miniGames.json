@@ -42,7 +42,7 @@
   },
   {
     "id": "discretion_check_pill_bottle",
-    "type": "gesture_sequence",
+    "type": "discretion_check",
     "title": "Opening the Medication",
     "scenarios": {
       "1": [
