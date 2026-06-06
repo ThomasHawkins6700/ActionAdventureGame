@@ -337,7 +337,6 @@ class MiniGameEngine {
         if (typeof gameConfig === 'object') {
             gameId = gameConfig.id;
             config = gameConfig;
-            // If an onComplete was passed as the 2nd argument (when no difficulty), reassign
             onComplete = difficultyTier; 
         }
 
@@ -357,22 +356,28 @@ class MiniGameEngine {
             return;
         }
 
-        // 3. Mapping: Merge base data with specific config (success/fail paths, difficulty)
+        // 3. Mapping: Merge base data with specific config
         this.currentPuzzle = { 
             ...puzzleData, 
             ...config,
             description: config.descriptionOverride || puzzleData.description,
             successText: config.successTextOverride || puzzleData.successText,
-            failText: config.failureTextOverride || puzzleData.failureText,
+            failText: config.failureTextOverride || puzzleData.failText,
         };
         
-        document.getElementById('minigame-description').innerText = this.currentPuzzle.description;
-    
-        // Hide old feedback from previous games
+        // --- FIX: Ensure these IDs match your HTML exactly ---
+        const headerEl = document.getElementById('minigame-header');
+        const clueEl = document.getElementById('minigame-clue');
+        const modalEl = document.getElementById('minigame-modal');
         const feedbackContainer = document.getElementById('minigame-feedback');
+
+        if (headerEl) headerEl.innerText = this.currentPuzzle.title;
+        if (clueEl) clueEl.innerText = this.currentPuzzle.description;
+        
+        // Hide feedback from previous games
         if (feedbackContainer) feedbackContainer.style.display = 'none';
 
-        // Set difficulty: use config.difficulty if provided, else use legacy param
+        // Set difficulty
         const diff = config.difficulty || difficultyTier || 1;
         const dotMap = { 1: 3, 2: 5, 3: 7 };
         this.currentPuzzle.level = dotMap[diff] || 3;
@@ -381,19 +386,20 @@ class MiniGameEngine {
         const possibleScenarios = this.currentPuzzle.scenarios[levelKey];
 
         if (possibleScenarios) {
-            // Pick one at random if there are multiple, or just the first one
             const randomIndex = Math.floor(Math.random() * possibleScenarios.length);
             this.currentPuzzle.activeScenario = possibleScenarios[randomIndex];
-            console.log("🧩 Scenario selected:", this.currentPuzzle.activeScenario.clue);
         } else {
             console.error("❌ No scenarios found for level:", levelKey);
         }
 
-        // 4. UI Setup
-        document.getElementById('minigame-modal').style.display = 'flex';
-        document.getElementById('minigame-header').innerText = this.currentPuzzle.title;
+        // 4. UI Setup - SHOW THE MODAL
+        if (modalEl) modalEl.style.display = 'flex'; // Changed from block to flex per your HTML requirement
         
-        // Only start timer if it's not the new gesture-based check (which has no timer)
+        // Reset internal game displays
+        document.getElementById('minigame-display').style.display = 'block';
+        document.getElementById('minigame-buttons').style.display = 'block';
+
+        // Only start timer if it's not the new gesture-based check
         if (this.currentPuzzle.type !== "discretion_check") {
             const duration = this.currentPuzzle.timeLimit || 10;
             this.startTimer(duration);
