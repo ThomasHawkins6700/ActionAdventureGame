@@ -162,7 +162,19 @@ class AdventureGame {
 
         // Update Text and Buttons (as before)
         document.getElementById('game-title').innerText = node.title || "Adventure Quest";
-        document.getElementById('story-text').innerHTML = node.text || "";
+        const storyDiv = document.getElementById('story-text');
+        
+        // 1. Clear the div
+        storyDiv.innerHTML = "";
+
+        // 2. Create a temporary container to "wash" the string
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(node.text, 'text/html');
+        
+        // 3. Move the parsed content into your storyDiv
+        while (doc.body.firstChild) {
+            storyDiv.appendChild(doc.body.firstChild);
+        }
         
         // 3. Clear and Rebuild Buttons
         const buttonContainer = document.getElementById('choices-container');
