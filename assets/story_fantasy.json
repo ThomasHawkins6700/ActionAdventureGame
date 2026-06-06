@@ -57,11 +57,20 @@
   },
   "hard_option_kitchen_1_reversed": {
     "title": "Kitchen",        
-    "text": "You succeed! The pill is slowly dissolving in the hot liquid and you hand it to him none the wiser <span class='speech-player'>Enjoy sweetie, you look so cold</span>. He takes it and starts drinking whilst you make light talk.",
+    "text": "The pills make a loud noise and you decide not to bother, there will be other chances... you hand it to him regardless <span class='speech-player'>Enjoy sweetie, you look so cold</span>. He takes it and starts drinking whilst you make light talk.",
     "surprise": false,
     "options": [  
-      { "text": "Stay here", "nextScene": "hard_option_kitchen_3" },
-      { "text": "Try to move him upstairs", "nextScene": "hard_option_bedroom_1"}
+      { "text": "Stay here", "nextScene": "hard_option_kitchen_2_reversed" },
+      { "text": "Try to move him upstairs", "nextScene": "hard_option_bedroom_1_reversed"}
     ]
   },
+  "hard_option_kitchen_2_reversed": {
+    "title": "Kitchen",        
+    "text": "He eyes the pills you set down on the counter whilst drinking and you see him start pretending to sip his drink. Your heart beats fast, 'what if he's on to me' you think, you need to distract him.",
+    "surprise": false,
+    "options": [  
+      { "text": "Sit close and stroke his leg", "nextScene": "hard_option_kitchen_3_reversed" },
+      { "text": "Show cleavage", "nextScene": "hard_option_bedroom_1_reversed"}
+    ]
+  }
 }
