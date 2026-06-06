@@ -162,7 +162,7 @@ class AdventureGame {
 
         // Update Text and Buttons (as before)
         document.getElementById('game-title').innerText = node.title || "Adventure Quest";
-        document.getElementById('story-text').innerText = node.text || "";
+        document.getElementById('story-text').innerHTML = node.text || "";
         
         // 3. Clear and Rebuild Buttons
         const buttonContainer = document.getElementById('choices-container');

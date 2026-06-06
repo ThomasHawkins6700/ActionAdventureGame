@@ -64,6 +64,16 @@ body {
     color: #cbd5e1;
 }
 
+.speech-npc {
+    color: #60a5fa; /* Light Blue for the stranger */
+    font-weight: 600;
+}
+
+.speech-player {
+    color: #fbbf24; /* Amber for the player's voice */
+    font-weight: 600;
+}
+
 /* Base Utility Button Zone (Fixed at bottom) */
 #base-container {
     padding: 20px;

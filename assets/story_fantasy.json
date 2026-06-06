@@ -4,12 +4,12 @@
     "text": "A normal day around 2pm, you are watching TV and scrolling on your phone whilst the snow falls gently outside.\n Your peace is broken by a shy knock on your front door.",
     "surprise": false,
     "options": [
-      { "text": "Go to answer", "nextScene": "main_game_hallway_1"}
+      { "text": "Answer the door", "nextScene": "main_game_hallway_1"}
     ]
   },
   "main_game_hallway_1": {
     "title": "Hallway",
-    "text": "A tall and slender but cute man stands at your front door behind him, down the path, a car with a dented fender. 'Sorry miss' - foreign, British maybe, 'my car.. I'm not used to such conditions..' he trails off, his clothes are sodden from where he's been standing. 'I've called someone out, but given the weather it could be a while, is there any chance to loiter around your place?' Oh yes, he is going to make your perfect subsmissive slave this weekend",
+    "text": "A tall and slender but cute man stands at your front door behind him, down the path, a car with a dented fender. <span class='speech-npc'>'Sorry miss'</span> - foreign, British maybe, <span class='speech-npc'>'my car.. I'm not used to such conditions..'</span> he trails off, his clothes are sodden from where he attempted to repair his car. <span class='speech-npc'> 'I've called someone out, but given the weather it could be a while, is there any chance to loiter around your place?' </span> Oh yes, he is going to make your perfect subsmissive slave this weekend",
     "surprise": false,
     "options": [
       { "text": "Invite him in to your kitchen", "nextScene": "main_game_hallway_1_hard_option_kitchen_1_transition" },
