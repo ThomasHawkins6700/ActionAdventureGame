@@ -650,21 +650,28 @@ class MiniGameEngine {
         const feedbackEl = document.getElementById('minigame-feedback-text');
         const container = document.getElementById('minigame-feedback');
         
+        // Use the parameter 'isCorrect' here
         const message = isCorrect 
-        ? (this.currentPuzzle.successText || "Success!") 
-        : (this.currentPuzzle.failText || "Failed!");
+            ? (this.currentPuzzle.successText || "Success!") 
+            : (this.currentPuzzle.failText || "Failed!");
 
-        // 2. Inject the text
-        feedbackText.innerText = message;
+        // Inject the text into the correct element
+        if (feedbackEl) {
+            feedbackEl.innerText = message;
+        }
 
-        // 3. Show the container, hide the game elements
-        feedbackContainer.style.display = 'block';
+        // Show the container, hide the game elements
+        if (container) {
+            container.style.display = 'block';
+        }
         
-        // Optional: Hide the game sequence/runes here so only the feedback is visible
-        document.getElementById('minigame-runes-container').style.display = 'none';
+        // Check your HTML for this ID; if it doesn't exist, this line will throw an error!
+        const runeContainer = document.getElementById('minigame-runes-container');
+        if (runeContainer) {
+            runeContainer.style.display = 'none';
+        }
 
-        // Instead of just calling onComplete(isCorrect), you can handle pathing here
-        // or just pass the boolean back to your handleOptionClick
+        // Pass the boolean back
         if (this.onComplete) {
             this.onComplete(isCorrect);
         }
