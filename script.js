@@ -249,10 +249,17 @@ class AdventureGame {
             }
         }
 
-        // 2. Handle Energy
-        if (option.energyCost > 0) {
-            this.player.modifyEnergy(-option.energyCost);
-            this.renderHUD(); // Update UI after energy change
+        if (option.miniGame) {
+        // We have a MiniGame, so we ignore 'nextScene' and use the object's logic
+            this.miniGameEngine.start(option.miniGame, (isSuccess) => {
+                const nextScene = isSuccess ? option.miniGame.onSuccess : option.miniGame.onFailure;
+                this.handleSceneTransition(nextScene);
+            });
+        } else if (option.nextScene) {
+            // Standard non-game choice
+            this.handleSceneTransition(option.nextScene);
+        } else {
+            console.error("❌ Choice has neither miniGame nor nextScene:", option);
         }
 
         // 3. Load story file if needed
