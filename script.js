@@ -239,9 +239,16 @@ class AdventureGame {
 
             // Now pass this new 'config' object to the engine instead of 'option.miniGame'
             this.miniGameEngine.start(config, (isSuccess) => {
-                // ... callback logic ...
+                this.processConsumption(config, isSuccess);            
+                const nextScene = isSuccess ? (config.onSuccess || option.nextScene) : (config.onFailure || "chamber_dungeon");
+                this.handleSceneTransition(nextScene);
             });
+        } else if (option.nextScene) {
+            // Use the helper for standard consumption
+            this.processConsumption(option, null);
+            this.handleSceneTransition(option.nextScene);
         }
+
         // 3. THE UNIFIED MINI-GAME / TRANSITION LOGIC
         // We treat miniGame and triggerMiniGame as the same goal
         const miniGameConfig = option.miniGame || option.triggerMiniGame;
@@ -313,6 +320,33 @@ class AdventureGame {
             invList.innerHTML = this.player.inventory
                 .map(item => `<li>${item}</li>`)
                 .join('');
+        }
+    }
+
+    // Inside AdventureGame class
+    processConsumption(option, isSuccess = null) {
+        const item = option.requiredItem;
+        const policy = option.consumptionPolicy || "always"; // Default to always if not specified
+
+        let shouldConsume = false;
+        
+        // Logic for mini-game results (if isSuccess is provided)
+        if (isSuccess !== null) {
+            if (policy === "both") shouldConsume = true;
+            else if (policy === "success" && isSuccess) shouldConsume = true;
+            else if (policy === "failure" && !isSuccess) shouldConsume = true;
+        } 
+        // Logic for standard transitions (no mini-game)
+        else {
+            if (policy === "always") shouldConsume = true;
+        }
+
+        if (shouldConsume && item) {
+            const removed = this.player.removeItem(item);
+            if (removed) {
+                this.renderHUD();
+                this.saveGame();
+            }
         }
     }
 
