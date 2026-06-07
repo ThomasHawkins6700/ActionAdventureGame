@@ -216,7 +216,13 @@ class AdventureGame {
         console.log("👉 Button clicked");
 
         // 1. Handle Item/Energy (Always do this first)
-        if (option.item) this.player.addItem(option.item);
+        if (option.item) {
+            const success = this.player.addItem(option.item);
+            if (success) {
+                this.renderHUD(); // Update UI here
+                this.saveGame();  // Save here
+            }
+        }
         if (option.energyCost > 0) this.player.modifyEnergy(-option.energyCost);
         this.renderHUD();
 
@@ -339,32 +345,49 @@ class MiniGameEngine {
             onComplete = difficultyTier; 
         }
 
-        this.onComplete = onComplete;
+        // --- CRITICAL INITIALIZATION (The lines you noted were missing) ---
         this.isGameActive = true;
         this.currentPuzzle = null;
         this.playerSequence = [];
         if (this.timer) clearInterval(this.timer);
-
-        // 2. Validate
+        
+        // 2. Validate Pool
         if (!this.game.miniGamePool) return;
         
         const puzzleData = this.game.miniGamePool.find(g => g.id === gameId);
-
         if (!puzzleData) {
             console.error(`mini-game with ID "${gameId}" not found.`);
             return;
         }
 
-        // 3. Mapping: Merge base data with specific config
+        // 3. Setup consumption-aware callback
+        this.onComplete = (result) => {
+            const policy = config.consumptionPolicy || "none";
+            const item = config.requiredItem;
+
+            if (item && policy !== "none") {
+                const shouldConsume = (policy === "both") || 
+                                    (policy === "success" && result) || 
+                                    (policy === "failure" && !result);
+
+                if (shouldConsume) {
+                    this.game.player.removeItem(item);
+                    this.game.renderHUD();
+                }
+            }
+            if (onComplete) onComplete(result);
+        };
+
+        // 4. Merge base data with specific config
         this.currentPuzzle = { 
             ...puzzleData, 
             ...config,
             description: config.descriptionOverride || puzzleData.description,
             successText: config.successTextOverride || puzzleData.successText,
-            failText: config.failureTextOverride || puzzleData.failText,
+            failText: config.failTextOverride || puzzleData.failText,
         };
         
-        // --- FIX: Ensure these IDs match your HTML exactly ---
+        // 5. UI Setup
         const headerEl = document.getElementById('minigame-header');
         const clueEl = document.getElementById('minigame-clue');
         const modalEl = document.getElementById('minigame-modal');
@@ -372,8 +395,6 @@ class MiniGameEngine {
 
         if (headerEl) headerEl.innerText = this.currentPuzzle.title;
         if (clueEl) clueEl.innerText = this.currentPuzzle.description;
-        
-        // Hide feedback from previous games
         if (feedbackContainer) feedbackContainer.style.display = 'none';
 
         // Set difficulty
@@ -387,24 +408,17 @@ class MiniGameEngine {
         if (possibleScenarios) {
             const randomIndex = Math.floor(Math.random() * possibleScenarios.length);
             this.currentPuzzle.activeScenario = possibleScenarios[randomIndex];
-        } else {
-            console.error("❌ No scenarios found for level:", levelKey);
         }
 
-        // 4. UI Setup - SHOW THE MODAL
-        if (modalEl) modalEl.style.display = 'flex'; // Changed from block to flex per your HTML requirement
-        
-        // Reset internal game displays
+        // 6. Final UI Trigger
+        if (modalEl) modalEl.style.display = 'flex';
         document.getElementById('minigame-display').style.display = 'block';
         document.getElementById('minigame-buttons').style.display = 'block';
 
-        // Only start timer if it's not the new gesture-based check
         if (this.currentPuzzle.type !== "discretion_check") {
-            const duration = this.currentPuzzle.timeLimit || 10;
-            this.startTimer(duration);
+            this.startTimer(this.currentPuzzle.timeLimit || 10);
         }
 
-        // 5. ROUTER
         if (this.puzzleRegistry[this.currentPuzzle.type]) {
             this.puzzleRegistry[this.currentPuzzle.type]();
         } else {
@@ -724,13 +738,7 @@ class Player {
             return false; 
         }
                 
-        itemsToAdd.forEach(newItem => {
-            this.inventory.push(newItem);
-            console.log(`🎒 Added to inventory: ${newItem}`);
-        });
-        
-        this.renderHUD();
-        this.saveGame();
+        itemsToAdd.forEach(newItem => this.inventory.push(newItem));       
         return true;
     }
 
