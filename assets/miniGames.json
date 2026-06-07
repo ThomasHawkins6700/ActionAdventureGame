@@ -1,16 +1,5 @@
 [
   {
-    "id": "rune_lock",
-    "type": "sequence_lock",
-    "title": "Be careful!",
-    "description": "Tap the correct order of",
-    "clue": "Carved into the wall: 'Fire melts Ice, Ice freezes Water, Water douses Fire... Strike them from weakest to strongest.'",
-    "sequence": ["🔥", "💧", "❄️"],
-    "successText": "The runes pulse green and shatter safely into dust!",
-    "failText": "Wrong combination! The runes explode, triggering an alarm.",
-    "timeLimit": 10
-  },
-  {
     "id": "intellect_check",
     "type": "trivia_quiz",
     "title": "Convincing",
@@ -57,8 +46,8 @@
     "scenarios": {
       "1": [
         {
-          "clue": "The cap is loose. Just a quick twist and a lift.",
-          "sequence": ["ROTATE_RIGHT", "PUSH_DOWN"]
+          "clue": "The cap is loose. Just a quick twist, and a lift.",
+          "sequence": ["ROTATE_RIGHT", "PAUSE"]
         }
       ],
       "2": [

@@ -388,6 +388,7 @@ class MiniGameEngine {
             gameId = gameConfig.id;
             config = gameConfig;
             onComplete = difficultyTier; 
+            difficultyTier = config.difficulty || 1;
         }
 
         // --- CRITICAL INITIALIZATION (The lines you noted were missing) ---
@@ -444,7 +445,7 @@ class MiniGameEngine {
 
         // Set difficulty
         const diff = (config.difficulty || difficultyTier || 1).toString();
-        
+
         const possibleScenarios = puzzleData.scenarios[diff];
         if (possibleScenarios) {
             // Pick random scenario from the difficulty tier
