@@ -40,7 +40,7 @@
           "difficulty": 2,
           "onSuccess": "hard_option_kitchen_2",
           "onFailure": "hard_option_kitchen_1_reversed",
-          "consumptionPolicy": "both"
+          "consumptionPolicy": "always"
         }
       },
       { "text": "hand him the drink", "nextScene": "soft_option_kitchen_1" },
@@ -88,7 +88,7 @@
     "text": "You return from your room and admire your collection on the table: Metal chastity cage with padlock, ball gag, fishnets. Well you only have time to apply one before he wakes up. Which to chose?",
     "surprise": false,
     "options": [  
-      { "text": "Cage this boy and begin making him your sissy", "nextScene": "hard_option_kitchen_8_c_1",   "requiredItem": "Chastity Cage" },
+      { "text": "Cage this boy and begin making him your sissy", "nextScene": "hard_option_kitchen_8_c_1", "requiredItem": "Chastity Cage" },
       { "text": "Gag him and then decide", "nextScene": "hard_option_kitchen_8_g_1"},
       { "text": "Feminize him with the fishnets", "nextScene": "hard_option_kitchen_8_f_1"}
     ]
