@@ -53,31 +53,25 @@ class AdventureGame {
         console.log("\n--- 🏁 END OF REPORT ---");
     }
 
-    exportStoryToMermaid() {
+    exportStoryToMermaid = function() {
         let output = "graph TD\n";
+        // Adjust 'this.storyData' if your story variable is named differently
+        // For example, if it's 'this.story', change 'this.storyData' to 'this.story'
+        const scenes = this.storyData || this.story || {}; 
         
-        // We iterate through all keys in your storyData
-        Object.keys(this.storyData).forEach(sceneKey => {
-            const scene = this.storyData[sceneKey];
+        Object.keys(scenes).forEach(sceneKey => {
+            const scene = scenes[sceneKey];
             if (scene.options) {
                 scene.options.forEach(opt => {
-                    // If it leads to a nextScene, draw a line
-                    if (opt.nextScene) {
-                        output += `    ${sceneKey} -->|${opt.text}| ${opt.nextScene}\n`;
-                    }
-                    // If it leads to a mini-game, draw lines to success/fail
-                    else if (opt.miniGame) {
-                        const success = opt.miniGame.onSuccess || "Success";
-                        const fail = opt.miniGame.onFailure || "Fail";
-                        output += `    ${sceneKey} -->|${opt.text} (Win)| ${success}\n`;
-                        output += `    ${sceneKey} -->|${opt.text} (Lose)| ${fail}\n`;
-                    }
+                    const target = opt.nextScene || "End";
+                    output += `    ${sceneKey} -->|${opt.text}| ${target}\n`;
                 });
             }
         });
+        console.log("--- COPY THIS FOR MERMAID ---");
         console.log(output);
-    }
-    
+    };
+
     async loadAssetsPools() {
         const miniGamesRes = await fetch(`./assets/miniGames.json?t=${Date.now()}`);
         this.miniGamePool = await miniGamesRes.json();
