@@ -3,7 +3,7 @@
     "title": "The Quest for a perfect slave",
     "text": "You are used to being the one in charge, will you maintain this, or will you find yourself in a new and exciting role...? Should you lose, any number of punishments await you, if you have the courage to play.",
     "options": [      
-      { "text": "The New Boy v1.0.1.2", "nextScene": "game_start_scene" ,"storyFile": "./assets/story_fantasy.json"}
+      { "text": "The New Boy v1.0.1.3", "nextScene": "game_start_scene" ,"storyFile": "./assets/story_fantasy.json"}
     ]
   }
 }
