@@ -95,17 +95,55 @@
   },
   "hard_option_kitchen_8_c_1": {
     "title": "Kitchen",        
-    "text": "You attach the cage around his cock, lock it and take the key as a necklace",
+    "text": "You attach the cage around his cock, lock it and take the key as a necklace. He begins to stir straining against the bonds, he looks around and at his situation then back to you <span class='speech-npc'>'What is this!'</span> he demands, he looks at the cage <span class='speech-npc'>You're fucking crazy'</span>",
     "surprise": false,
     "costItem":"Chastity Cage",
     "options": [  
-      { "text": "Cage this boy and begin making him your sissy", "nextScene": "hard_option_kitchen_8_c_1" },
-      { "text": "Gag him and then decide", "nextScene": "hard_option_kitchen_8_g_1"},
-      { "text": "Feminize him with the fishnets", "nextScene": "hard_option_kitchen_8_f_1"}
+      { "text": "Gag him", "nextScene": "hard_option_kitchen_8_c_2", "requiredItem": "Ball Gag" },
+      { "text": "Explain his new role", "nextScene": "hard_option_kitchen_8_c_3"}
+    ]
+  },
+  "hard_option_kitchen_8_c_2": {
+    "title": "Kitchen",        
+    "text": "<span class='speech-npc'>'Pyscho bit-mmmmmph'</span> you fasten the gag in and admire you're new pet: Tied, gagged and cock in a cage.",
+    "surprise": false,
+    "costItem":"Ball Gag",
+    "options": [  
+      { "text": "Gag him", "nextScene": "hard_option_kitchen_8_c_2", "requiredItem": "Ball Gag" },
+      { "text": "Explain his new role", "nextScene": "hard_option_kitchen_8_c_3"}
+    ]
+  },
+  "hard_option_kitchen_8_c_3": {
+    "title": "Kitchen",        
+    "text": "<span class='speech-player'>'Yes cutie, this is probably a bit weird, but I promise you want this life, I've seen your type before. You crave to kneel, to have your cock taken out of the equation. I will own you now.'</span>. He looks defeated and stops struggling, you stroke his face <span class='speech-player'>I am your Goddess now, and will only be addressed as such</span>.<span class='speech-npc'>No way!</span> You sigh...",
+    "surprise": false,   
+    "options": [  
+      { "text": "Gag him", "nextScene": "hard_option_kitchen_8_c_2", "requiredItem": "Ball Gag" },
+      { "text": "Suffocate him in your tits", "nextScene": "hard_option_kitchen_8_c_4"},
+      { "text": "Ball Bust", "nextScene": "hard_option_kitchen_8_c_5"}
+    ]
+  },
+  "hard_option_kitchen_8_c_4": {
+    "title": "Kitchen",        
+    "text": "You approach him revealing your breasts, his eyes widen and his cock strains in the cage, you grab the back of his head and shove his mouth and nose into your juicy chest. <span class='speech-player'>'Just submit sweetheart and it will beneficial for us both...'</span>. He struggles sufficiently and you release him, quickly covering up - he doesnt deserve to see your breasts after all. ",
+    "surprise": false,   
+    "options": [  
+      { 
+        "text": "Convince again", 
+        "nextScene": "hard_option_kitchen_8_c_2", 
+        "miniGame": {
+            "id": "intellect_check",
+            "difficulty": 2,
+            "onSuccess": "hard_option_kitchen_8_c_6",
+            "onFailure": "hard_option_kitchen_8_c_7",
+            "consumptionPolicy": "always"
+          }},
+      { "text": "Leave him to stew in the dark", "nextScene": "hard_option_kitchen_8_c_5" }
     ]
   },
 
 
+  "Divider": {"---------------------------------------": "REVERSE SCENES--------------------------------------------------------"},
   "hard_option_kitchen_1_reversed": {
     "title": "Kitchen",        
     "text": "The pills make a loud noise and you decide not to bother, there will be other chances... you hand it to him regardless <span class='speech-player'>'Enjoy sweetie, you look so cold'</span>. He takes it and starts drinking whilst you make light talk.",

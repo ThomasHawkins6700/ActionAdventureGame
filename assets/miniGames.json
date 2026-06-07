@@ -11,20 +11,30 @@
     "timeLimit": 10
   },
   {
-    "id": "sphinx_riddle",
+    "id": "intellect_check",
     "type": "trivia_quiz",
-    "title": "🦁 The Sphinx's Trial",
+    "title": "Convincing",
     "timeLimit": 15,
     "questions": [
       {
-        "clue": "What has roots as nobody sees, is taller than trees, up, up it goes, and yet never grows?",
-        "choices": ["A Mountain", "An Old Oak Tree", "A Castle Tower", "The Sky"],
-        "answer": "A Mountain"
+        "clue": "Favourite type of animal",
+        "choices": ["Birds", "Snakes", "Cats", "Dogs"],
+        "answer": "Birds"
       },
       {
-        "clue": "What has keys but can't open locks?",
-        "choices": ["A Map", "A Piano", "A Computer", "A Compass"],
-        "answer": "A Piano"
+        "clue": "Height",
+        "choices": ["6'0", "6'1", "6'2", "6'3"],
+        "answer": "6'2"
+      },
+      {
+        "clue": "Favourite Position",
+        "choices": ["Side to side", "Missionary", "Doggy", "Prone","Cowgirl"],
+        "answer": "Cowgirl"
+      },
+      {
+        "clue": "Favourite Position",
+        "choices": ["Side to side", "Missionary", "Doggy", "Prone","Cowgirl"],
+        "answer": "Cowgirl"
       }
     ] 
   },
@@ -44,6 +54,7 @@
     "id": "discretion_check_pill_bottle",
     "type": "discretion_check",
     "title": "Opening the Medication",
+    "timeLimit":"24",
     "scenarios": {
       "1": [
         {
