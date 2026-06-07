@@ -729,7 +729,7 @@ class Player {
             console.log(`🎒 Added to inventory: ${newItem}`);
         });
         
-        this.updateInventoryUI();
+        this.renderHUD();
         this.saveGame();
         return true;
     }
