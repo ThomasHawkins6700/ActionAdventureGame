@@ -14,8 +14,7 @@ class AdventureGame {
 
         this.state = { 
             currentStoryFile: './assets/mainScreen.json', 
-            currentScene: 'game_title_screen', 
-            inventory: [] 
+            currentScene: 'game_title_screen',           
         };
         this.player = new Player("Ashton");
         this.miniGameEngine = new MiniGameEngine(this);
@@ -613,7 +612,7 @@ class MiniGameEngine {
 
     async handleOptionClick(option) {
         // 1. Inventory Check: Does the player have the required item?
-        if (option.requiredItem && !this.state.inventory.includes(option.requiredItem)) {
+        if (option.requiredItem && !this.player.inventory.includes(option.requiredItem)) {
             alert(`You need: ${option.requiredItem} to do this!`);
             return;
         }
@@ -719,14 +718,14 @@ class Player {
         const itemsToAdd = Array.isArray(item) ? item : [item];
 
         // Check capacity: Are we adding more than we have room for?
-        if (this.state.inventory.length + itemsToAdd.length > this.maxInventoryCount) {
+        if (this.inventory.length + itemsToAdd.length > this.maxInventoryCount) {
             console.warn("🎒 Backpack is full!");
             alert("Your backpack is too full to carry those items!"); 
             return false; 
         }
                 
         itemsToAdd.forEach(newItem => {
-            this.state.inventory.push(newItem);
+            this.inventory.push(newItem);
             console.log(`🎒 Added to inventory: ${newItem}`);
         });
         
