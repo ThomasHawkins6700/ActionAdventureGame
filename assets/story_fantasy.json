@@ -129,8 +129,7 @@
     "surprise": false,   
     "options": [  
       { 
-        "text": "Convince again", 
-        "nextScene": "hard_option_kitchen_8_c_2", 
+        "text": "Convince again",       
         "miniGame": {
             "id": "intellect_check",
             "difficulty": 2,
@@ -138,7 +137,25 @@
             "onFailure": "hard_option_kitchen_8_c_7",
             "consumptionPolicy": "always"
           }},
-      { "text": "Leave him to stew in the dark", "nextScene": "hard_option_kitchen_8_c_5" }
+          { "text": "Leave him to stew in the dark", "nextScene": "hard_option_kitchen_8_c_5" }
+        ]
+  },
+  "hard_option_kitchen_8_c_6": {
+    "title": "Kitchen",        
+    "text": "<span class='speech-player'>'Ready to obey?'</span>\nHe looks up at you <span class='speech-npc'>'yes, goddess'</span> he mutters.\n<span class='speech-player'>'What was that?'</span>\n<span class='speech-npc'>'Yes, Goddess'</span> he loudly declares.",
+    "surprise": false,   
+    "options": [  
+      { "text": "Explain the next steps", "nextScene": "hard_option_kitchen_8_c_8"},
+      { "text": "Test the cage", "nextScene": "hard_option_kitchen_8_c_9"}      
+    ]
+  },
+  "hard_option_kitchen_8_c_7": {
+    "title": "Kitchen",        
+    "text": "You can feel his breath in your cleavage, sneaky boy found a way to breathe... <span class='speech-player'>'Fine, you leave me no choice but to show you what happens to slaves who don't obey their goddess'</span>",
+    "surprise": false,   
+    "options": [  
+      { "text": "Leave him to stew in the dark", "nextScene": "hard_option_kitchen_8_c_5"},
+      { "text": "Go upstairs and choose the items to use on him", "nextScene": "hard_option_bedroom_1_alone_3"}      
     ]
   },
 
