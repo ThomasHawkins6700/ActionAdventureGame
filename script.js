@@ -531,19 +531,16 @@ class MiniGameEngine {
     // ==========================================
     
     initTriviaPuzzle() {
-        // 1. Pick a random question from the pool
-        const questions = this.currentPuzzle.questions;
-        const randomQuestion = questions[Math.floor(Math.random() * questions.length)];
+        // 1. Use the scenario already prepared by the start() method
+        this.activeQuestion = this.currentPuzzle.activeScenario;
         
-        // 2. Save this question to the instance so we can check it later
-        this.activeQuestion = randomQuestion;
-        
-        // 3. Update the UI
+        // 2. Update the UI
         document.getElementById('minigame-clue').innerText = this.activeQuestion.clue;
         
         const choicesContainer = document.getElementById('minigame-buttons');
         choicesContainer.innerHTML = '';
         
+        // 3. Render choices
         this.activeQuestion.choices.forEach(choice => {
             const btn = document.createElement('button');
             btn.innerText = choice;
