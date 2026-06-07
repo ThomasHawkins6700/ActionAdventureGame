@@ -32,39 +32,85 @@ class AdventureGame {
         }
     }
 
- async loadAssetsPools() {
-    const miniGamesRes = await fetch(`./assets/miniGames.json?t=${Date.now()}`);
-    this.miniGamePool = await miniGamesRes.json();
-    
-    console.log("✅ New Pool Loaded:", this.miniGamePool);
-    // 1. Get the current path (e.g., /ActionAdventureGame/index.html)
-    // 2. We extract the base directory to ensure we always point to the project root
-    const pathParts = window.location.pathname.split('/');
-    const repoName = pathParts[1]; // This captures 'ActionAdventureGame'
-    const baseUrl = `/${repoName}`;
+    visualizeFlow() {
+        console.log("--- 🗺️  STORY FLOW REPORT ---");
+        const scenes = this.storyData; // Assuming this holds your loaded JSON
 
-    // Now we build the path using the detected base
-    const miniGamesPath = `${baseUrl}/assets/miniGames.json`;
-    const surprisesPath = `${baseUrl}/assets/surprises.json`;
-
-    try {
-        const [miniGamesRes, surprisesRes] = await Promise.all([
-            fetch(miniGamesPath),
-            fetch(surprisesPath)
-        ]);
-
-        if (!miniGamesRes.ok || !surprisesRes.ok) {
-            throw new Error(`Failed to load: ${miniGamesRes.status}`);
-        }
-
-        this.miniGamePool = await miniGamesRes.json();
-        this.surprisePool = await surprisesRes.json();
-        
-        console.log("Assets loaded! Path used:", miniGamesPath);
-    } catch (error) {
-        console.error("Critical Failure:", error);
+        Object.keys(scenes).forEach(sceneKey => {
+            const scene = scenes[sceneKey];
+            console.log(`\n📍 Scene: ${sceneKey}`);
+            
+            if (scene.options) {
+                scene.options.forEach((opt, idx) => {
+                    const target = opt.nextScene || 
+                                (opt.miniGame ? `${opt.miniGame.onSuccess || 'MINI-GAME'} / ${opt.miniGame.onFailure || 'FAIL'}` : 'END');
+                    console.log(`   └─ Choice ${idx + 1}: "${opt.text}" ➡️ leads to ${target}`);
+                });
+            } else {
+                console.log("   └─ No options (Terminal Scene)");
+            }
+        });
+        console.log("\n--- 🏁 END OF REPORT ---");
     }
-}
+
+    exportStoryToMermaid() {
+        let output = "graph TD\n";
+        
+        // We iterate through all keys in your storyData
+        Object.keys(this.storyData).forEach(sceneKey => {
+            const scene = this.storyData[sceneKey];
+            if (scene.options) {
+                scene.options.forEach(opt => {
+                    // If it leads to a nextScene, draw a line
+                    if (opt.nextScene) {
+                        output += `    ${sceneKey} -->|${opt.text}| ${opt.nextScene}\n`;
+                    }
+                    // If it leads to a mini-game, draw lines to success/fail
+                    else if (opt.miniGame) {
+                        const success = opt.miniGame.onSuccess || "Success";
+                        const fail = opt.miniGame.onFailure || "Fail";
+                        output += `    ${sceneKey} -->|${opt.text} (Win)| ${success}\n`;
+                        output += `    ${sceneKey} -->|${opt.text} (Lose)| ${fail}\n`;
+                    }
+                });
+            }
+        });
+        console.log(output);
+    }
+    
+    async loadAssetsPools() {
+        const miniGamesRes = await fetch(`./assets/miniGames.json?t=${Date.now()}`);
+        this.miniGamePool = await miniGamesRes.json();
+        
+        console.log("✅ New Pool Loaded:", this.miniGamePool);
+        // 1. Get the current path (e.g., /ActionAdventureGame/index.html)
+        // 2. We extract the base directory to ensure we always point to the project root
+        const pathParts = window.location.pathname.split('/');
+        const repoName = pathParts[1]; // This captures 'ActionAdventureGame'
+        const baseUrl = `/${repoName}`;
+
+        // Now we build the path using the detected base
+        const miniGamesPath = `${baseUrl}/assets/miniGames.json`;
+        const surprisesPath = `${baseUrl}/assets/surprises.json`;
+
+        try {
+            const [miniGamesRes, surprisesRes] = await Promise.all([
+                fetch(miniGamesPath),
+                fetch(surprisesPath)
+            ]);
+
+            if (!miniGamesRes.ok || !surprisesRes.ok) {
+                throw new Error(`Failed to load: ${miniGamesRes.status}`);
+            }
+
+            this.miniGamePool = await miniGamesRes.json();
+            this.surprisePool = await surprisesRes.json();
+            
+            console.log("Assets loaded! Path used:", miniGamesPath);
+        } catch (error) {
+            console.error("Critical Failure:", error);
+        }
+    }
    async initGame() {
         this.loadGame();
         
