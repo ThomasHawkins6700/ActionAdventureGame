@@ -240,7 +240,7 @@ class AdventureGame {
             // Now pass this new 'config' object to the engine instead of 'option.miniGame'
             this.miniGameEngine.start(config, (isSuccess) => {
                 this.processConsumption(config, isSuccess);            
-                const nextScene = isSuccess ? (config.onSuccess || option.nextScene) : (config.onFailure || "chamber_dungeon");
+                const nextScene = isSuccess ? (config.onSuccess || option.nextScene) : (config.onFailure);
                 this.handleSceneTransition(nextScene);
             });
         } else if (option.nextScene) {
@@ -276,7 +276,7 @@ class AdventureGame {
                 // Prioritize: Success/Fail paths > nextScene > default
                 const nextScene = isSuccess 
                     ? (config.onSuccess || option.nextScene) 
-                    : (config.onFailure || option.failScene || "chamber_dungeon");
+                    : (config.onFailure || option.failScene);
 
                 this.handleSceneTransition(nextScene);
             });
