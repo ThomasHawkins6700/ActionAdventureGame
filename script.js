@@ -612,16 +612,38 @@ class MiniGameEngine {
     }
 
     async handleOptionClick(option) {
-        // 1. Check if this option is a Mini-Game
+        // 1. Inventory Check: Does the player have the required item?
+        if (option.requiredItem && !this.state.inventory.includes(option.requiredItem)) {
+            alert(`You need: ${option.requiredItem} to do this!`);
+            return;
+        }
+
+        // 2. Inventory Action: Does this choice cost an item to perform?
+        if (option.costItem) {
+            const removed = this.removeItem(option.costItem);
+            if (!removed) {
+                console.error("❌ Could not remove cost item:", option.costItem);
+                return; // Stop if the transaction fails
+            }
+        }
+
+        // 3. Handle Mini-Game path
         if (option.miniGame) {
             this.miniGameEngine.start(
                 option.miniGame, 
-                null, // No legacy difficulty needed here
+                null, 
                 (result) => {
-                    // Determine destination from the miniGame object
                     const nextScene = result ? option.miniGame.onSuccess : option.miniGame.onFailure;
                     
-                    // Safety check
+                    // If the mini-game result implies a consumption policy
+                    if (option.miniGame.consumptionPolicy === "both" || 
+                    (result && option.miniGame.consumptionPolicy === "success") ||
+                    (!result && option.miniGame.consumptionPolicy === "failure")) {
+                        
+                        // You could trigger an inventory removal here based on the mini-game result
+                        if (option.requiredItem) this.removeItem(option.requiredItem);
+                    }
+
                     if (nextScene) {
                         this.loadScene(nextScene);
                     } else {
@@ -630,11 +652,11 @@ class MiniGameEngine {
                 }
             );
         } 
-        // 2. Check if this is a standard scene transition
+        // 4. Standard scene transition
         else if (option.nextScene) {
             this.loadScene(option.nextScene);
         } 
-        // 3. Fallback/Error
+        // 5. Fallback/Error
         else {
             console.warn("⚠️ Option has no miniGame and no nextScene:", option);
         }
@@ -690,20 +712,33 @@ class Player {
     }
 
     // Logic for items
-    addItem(item) {
-    if (this.inventory.length >= this.maxInventoryCount) {
+    aaddItem(item) {
+        if (!item) return false;
+        
+        // Normalize to an array
+        const itemsToAdd = Array.isArray(item) ? item : [item];
+
+        // Check capacity: Are we adding more than we have room for?
+        if (this.state.inventory.length + itemsToAdd.length > this.maxInventoryCount) {
             console.warn("🎒 Backpack is full!");
-            alert("Your backpack is too full to carry anything else!"); 
-            return false; // Return false so the game knows it failed
+            alert("Your backpack is too full to carry those items!"); 
+            return false; 
         }
-        this.inventory.push(item);
-        console.log(`${item} added to pack.`);
-        return true; // Return true on success
+                
+        itemsToAdd.forEach(newItem => {
+            this.state.inventory.push(newItem);
+            console.log(`🎒 Added to inventory: ${newItem}`);
+        });
+        
+        this.updateInventoryUI();
+        this.saveGame();
+        return true;
     }
 
     // Inside your Player class
     removeItem(itemName) {
         const index = this.inventory.indexOf(itemName);
+        
         if (index !== -1) {
             this.inventory.splice(index, 1);
             console.log(`🗑️ Item removed: ${itemName}`);
