@@ -443,16 +443,20 @@ class MiniGameEngine {
         if (feedbackContainer) feedbackContainer.style.display = 'none';
 
         // Set difficulty
-        const diff = config.difficulty || difficultyTier || 1;
-        const dotMap = { 1: 3, 2: 5, 3: 7 };
-        this.currentPuzzle.level = dotMap[diff] || 3;
-
-        const levelKey = diff.toString();
-        const possibleScenarios = this.currentPuzzle.scenarios[levelKey];
-
+        const diff = (config.difficulty || difficultyTier || 1).toString();
+        
+        const possibleScenarios = puzzleData.scenarios[diff];
         if (possibleScenarios) {
-            const randomIndex = Math.floor(Math.random() * possibleScenarios.length);
-            this.currentPuzzle.activeScenario = possibleScenarios[randomIndex];
+            // Pick random scenario from the difficulty tier
+            this.currentPuzzle.activeScenario = possibleScenarios[Math.floor(Math.random() * possibleScenarios.length)];
+            
+            // --- DATA INJECTION ---
+            // Map the scenario properties to the active puzzle state
+            this.currentPuzzle.level = this.currentPuzzle.activeScenario.level;
+            this.currentPuzzle.sequence = this.currentPuzzle.activeScenario.sequence;
+        } else {
+            console.error(`❌ No scenarios found for difficulty: ${diff}`);
+            return;
         }
 
         // 6. Final UI Trigger

@@ -14,47 +14,46 @@
     "id": "intellect_check",
     "type": "trivia_quiz",
     "title": "Convincing",
-    "timeLimit": 15,
-    "questions": [
-      {
-        "clue": "Favourite type of animal",
-        "choices": ["Birds", "Snakes", "Cats", "Dogs"],
-        "answer": "Birds"
-      },
-      {
-        "clue": "Height",
-        "choices": ["6'0", "6'1", "6'2", "6'3"],
-        "answer": "6'2"
-      },
-      {
-        "clue": "Favourite Position",
-        "choices": ["Side to side", "Missionary", "Doggy", "Prone","Cowgirl"],
-        "answer": "Cowgirl"
-      },
-      {
-        "clue": "Favourite Position",
-        "choices": ["Side to side", "Missionary", "Doggy", "Prone","Cowgirl"],
-        "answer": "Cowgirl"
-      }
-    ] 
+    "scenarios": {
+      "1": [
+        {
+          "clue": "Favorite type of animal",
+          "choices": ["Birds", "Snakes", "Cats", "Dogs"],
+          "answer": "Birds"
+        },
+        {
+          "clue": "Height",
+          "choices": ["6'0", "6'1", "6'2", "6'3"],
+          "answer": "6'2"
+        }
+      ]
+    }
   },
   {
     "id": "dot_tap_challenge",
-    "type": "reflex_check",
+    "type": "dot_tap",
     "title": "⚡ Quick Reflexes",
-    "description": "Tap the runes in numerical order.",    
-    "level": 3, 
-    "sequence": [1, 2, 3],
+    "description": "Tap the runes in numerical order.",
     "successText": "Fast as a shadow!",
-    "failText": "Too slow!",  
-    "timeLimit": 5
+    "failText": "Too slow!",
+    "timeLimit": 5,
+    "scenarios": {
+      "1": [
+        { "level": 3, "sequence": [1, 2, 3] }
+      ],
+      "2": [
+        { "level": 5, "sequence": [1, 2, 3, 4, 5] }
+      ],
+      "3": [
+        { "level": 7, "sequence": [1, 2, 3, 4, 5, 6, 7] }
+      ]
+    }
   },
-
   {
     "id": "discretion_check_pill_bottle",
     "type": "discretion_check",
     "title": "Opening the Medication",
-    "timeLimit":"24",
+    "timeLimit":24,
     "scenarios": {
       "1": [
         {
