@@ -712,7 +712,7 @@ class Player {
     }
 
     // Logic for items
-    aaddItem(item) {
+    addItem(item) {
         if (!item) return false;
         
         // Normalize to an array
