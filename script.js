@@ -531,16 +531,19 @@ class MiniGameEngine {
     // ==========================================
     
     initTriviaPuzzle() {
-        // 1. Use the scenario already prepared by the start() method
         this.activeQuestion = this.currentPuzzle.activeScenario;
         
-        // 2. Update the UI
-        document.getElementById('minigame-clue').innerText = this.activeQuestion.clue;
+        // Set text
+        document.getElementById('minigame-clue').innerText = this.currentPuzzle.description;
+        document.getElementById('minigame-question').innerText = this.activeQuestion.clue;
         
         const choicesContainer = document.getElementById('minigame-buttons');
         choicesContainer.innerHTML = '';
         
-        // 3. Render choices
+        // Add the class to the container so the CSS applies
+        choicesContainer.className = 'trivia-container'; 
+        
+        // Render choices
         this.activeQuestion.choices.forEach(choice => {
             const btn = document.createElement('button');
             btn.innerText = choice;

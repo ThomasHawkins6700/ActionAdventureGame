@@ -196,6 +196,41 @@ body {
     text-align: center;
 }
 
+/* Container for the trivia buttons */
+.trivia-container {
+    display: flex;
+    flex-direction: column; /* Stacks buttons vertically */
+    gap: 12px;             /* Space between buttons */
+    margin-top: 20px;
+    width: 100%;
+}
+
+/* Individual trivia button styling */
+.trivia-btn {
+    padding: 14px 20px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1e293b;
+    background-color: #f1f5f9;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+}
+
+.trivia-btn:hover {
+    background-color: #e2e8f0;
+    border-color: #cbd5e1;
+    transform: translateX(5px); /* Subtle slide effect */
+}
+
+.trivia-btn:active {
+    background-color: #cbd5e1;
+    transform: scale(0.98);
+}
+
+
 /* Individual Rune Selection Circle Assets */
 .rune-btn {
     font-size: 2.2rem;
