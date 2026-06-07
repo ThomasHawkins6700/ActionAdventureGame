@@ -131,8 +131,7 @@
       { 
         "text": "Convince again",       
         "miniGame": {
-            "id": "intellect_check",
-            "difficulty": 2,
+            "id": "intellect_check",          
             "onSuccess": "hard_option_kitchen_8_c_6",
             "onFailure": "hard_option_kitchen_8_c_7",
             "consumptionPolicy": "always"
