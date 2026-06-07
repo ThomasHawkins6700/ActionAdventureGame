@@ -463,7 +463,7 @@ class MiniGameEngine {
         // 6. Final UI Trigger
         if (modalEl) modalEl.style.display = 'flex';
         document.getElementById('minigame-display').style.display = 'block';
-        document.getElementById('minigame-buttons').style.display = 'block';
+      
 
         if (this.currentPuzzle.type !== "discretion_check") {
             this.startTimer(this.currentPuzzle.timeLimit || 10);
