@@ -532,22 +532,29 @@ class MiniGameEngine {
     
     initTriviaPuzzle() {
         this.activeQuestion = this.currentPuzzle.activeScenario;
-        
+        const correctAns = this.activeQuestion.answer;
+
         // Set text
         document.getElementById('minigame-clue').innerText = this.currentPuzzle.description;
         document.getElementById('minigame-question').innerText = this.activeQuestion.clue;
-        
+    
+        const shuffledChoices = [...this.activeQuestion.choices];
+    
+        for (let i = shuffledChoices.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffledChoices[i], shuffledChoices[j]] = [shuffledChoices[j], shuffledChoices[i]];
+        }
+
         const choicesContainer = document.getElementById('minigame-buttons');
-        choicesContainer.innerHTML = '';
-        
-        // Add the class to the container so the CSS applies
+        choicesContainer.innerHTML = '';        
         choicesContainer.className = 'trivia-container'; 
         
         // Render choices
-        this.activeQuestion.choices.forEach(choice => {
+        shuffledChoices.forEach(choice => {
             const btn = document.createElement('button');
             btn.innerText = choice;
             btn.className = 'trivia-btn';
+            // checkTriviaAnswer will still compare the clicked 'choice' against 'this.activeQuestion.answer'
             btn.addEventListener('click', () => this.checkTriviaAnswer(choice));
             choicesContainer.appendChild(btn);
         });

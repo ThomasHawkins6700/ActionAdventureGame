@@ -3,7 +3,7 @@
     "id": "intellect_check",
     "type": "trivia_quiz",
     "title": "Convincing",
-    "timeLimit": 5000,
+    "timeLimit": 10,
     "description":"Provide the correct answer to win your convincing",
     "scenarios": {
       "1": [
@@ -16,7 +16,57 @@
           "clue": "Height",
           "choices": ["6'0", "6'1", "6'2", "6'3"],
           "answer": "6'2"
-        }
+        },
+        {
+          "clue": "Favorite position",
+          "choices": ["Doggy", "Missionary", "Side to Side", "Cowgirl"],
+          "answer": "Cowgirl"
+        },
+        {
+          "clue": "Favorite of B.D.S.M",
+          "choices": ["B","D","S","M"],
+          "answer": "B"
+        },
+        {
+          "clue": "Degree (Majored)",
+          "choices": ["History","Writing","I.T","Biochemistry"],
+          "answer": "Biochemistry"
+        },
+        {
+          "clue": "Fav degrading name",
+          "choices": ["Sissy", "Cuck", "Beta", "Loser", "Paypig", "Pet"],
+          "answer": "Sissy"
+        },
+        {
+          "clue": "Gag he would most like to use on Goddess",
+          "choices": ["4 inch Penis", "Red Ball", "Ring", "Bit"],
+          "answer": "4 inch Penis"
+        },
+        {
+          "clue": "Favourite aspect of Goddess",
+          "choices": ["Hair", "Face", "Body", "Vibe"],
+          "answer": "Vibe"
+        },
+        {
+          "clue": "Would love goddess to do the following to him:",
+          "choices": ["Milk","Peg","Face-sit","Tit-job","All the above"],
+          "answer": "All the above"
+        },
+        {
+          "clue": "Favourite music genre",
+          "choices": ["Metal","Indie","Tehno","Pop punk"],
+          "answer": "Metal"
+        },
+        {
+          "clue": "Favourite film set from:",
+          "choices": ["LOtR","Star Wars","Marvel","Hellboy"],
+          "answer": "Metal"
+        }, 
+        {
+          "clue": "Age",
+          "choices": ["25","28","30","32","35"],
+          "answer": "32"
+        } 
       ]
     }
   },
