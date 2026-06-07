@@ -231,10 +231,21 @@ class AdventureGame {
             await this.loadStoryFile(option.storyFile);
         }
 
+            if (option.miniGame) {       
+                const config = {
+                    ...option.miniGame, 
+                    requiredItem: option.requiredItem 
+                };
+
+            // Now pass this new 'config' object to the engine instead of 'option.miniGame'
+            this.miniGameEngine.start(config, (isSuccess) => {
+                // ... callback logic ...
+            });
+        }
         // 3. THE UNIFIED MINI-GAME / TRANSITION LOGIC
         // We treat miniGame and triggerMiniGame as the same goal
         const miniGameConfig = option.miniGame || option.triggerMiniGame;
-
+       
         if (miniGameConfig) {
             // Normalize: if it's just a string ID, wrap it in an object
             const config = typeof miniGameConfig === 'string' ? { id: miniGameConfig } : miniGameConfig;
