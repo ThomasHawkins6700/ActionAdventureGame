@@ -4,30 +4,30 @@
     "text": "A normal day around 2pm, you are watching TV and scrolling on your phone whilst the snow falls gently outside.\n Your peace is broken by a shy knock on your front door.",
     "surprise": false,
     "options": [
-      { "text": "Answer the door", "nextScene": "main_game_hallway_1"}
+      { "text": "Answer the door", "nextScene": "main_game_hallway_day_1"}
     ]
   },
-  "main_game_hallway_1": {
+  "main_game_hallway_day_1": {
     "title": "Hallway",
     "text": "A tall and slender but cute man stands at your front door behind him, down the path, a car with a dented fender. <span class='speech-npc'>'Sorry miss'</span> - foreign, British maybe, <span class='speech-npc'>'my car.. I'm not used to such conditions..'</span> he trails off, his clothes are sodden from where he attempted to repair his car. <span class='speech-npc'> 'I've called someone out, but given the weather it could be a while, is there any chance to loiter around your place?' </span> Oh yes, he is going to make your perfect subsmissive slave this weekend",
     "surprise": false,
     "options": [
-      { "text": "Invite him in to your kitchen", "nextScene": "main_game_hallway_1_hard_option_kitchen_1_transition" },
+      { "text": "Invite him in to your kitchen", "nextScene": "main_game_hallway_1_hard_option_kitchen_day_1_transition" },
       { "text": "Leave him out there whilst you change into something... fresher", "nextScene": "soft_option_hallway_1" }
     ]
   },
-  "main_game_hallway_1_hard_option_kitchen_1_transition": {
+  "main_game_hallway_1_hard_option_kitchen_day_1_transition": {
     "title": "Hallway - Kitchen",        
     "text": "On the way to the kitchen you see your sleeping pills on the side table, pick them up?",
     "timer": 5,
-    "timeoutScene": "hard_option_kitchen_1",
+    "timeoutScene": "hard_option_kitchen_day_1",
     "surprise": false,
     "options": [  
-      { "text": "Yes", "nextScene": "hard_option_kitchen_1", "item":"Sleeping Pills" },
-      { "text": "No", "nextScene": "hard_option_kitchen_1"}
+      { "text": "Yes", "nextScene": "hard_option_kitchen_day_1", "item":"Sleeping Pills" },
+      { "text": "No", "nextScene": "hard_option_kitchen_day_1"}
     ]
   },
-  "hard_option_kitchen_1": {
+  "hard_option_kitchen_day_1": {
     "title": "Kitchen",    
     "text": "In the kitchen you offer him a seat and begin to make some tea, once made you - ",
     "surprise": false,
@@ -38,92 +38,206 @@
         "miniGame": {
           "id": "discretion_check_pill_bottle",
           "difficulty": 2,
-          "onSuccess": "hard_option_kitchen_2",
-          "onFailure": "hard_option_kitchen_1_reversed",
+          "onSuccess": "hard_option_kitchen_day_1-2",
+          "onFailure": "hard_option_kitchen_day_1_reversed",
           "consumptionPolicy": "always"
         }
       },
-      { "text": "hand him the drink", "nextScene": "soft_option_kitchen_1" },
-      { "text": "Offer food as well", "nextScene": "soft_option_kitchen_2"  }
+      { "text": "hand him the drink", "nextScene": "soft_option_kitchen_day_1" },
+      { "text": "Offer food as well", "nextScene": "soft_option_kitchen_day_1-2"  }
     ]
   },
-  "hard_option_kitchen_2": {
+  "hard_option_kitchen_day_1-2": {
     "title": "Kitchen",        
     "text": "You succeed! The pill is slowly dissolving in the hot liquid and you hand it to him none the wiser <span class='speech-player'>Enjoy sweetie, you look so cold</span>. He takes it and starts drinking whilst you make light talk.",
     "surprise": false,
     "options": [  
-      { "text": "Stay here", "nextScene": "hard_option_kitchen_3" },
-      { "text": "Try to move him upstairs", "nextScene": "hard_option_bedroom_1"}
+      { "text": "Stay here", "nextScene": "hard_option_kitchen_day_1-3" },
+      { "text": "Try to move him upstairs", "nextScene": "hard_option_bedroom_day_1"}
     ]
   },
-  "hard_option_kitchen_3": {
+  "hard_option_kitchen_day_1-3": {
     "title": "Kitchen",        
     "text": "20 Minutes later and he is slumped over the table fast asleep, <span class='spech-player'>'now the fun can begin'</span> you think to yourself. But how to proceed from here? 😈",
     "surprise": false,
     "options": [  
-      { "text": "Classic Hands and feet tied to the chair with zipties you have laying around", "nextScene": "hard_option_kitchen_4" },
-      { "text": "Go upstairs and choose from your collection", "nextScene": "hard_option_bedroom_1_alone_1"}
+      { "text": "The Classic: Hands and feet tied to the chair with zipties you have laying around", "nextScene": "hard_option_kitchen_day_1-4" }   
     ]
   },
-  "hard_option_kitchen_4": {
+  "hard_option_kitchen_day_1-4": {
     "title": "Kitchen",        
     "text": "You stand back and admire your work. The stranger sits in the chair in his boxers only, each wrist is tied to the pole of the chair back and each ankle to the poles at the base. Taking extra care you tie his elbows to the poles and his knees together.",
     "surprise": false,
     "options": [  
-      { "text": "Begin admiring him", "nextScene": "hard_option_kitchen_5" },
-      { "text": "Go upstairs and choose from your collection", "nextScene": "hard_option_bedroom_1_alone_2"}
+      { "text": "Begin admiring him", "nextScene": "hard_option_kitchen_day_1-5" }   
     ]
   },
-  "hard_option_kitchen_5": {
+  "hard_option_kitchen_day_1-5": {
     "title": "Kitchen",        
-    "text": "You pull his boxers down and admire what you see, about 4 inches of cock, you begin stroking and excited it stands at 7 inches.",
+    "text": "You pull his boxers down and take in what you see, about 4 inches of cock, you begin stroking and excited it stands at 7 inches.",
     "surprise": false,
     "options": [  
-      { "text": "Too small - this needs punishing", "nextScene": "hard_option_kitchen_6", "item": ["Chastity Cage", "Ball Gag", "Red Fishnets"] },
-      { "text": "Just right, he will make a fine slave", "nextScene": "hard_option_kitchen_7"}
+      { "text": "Too small - this needs punishing", "nextScene": "hard_option_kitchen_day_1-6", "item": ["Chastity Cage", "Ball Gag", "Red Fishnets"] },
+      { "text": "Just right, he will make a fine slave", "nextScene": "hard_option_kitchen_day_1-7"}
     ]
   },
-  "hard_option_kitchen_6": {
+  "hard_option_kitchen_day_1-6": {
     "title": "Kitchen",        
     "text": "You return from your room and admire your collection on the table: Metal chastity cage with padlock, ball gag, fishnets. Well you only have time to apply one before he wakes up. Which to chose?",
     "surprise": false,
     "options": [  
-      { "text": "Cage this boy and begin making him your sissy", "nextScene": "hard_option_kitchen_8_c_1", "requiredItem": "Chastity Cage" },
-      { "text": "Gag him and then decide", "nextScene": "hard_option_kitchen_8_g_1"},
-      { "text": "Feminize him with the fishnets", "nextScene": "hard_option_kitchen_8_f_1"}
+      { "text": "Cage this boy and begin making him your sissy", "nextScene": "hard_option_kitchen_day_1-8_c", "requiredItem": "Chastity Cage" },
+      { "text": "Gag him and then decide", "nextScene": "hard_option_kitchen_day_1-8_g"},
+      { "text": "Feminize him with the fishnets", "nextScene": "hard_option_kitchen_day_1-8_f"}
     ]
   },
-  "hard_option_kitchen_8_c_1": {
+  "hard_option_kitchen_day_1-8_g": {
+    "title": "Kitchen",        
+    "text": "You fix the gag into his mouth as he begins to rise.\n <span class='speech-npc'>hmmmmmhm..</span> he attempts to move and speak. You tower over him.",
+    "surprise": false,
+    "options": [
+      {"text":"Explain his new role to him", "nextScene":"hard_option_kitchen_day_1-8_g-2"},
+      {"text":"Tease him", "nextScene": "hard_option_kitchen_day_1-8_g-3"}
+    ]
+  },
+  "hard_option_kitchen_day_1-8_g-2": {
+    "title": "Kitchen",        
+    "text": "<span class='speech-player'>So you're finally awake? Well don't worry sweetheart Mommy will take care of you for a little while. You'll stay here with me and I'll train you into an obedient little slave.</span>",
+    "surprise": false,
+    "options": [
+      {"text":"Take him upstairs to begin the training", "nextScene":"hard_option_bedroom_day_2_g"}      
+    ]
+  },
+  "hard_option_kitchen_day_1-8_g-3": {
+    "title": "Kitchen",        
+    "text": "You walk over to him and sit on his lap showing him you cleavage. You feel his cock harden, <span class='npc-player'>'What do we have here?'</span> \n You slip off his lap, jerking his cock slowly before taking the whole 7 inches with ease. Taking your mouth off you spit on it and proceed to beat him off at lightning speed. Then immediately stop and admire your work as he strains and moans.",
+    "surprise": false,
+    "options": [
+       {"text":"Take him upstairs to begin the training", "nextScene":"hard_option_bedroom_day_2_g"}     
+    ]
+  },
+
+  "hard_option_kitchen_day_1-8_c": {
     "title": "Kitchen",        
     "text": "You attach the cage around his cock, lock it and take the key as a necklace. He begins to stir straining against the bonds, he looks around and at his situation then back to you <span class='speech-npc'>'What is this!'</span> he demands, he looks at the cage <span class='speech-npc'>You're fucking crazy'</span>",
     "surprise": false,
     "costItem":"Chastity Cage",
     "options": [  
-      { "text": "Gag him", "nextScene": "hard_option_kitchen_8_c_2", "requiredItem": "Ball Gag" },
-      { "text": "Explain his new role", "nextScene": "hard_option_kitchen_8_c_3"}
+      { "text": "Gag him", "nextScene": "hard_option_kitchen_day_1-8_c-2", "requiredItem": "Ball Gag" },
+      { "text": "Explain his new role", "nextScene": "hard_option_kitchen_day_1-8_c-3"}
     ]
   },
-  "hard_option_kitchen_8_c_2": {
+  "hard_option_kitchen_day_1-8_c-2": {
     "title": "Kitchen",        
-    "text": "<span class='speech-npc'>'Pyscho bit-mmmmmph'</span> you fasten the gag in and admire you're new pet: Tied, gagged and cock in a cage.",
+    "text": "<span class='speech-npc'>'Pyscho bitc-mmmmmph'</span> you fasten the gag in and admire you're new pet: Tied, gagged and cock in a cage.",
     "surprise": false,
     "costItem":"Ball Gag",
-    "options": [  
-      { "text": "Gag him", "nextScene": "hard_option_kitchen_8_c_2", "requiredItem": "Ball Gag" },
-      { "text": "Explain his new role", "nextScene": "hard_option_kitchen_8_c_3"}
+    "options": [        
+      { "text": "Explain his new role to him", "nextScene": "hard_option_kitchen_day_1-8_c_g"},
+      { "text": "Leave him to stew in the dark", "nextScene": "hard_option_kitchen_day_2_c_g"}      
     ]
   },
-  "hard_option_kitchen_8_c_3": {
+  "hard_option_kitchen_day_1-8_c-3": {
     "title": "Kitchen",        
     "text": "<span class='speech-player'>'Yes cutie, this is probably a bit weird, but I promise you want this life, I've seen your type before. You crave to kneel, to have your cock taken out of the equation. I will own you now.'</span>. He looks defeated and stops struggling, you stroke his face <span class='speech-player'>I am your Goddess now, and will only be addressed as such</span>.<span class='speech-npc'>No way!</span> You sigh...",
     "surprise": false,   
     "options": [  
-      { "text": "Gag him", "nextScene": "hard_option_kitchen_8_c_2", "requiredItem": "Ball Gag" },
-      { "text": "Suffocate him in your tits", "nextScene": "hard_option_kitchen_8_c_4"},
-      { "text": "Ball Bust", "nextScene": "hard_option_kitchen_8_c_5"}
+      { "text": "Gag him", "nextScene": "hard_option_kitchen_day_1-8_c-2", "requiredItem": "Ball Gag" },
+      { "text": "Suffocate him in your tits", "nextScene": "hard_option_kitchen_day_1-8_c-4"},
+      { "text": "Ball Bust", "nextScene": "hard_option_kitchen_day_1-8_c_b"}
     ]
   },
-  "hard_option_kitchen_8_c_4": {
+  "hard_option_kitchen_day_1-8_c_b": {
+    "title": "Kitchen",        
+    "text": "<span class='speech-player'>'Ok fine, I will show you what happens to dumb slaves like you.'</span>. He looks worried and squirsm but the bonds hold tight.\nYou begin gently flicking his balls, seeing mild discomfort you increase to tapping them with a finger.\n over time you move to heavy slaps and you see him jerking around until he is begging you to stop.",
+    "surprise": false,   
+    "options": [      
+        { "text": "Leave him to stew in the dark", "nextScene": "hard_option_kitchen_day_1-8_c-5"},
+        { "text": "Gag him", "nextScene": "hard_option_kitchen_day_1-8_c_b_g-2", "requiredItem": "Ball Gag" }
+    ]
+  },
+  "hard_option_kitchen_day_1-8_c_g": {
+    "title": "Kitchen",        
+    "text": "You come back after leaving him for 30mins in the the dark after the murmurs have become pitiful. <span class='speech-player'>'Yes cutie, this is probably a bit weird, but I promise you, you want this life, I've seen your type before. You crave to kneel, to have your cock taken out of the equation. I will own you now.'</span>. He looks defeated and stops struggling, you stroke his face <span class='speech-player'>I am your Goddess now, and will only be addressed as such</span>.<span class='speech-npc'>uuhkkhggg yoggghhu</span> he gets through the gag. You sigh...",
+    "surprise": false,   
+    "options": [      
+      { "text": "Suffocate him in your tits", "nextScene": "hard_option_kitchen_day_1-8_c_g-2"},
+      { "text": "Ball Bust", "nextScene": "hard_option_kitchen_day_1-8_c_b-2"}
+    ]
+  },
+  "hard_option_kitchen_day_1-8_c_b_g-2": {
+    "title": "Kitchen",        
+    "text": "<span class='speech-player'>Now before you can get yourself into trouble again say 'Ahhhh''</span>. He looks defeated and opens his mouth to recieve the gag.\n<span class='speech-player'>Good Boy</span>. You look at him now cowering and pathetic, tied, gagged and caged for you.",
+    "surprise": false,   
+    "options": [            
+      { "text": "Escort him upstairs", "nextScene": "hard_option_bedroom_day_1_c_b_g_1"},
+      { "text": "Leave him to stew in the dark", "nextScene": "hard_option_kitchen_day_1-8_c-5"}
+    ]
+  },
+
+  "hard_option_kitchen_day_1-8_c_g-2": {
+    "title": "Kitchen",        
+    "text": "You approach him revealing your breasts, his eyes widen and his cock strains in the cage, you grab the back of his head and shove his gagged mouth and nose into your juicy chest. <span class='speech-player'>'Just submit sweetheart and it will beneficial for us both...'</span>. He struggles sufficiently and you release him, quickly covering up - he doesnt deserve to see your breasts after all. ",
+    "surprise": false,   
+    "options": [  
+      { 
+        "text": "Convince again",       
+        "miniGame": {
+            "id": "intellect_check",          
+            "onSuccess": "hard_option_kitchen_day_1-8_c_g-3",
+            "onFailure": "hard_option_kitchen_day_1-8_c_g-4",
+            "consumptionPolicy": "always"
+          }}         
+        ]
+  },
+  "hard_option_kitchen_day_1-8_c_g-3": {
+     "title": "Kitchen",
+     "text": "He sits there, breathing heavily through his nose, you consider pinching it shut for a couple of seconds... \n<span class='speech-player'>Now then, you are ready to submit yes.</span>\nHe nods slowly. Now you can really begin to make him yours.",
+     "suprise":false,
+     "options": [
+      {"text": "Zip tie him some handcuffs and lead him upstairs", "nextScene":"hard_option_bedroom_day_1_c_g-2"},
+      {"text": "Move him to the living room and hogtie on the sofa", "nextScene":"hard_option_livingRoom_day_1_c_g-2"}
+     ]
+  },
+  "hard_option_kitchen_day_1-8_c_g-4": {
+     "title": "Kitchen",
+     "text": "He doesnt care about the suffocation and begins violently rocking, you need to do something!",
+     "suprise":false,
+     "options": [
+      {
+        "text": "Chokehold!",
+        "miniGame": {
+          "id":"dot_tap_challenge",
+          "onSuccess": "hard_option_kitchen_day_1-8_c_g-5",
+          "onFailure": "hard_option_kitchen_day_1-8_c_g-6"
+        }
+      }
+     ]
+  },
+  "hard_option_kitchen_day_1-8_c_g-5":{
+    "title": "Kitchen",
+    "text": "Phew he's out cold, but that was close, better get him somewhere more secure to start the conditioning.",
+     "suprise":false,
+     "options": [
+      {"text": "Move him upstairs for the night", "nextScene":"hard_option_bedroom_day_2_c_g"}
+     ]
+  },
+  "hard_option_kitchen_day_1-8_c_g-6":{
+    "title": "Kitchen",
+    "text": "His zip-ties might be too loose or maybe his rabid strength, whater the reason his wrists and arms are free! He grabs you trying to knock you out!",
+     "suprise":false,
+      "options": [
+      {
+        "text": "Chokehold!",
+        "miniGame": {
+          "id":"dot_tap_challenge",
+          "onSuccess": "hard_option_kitchen_day_1-8_c_g-7",
+          "onFailure": "hard_option_bedroom_day_1_r_caught"
+        }
+      }
+     ]
+  },
+  "hard_option_kitchen_day_1-8_c-4": {
     "title": "Kitchen",        
     "text": "You approach him revealing your breasts, his eyes widen and his cock strains in the cage, you grab the back of his head and shove his mouth and nose into your juicy chest. <span class='speech-player'>'Just submit sweetheart and it will beneficial for us both...'</span>. He struggles sufficiently and you release him, quickly covering up - he doesnt deserve to see your breasts after all. ",
     "surprise": false,   
@@ -132,86 +246,85 @@
         "text": "Convince again",       
         "miniGame": {
             "id": "intellect_check",          
-            "onSuccess": "hard_option_kitchen_8_c_6",
-            "onFailure": "hard_option_kitchen_8_c_7",
+            "onSuccess": "hard_option_kitchen_day_1-8_c-6",
+            "onFailure": "hard_option_kitchen_day_1-8_c-7",
             "consumptionPolicy": "always"
-          }},
-          { "text": "Leave him to stew in the dark", "nextScene": "hard_option_kitchen_8_c_5" }
+          }}         
         ]
   },
-  "hard_option_kitchen_8_c_6": {
+  "hard_option_kitchen_day_1-8_c-6": {
     "title": "Kitchen",        
     "text": "<span class='speech-player'>'Ready to obey?'</span>\nHe looks up at you <span class='speech-npc'>'yes, goddess'</span> he mutters.\n<span class='speech-player'>'What was that?'</span>\n<span class='speech-npc'>'Yes, Goddess'</span> he loudly declares.",
     "surprise": false,   
-    "options": [  
-      { "text": "Explain the next steps", "nextScene": "hard_option_kitchen_8_c_8"},
-      { "text": "Test the cage", "nextScene": "hard_option_kitchen_8_c_9"}      
+    "options": [     
+      { "text": "Leash and lead upstairs", "nextScene": "hard_option_bedroom_day_2_c"}      
     ]
   },
-  "hard_option_kitchen_8_c_7": {
+  "hard_option_kitchen_day_1-8_c-7": {
     "title": "Kitchen",        
     "text": "You can feel his breath in your cleavage, sneaky boy found a way to breathe... <span class='speech-player'>'Fine, you leave me no choice but to show you what happens to slaves who don't obey their goddess'</span>",
     "surprise": false,   
     "options": [  
-      { "text": "Leave him to stew in the dark", "nextScene": "hard_option_kitchen_8_c_5"},
-      { "text": "Go upstairs and choose the items to use on him", "nextScene": "hard_option_bedroom_1_alone_3"}      
+      { "text": "Leave him to stew in the dark overnight", "nextScene": "hard_option_kitchen_day_2_c"}
     ]
   },
 
 
+
   "Divider": {"---------------------------------------": "REVERSE SCENES--------------------------------------------------------"},
-  "hard_option_kitchen_1_reversed": {
+  "hard_option_kitchen_day_1_reversed": {
     "title": "Kitchen",        
     "text": "The pills make a loud noise and you decide not to bother, there will be other chances... you hand it to him regardless <span class='speech-player'>'Enjoy sweetie, you look so cold'</span>. He takes it and starts drinking whilst you make light talk.",
     "surprise": false,
     "options": [  
-      { "text": "Stay here", "nextScene": "hard_option_kitchen_2_reversed" },
-      { "text": "Try to move him upstairs", "nextScene": "hard_option_bedroom_1_reversed"}
+      { "text": "Stay here", "nextScene": "hard_option_kitchen_day_1-2_r" },
+      { "text": "Try to move him upstairs", "nextScene": "hard_option_bedroom_day_1_r"}
     ]
   },
-  "hard_option_kitchen_2_reversed": {
+  "hard_option_kitchen_day_1-2_r": {
     "title": "Kitchen",        
     "text": "He eyes the pills you set down on the counter whilst drinking and you see him start pretending to sip his drink. Your heart beats fast, 'what if he's on to me' you think, you need to distract him.",
     "surprise": false,
     "options": [  
-      { "text": "Sit close and stroke his leg", "nextScene": "hard_option_kitchen_3_reversed" },
-      { "text": "Show cleavage", "nextScene": "hard_option_bedroom_1_reversed"}
+      { "text": "Sit close and stroke his leg", "nextScene": "hard_option_kitchen_day_1-3_r" },
+      { "text": "Show cleavage", "nextScene": "hard_option_bedroom_day_1_r"}
     ]
   },
-  "hard_option_bedroom_1_reversed": {
+  "hard_option_bedroom_day_1_r": {
     "title": "Kitchen-Bedroom",        
     "text": "<span class='speech-player'>'Let's get you out of the clothes though, I'm sure I have something upstairs'</span>, you start leaving and gesture for him to follow you, before heading out and turning to the stairs. Pausing a couple of seconds and he emerges following you.",
     "surprise": false,
     "options": [  
-      { "text": "Move Upstairs", "nextScene": "hard_option_bedroom_1_reversed_doorway" }     
+      { "text": "Move Upstairs", "nextScene": "hard_option_bedroom_day_1_r_doorway" }     
     ]
   },
-  "hard_option_bedroom_1_reversed_doorway": {
+  "hard_option_bedroom_day_1_r_doorway": {
     "title": "Bedroom doorway",        
     "text": "You're deep in thought about how to submit him, if the pills failed then maybe some seduction followed by bondage would land you this catch. You pass through and he follows you in.",
     "surprise": true,
     "descriptionOverride":"Suddenly he has an arm around your neck and begins to tighten!!",
-    "successTextOverride":"You twist, your knee goes straight to hs groin and your forhead smashes his mouth, he stagges back cursing.",
+    "successTextOverride":"You twist, your knee goes straight to hs groin and your forhead smashes into his mouth, he staggers back cursing.",
     "failureTextOverride":"His grip is too much and his other arm traps yours behind your back, you begin to slip into darknes....",
     "allowedSurpriseEffects": ["reflex_check"],
     "surpriseDifficultyRange": [1, 3],
-    "onSurpriseSuccess": "hard_option_bedroom_1_reversed_recovered",
-    "onSurpriseFailure": "hard_option_bedroom_1_reversed_caught"    
+    "onSurpriseSuccess": "hard_option_bedroom_day_1_r_recovered",
+    "onSurpriseFailure": "hard_option_bedroom_day_1_r_caught"    
   },
-   "hard_option_bedroom_1_reversed_recovered": {
+   "hard_option_bedroom_day_1_r_recovered": {
     "title": "Bedroom",        
-    "text": "You are stuck in the room now but free what do you do!!?",
+    "text": "Free you move to race past him, rush down the stairs and turn to hide in the....",
     "surprise": false,
     "options": [  
-      { "text": "Move Upstairs", "nextScene": "hard_option_bedroom_1_reversed_doorway" }     
+      { "text": "Main Room", "nextScene": "hard_option_mainRoom_day_1_r" },     
+      { "text": "Back Room", "nextScene": "hard_option_backRoom_day_1_r" }     
     ]
   },
-  "hard_option_bedroom_1_reversed_caught": {
+  "hard_option_bedroom_day_1_r_caught": {
     "title": "Bedroom",        
     "text": "Pressure. \nSound and light fade in slowly\n Tight \nYou see him seated in front of and go to scream - but your words are a muffled nothing that barely travel past your own ears.",
     "surprise": false,
     "options": [  
-      { "text": "Move Upstairs", "nextScene": "hard_option_bedroom_1_reversed_doorway" }     
+      { "text": "Move Upstairs", "nextScene": "hard_option_bedroom_day_2_r" }     
     ]
   }
 
