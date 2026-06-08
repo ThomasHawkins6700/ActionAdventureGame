@@ -42,9 +42,7 @@
           "onFailure": "hard_option_kitchen_day_1_reversed",
           "consumptionPolicy": "always"
         }
-      },
-      { "text": "hand him the drink", "nextScene": "soft_option_kitchen_day_1" },
-      { "text": "Offer food as well", "nextScene": "soft_option_kitchen_day_1-2"  }
+      }    
     ]
   },
   "hard_option_kitchen_day_1-2": {
@@ -91,6 +89,48 @@
       { "text": "Feminize him with the fishnets", "nextScene": "hard_option_kitchen_day_1-8_f"}
     ]
   },
+  "hard_option_kitchen_day_1-8_f": {
+    "title": "Kitchen",        
+    "text": "You untie his legs and slide on the fishnets over his long slender legs, he will look good as a girl you think. Just as you re-ziptie his legs he begins to stir \n <span class='speech-npc'>What the hell is going on?</span> he says groggily. You tower over him.",
+    "surprise": false,
+    "options": [
+      {"text":"Explain his new role to him", "nextScene":"hard_option_kitchen_day_1-8_f-2"},
+      {"text":"Apply more feminine products", "nextScene": "hard_option_kitchen_day_1-8_f-3"}
+    ]
+  },
+  "hard_option_kitchen_day_1-8_f-2": {
+    "title": "Kitchen",        
+    "text": "<span class='speech-player'>Hello Piper</span> you say to him, with a smirk. \n<span class='speech-npc'>Who the fuck is Piper?</span> he demans angrily, glancing at his bonds and the fishnets. \nYou rub his thighs emphasising the material on his legs, all the way to his balls, hover before moving back down. <span class='speech-player'>Feels good, your new clothes. Don't they Piper</span> you purr seductively.\n<span class='speech-player'>You are my new toy Piper and the way I intent to play with you...</span> you look him up and down <span class='speech-player'>I need to make some changes to you.</span>",
+    "surprise": false,
+    "options": [
+      {"text":"Feminise Route", "nextScene":"hard_option_kitchen_day_1-8_f-3"},
+      {"text":"Sissy Route", "nextScene": "hard_option_kitchen_day_1-8_f-4"}
+    ]
+  },
+  "hard_option_kitchen_day_1-8_f-3": {
+    "title": "Kitchen",        
+    "text": "As he struggles you finish clipping your bra over his chest, giggling to yourself. <span class='speech-player'>Hello Piper, you slut.</span>\nHe is furious and begins thrashing but the ties hold fast as he starts cursing you.",
+    "surprise": false,
+    "options": [
+      {"text":"Fully Feminise", "nextScene":"hard_option_kitchen_day_1-8_f-5"}
+    ]
+  },
+  "hard_option_kitchen_day_1-8_f-4": {
+    "title": "Kitchen",        
+    "text": "<span class='speech-player'>You are just a perfect little beta for mommy. She is going to train you to only gain pleasure from anal play - we will lock away and ignore that cock of yours and you will thank me for making you into a pathetic loser sissy prejac when you leave here.</span>",
+    "surprise": false,
+    "options": [
+      {"text":"Day 2", "nextScene":"sissy_route_day_2"}
+    ]
+  },
+  "hard_option_kitchen_day_1-8_f-5": {
+    "title": "Kitchen",        
+    "text": "<span class='speech-player'>You are just a perfect little beta for mommy. She is going to help you realise you aren't worthy to be a real man, you should be pleasuring real cocks and mommy will make you into her perfect bimbo cum dumpster.</span>",
+    "surprise": false,
+    "options": [
+      {"text":"Day 2", "nextScene":"feminise_route_day_2"}
+    ]
+  },
   "hard_option_kitchen_day_1-8_g": {
     "title": "Kitchen",        
     "text": "You fix the gag into his mouth as he begins to rise.\n <span class='speech-npc'>hmmmmmhm..</span> he attempts to move and speak. You tower over him.",
@@ -110,7 +150,7 @@
   },
   "hard_option_kitchen_day_1-8_g-3": {
     "title": "Kitchen",        
-    "text": "You walk over to him and sit on his lap showing him you cleavage. You feel his cock harden, <span class='npc-player'>'What do we have here?'</span> \n You slip off his lap, jerking his cock slowly before taking the whole 7 inches with ease. Taking your mouth off you spit on it and proceed to beat him off at lightning speed. Then immediately stop and admire your work as he strains and moans.",
+    "text": "You walk over to him and sit on his lap showing him your cleavage. You feel his cock harden, <span class='speech-player'>'What do we have here?'</span> \n You slip off his lap, jerking his cock slowly before taking the whole 7 inches with ease. Taking your mouth off you spit on it and proceed to beat him off at lightning speed. Then immediately stop and admire your work as he strains and moans.",
     "surprise": false,
     "options": [
        {"text":"Take him upstairs to begin the training", "nextScene":"hard_option_bedroom_day_2_g"}     
@@ -268,8 +308,30 @@
       { "text": "Leave him to stew in the dark overnight", "nextScene": "hard_option_kitchen_day_2_c"}
     ]
   },
+  "hard_option_bedroom_day_1":{
+    "title": "Bedroom",   
+    "text": "You have him here now. But that was exhausting getting him up the stairs. You look at your options with glee.",
+    "surprise": false,   
+    "options": [  
+          { "text": "Ropes", "nextScene": "hard_option_kitchen_day_2_rp"},
+          { "text": "Belts", "nextScene": "hard_option_kitchen_day_2_bt"},
+          { "text": "Cuffs", "nextScene": "hard_option_kitchen_day_2_cu"}
+        ]
+  },
+  "hard_option_kitchen_day_2_rp": {
+    "title": "Bedroom", 
+    "text": "You get out your extreme rope collection, a rainbow covers your floor and you decide on his position for training."
+  },
+  "hard_option_kitchen_day_2_bt": {
+    "title": "Bedroom", 
+      "text": "You get out your belts for bondage, your floor now covered in leather as you decide on his position for training."
+  },
+  "hard_option_kitchen_day_2_cu": {
+    "title": "Bedroom", 
+      "text": "You get out your heavy duty cuff collection, complete with toe and thumb cuffs and you decide on his position for training."
+  },
 
-
+  "Divider day 1": {"---------------------------------------": "BEDROOM DAY 1--------------------------------------------------------"},
 
   "Divider": {"---------------------------------------": "REVERSE SCENES--------------------------------------------------------"},
   "hard_option_kitchen_day_1_reversed": {
