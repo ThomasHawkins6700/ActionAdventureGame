@@ -331,8 +331,62 @@
       "text": "You get out your heavy duty cuff collection, complete with toe and thumb cuffs and you decide on his position for training."
   },
 
-  "Divider day 1": {"---------------------------------------": "BEDROOM DAY 1--------------------------------------------------------"},
+  "Divider day 1": {"---------------------------------------": "DAY 1--------------------------------------------------------"},
 
+  "feminise_route_day_2": {
+     "title": "Bedroom", 
+     "text": "Having moved him upstairs you were able to deal with the mechanic without incident\n **---** THE NEXT DAY **--** \nHe lies on your bed writhing in anger. You have tied a ribbon around his cock in a neat bow, his hair has pink flowers and a hairband in it. His face has been shaved and applied to it, a subtle amount of makeup with long mascara leaden eyelashes.\nYou tied his knees and elbows together and his ankles and wrists, forcing him in an arch and presenting his ass perfectly for you collection of dildos. His mouth bulges under the panties stiffed in there, well they had been laying around so it wasn't a bad place to put them... <span class='speech-player'>So Piper, today I'm going to teach you that a proper woman gets fucked by big cocks. But first some anal training</span> you tell him resolutely. But which plug do you go for?" ,
+     "options": [
+      {"text": "4 Inch by 3 Inch", "nextScene": "fem_day_2_small"},
+      {"text": "4 Inch by 5 Inch", "nextScene": "fem_day_2_large"}
+     ]
+  },
+  "fem_day_2_small": {
+    "title": "Bedroom", 
+    "text": "<span class='speech-player'>OK! Let's start small for your boy pussy</span> you cheerfully say, lubing up the small buttplug. You enjoy the feeling of him clenching as you slowly insert the tip in and out until finally it slides in fully - you immediately pull it out and then push it back in slowly. Repeating this several times until you insert it fully and leave it. You see his cock quivering getting harder and precum oozing out.\nOver the course of the day you untie and retie him, feeding him and playing an amazing game of carrot and stick until by the end of the night you have him spread eagle face down. He now has bright red fishnets, high heels and a 'cumslut' collar on. You admire your new girl as you choose your next training session.\n\nWhich Dildo will you wield?" ,
+     "options": [
+      {"text": "7 Inch", "nextScene": "fem_day_2_seven"},
+      {"text": "10 Inch", "nextScene": "fem_day_2_ten"},
+      {"text": "12 Inch BBC (Snowbunny route)", "nextScene": "fem_day_2_black"}
+     ]
+  },
+  "fem_day_2_seven": {
+    "title": "Bedroom", 
+     "text": "<span class='speech-player'>You are going to enjoy this Piper, something modest to stretch your pussy open.</span> you say playfully, lubing up her ass and your dildo. Starting slowly the tip enters and you see her boypussy stretch open much easier than with the buttplug, going slowly at first to get her warmed up you increase the pace and start pounding away seeing her girlcock pulse and throb with every thrust, you admire your own tits bouncing perfectly and feel the didlo rubbing against your own pussy, after a while you thrust hard one final time, cum exploding from Pipers cock and the ectasy in your own loins sends you over the edge and you cum everywhere!!\n\n\nYou lay there panting, then go to get cleaned up leaving the didlo impaled in her ass as a treat." ,
+     "options": [
+      {"text": "Femme Ending", "nextScene": "fem_ending"}      
+     ]
+  },
+  "fem_day_2_ten": {
+    "title": "Bedroom", 
+     "text": "<span class='speech-player'>You might enjoy this Piper, but we need to start gaping this pussy.</span> you say sincerely, lubing up her ass and your dildo. Starting slowly the tip enters and you see her boypussy struggle to open for such a large cock, but you perserver and after much lube and thrusting the whole 10 inches is sliding in and out freely a nice contrast to the semi hard cock doing nothing, you don't even see this cock as a sexual tool anymore a flat cage out to remove it from play you think to yourself.\nAfter some time training her ass you decide it is time for the insane 😈" ,
+     "options": [
+      {"text": "12 Inches wide", "nextScene": "fem_day_2_ten-2"},    
+      {"text": "15 Inches long", "nextScene": "fem_day_2_ten-3"}
+     ]
+  },
+  "fem_day_2_ten-2": {
+    "title": "Bedroom", 
+     "text": "You inspect your little slut: hanging with her back facing the floor from a swing ankles tied facing the sky and wrists tied behind her back she sways gently and nervously looks at you, her cock in a tiny cage squeezing her prefectly round balls out. She moans softly through her black bit gag.\nYou approach with the monster buttplug - 12 inches at its max in the middle, this is going to be a fun insertion.\nYou apply generous amounts of lube and begin inserting the huge tip swirling it around to lube up her asshole her eyes widening in anticipation.\nIn the end you need both hands and your body wieght to force it into her, but my god when it's in it looks magnificent. You can only imgaine how full and stretched she feels, you give it a testing pull. Nothing, this isnt moving without help from either of you.\n <span class='speech-player'>Enjoy Piper, you are going to wear this monster all night you dirty slut.</span> hearing that she tries feebly to escape her bonds, but the plug hampers her efforts and you see her locked cock leaking... 'this will be a fun time' you think to yourself." ,
+     "options": [
+      {"text": "Make her an anal Slut", "nextScene": "anal_slut_ending"}
+     ]
+  },
+  "anal_slut_ending": {
+    "title": "Bedroom", 
+     "text": "For the next couple of months you train her ass to gape, taking the biggest toys you can find until there is nothing she can't take with ease and her ass is a gaping mess that just begs for cock." ,
+     "options": [
+      {"text": "Anal Gape Ending - Piper should be lucky she only has small toys for her ass."}        
+     ]
+  },
+
+  "fem_ending":{
+  "title": "Bedroom",
+  "text": "You examine your new girl, always down on her knees wearing thigh highs with high heels locked in place, a flat chastity cage has reduced her cock but she won't be needing it anymore. She follows you around a leash, nipples pierced with bells attached and the tattoo 'Property of Goddess' on her lower back.\nProperly conditioned she takes nothing less than 10 inch cocks in her ass and throat. She hapily spends her time sorting out your needs however they should arise.",
+  "options": [
+    {"text": "Feminised Ending - Piper should start wearing fishnets more often..."}
+  ]
+  },
   "Divider": {"---------------------------------------": "REVERSE SCENES--------------------------------------------------------"},
   "hard_option_kitchen_day_1_reversed": {
     "title": "Kitchen",        
