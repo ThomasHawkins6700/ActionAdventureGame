@@ -156,6 +156,70 @@
        {"text":"Take him upstairs to begin the training", "nextScene":"hard_option_bedroom_day_2_g"}     
     ]
   },
+  "hard_option_bedroom_day_2_g": {
+    "title": "Bedroom",        
+    "text": "You examine your slave, he is nice and secured sitting against the end of your bed, elbow, wrists, knees (above and below), ankles and neck all well tied in rope - he isn't going anywhere.",
+    "surprise": false,
+    "options": [
+       {"text":"Train his mouth", "nextScene":"hard_option_bedroom_day_2_g-1"},     
+       {"text":"Use his mouth", "nextScene":"hard_option_bedroom_day_2_g-2"}   
+    ]
+  },
+  "hard_option_bedroom_day_2_g-2": {
+    "title": "Bedroom",        
+    "text": "You need some pleasure, you strip nude and cover his eyes with a blinfold to deny him such a sight. <span class='speech-player'>'Okay slave, I need you to servive this celestial body with that slut mouth of yours.'</span> You move towards him and force you toes into his mouth, just 2 at first demanding him suck, pleaure washing over you with each suck, until you jam all 5 in and listen to him gag slightly, drool pouring over our foot. Taking your foot out you smear his face with it, covering him further in his own fluid.\nNext you let him gently lick your sensitive nipples and suck on your perky breasts whilst you begin to finger yourself, once nice and wet you cover his mouth and nose with your perfect pussy - he knows what to do and immediately beings to lick and suck, greedily enjoying your pussy, this goes on and on until you feel the climax approaching - you;re pulling on your tits as his tongue flicks over your clit when sudeenly --- he is coughing, surprised by the squirt that erupted from you. He is gasping for air, coughing. \nYou turn around, panting, resting your perfect ass over his face and take in the pleasure coarsing through you...",
+    "surprise": false,
+    "options": [
+       {"text":"Train his mouth", "nextScene":"hard_option_bedroom_day_2_g-1"} 
+    ]
+  },
+  "hard_option_bedroom_day_2_g-1": {
+    "title": "Bedroom",        
+    "text": "Time to train that mouth to take whatever you want.\n<span class='speech-player'Right then pet, I have several gags i'm going to use on you, I want you a drooling mess by the end of this session, I want your cock covered in it - that is the only reason I have left it free.'</span> YOu inform him strcitly.",
+    "surprise": false,
+    "options": [
+       {"text":"Big Red Ball Gag", "nextScene":"hard_option_bedroom_day_2_g-ball"},     
+       {"text":"4 Inch Penis Gag", "nextScene":"hard_option_bedroom_day_2_g-p"},   
+       {"text":"Ring Gag", "nextScene":"hard_option_bedroom_day_2_g-ring"}   
+    ]
+  },
+  "hard_option_bedroom_day_2_g-ball": {
+    "title": "Bedroom",        
+    "text": "You force into his mouth a nice shiny red ball gag and watch him struggle in his bondage. You play with his nipples, flicking and pulling them and leaving them clamped. Moving to his cock you smack and slap it then jerk it furiously for a couple of seconds before stopping, all the while drool begins to leak a moderate amount from his gag.",
+    "surprise": false,
+    "options": [     
+       {"text":"4 Inch Penis Gag", "nextScene":"hard_option_bedroom_day_2_g-p"},   
+       {"text":"Ring Gag", "nextScene":"hard_option_bedroom_day_2_g-ring"},
+      {"text":"Use his mouth", "nextScene":"hard_option_bedroom_day_2_g-2"}   ,
+       {"text":"Finish the day", "nextScene":"hard_option_bedroom_day_2_g_ending"}
+    ]
+  },
+  "hard_option_bedroom_day_2_g-p": {
+    "title": "Bedroom",        
+    "text": "Gently inserting the penis gag you work his mouth until he gets better at taking it and eventually you can slide the whole thing in. His eyes are watering and drool is covering his chest and cock, you take this opportunity to stroke his cock covered in spit, edging him over and over but never letting him cum. You loosen the straps but don't let the penis gag out, leaving him like this is for the best.",
+    "surprise": false,
+    "options": [
+       {"text":"Big Red Ball Gag", "nextScene":"hard_option_bedroom_day_2_g-ball"},            
+       {"text":"Ring Gag", "nextScene":"hard_option_bedroom_day_2_g-ring"},
+       {"text":"Use his mouth", "nextScene":"hard_option_bedroom_day_2_g-2"}   ,
+       {"text":"Finish the day", "nextScene":"hard_option_bedroom_day_2_g_ending"} 
+    ]
+  },
+  "hard_option_bedroom_day_2_g-ring": {
+    "title": "Bedroom",        
+    "text": "You insert the ring gag and instantly see him become submissive, you have to take this opportunity to face fuck him - taking your strap on you shove it through the ring and down his throat, holding it there the drool piles up and upon sliding your cock out from his throat covers his cock. You start gently kicking his balls and running his cock, your toes are covered in drool and the expertly bring him to the edge when -- you stop and leave him, panting covered in drool, tied and gagged.",
+    "surprise": false,
+    "options": [
+       {"text":"Big Red Ball Gag", "nextScene":"hard_option_bedroom_day_2_g-ball"},     
+       {"text":"4 Inch Penis Gag", "nextScene":"hard_option_bedroom_day_2_g-p"},
+       {"text":"Use his mouth", "nextScene":"hard_option_bedroom_day_2_g-2"}   ,
+       {"text":"Finish the day", "nextScene":"hard_option_bedroom_day_2_g_ending"}
+    ]
+  },
+  "hard_option_bedroom_day_2_g_ending": {
+    "title": "Bedroom",        
+    "text": "After trying out various gags you decide he has had enough, for now.\n You set im up in his personal cage with his hands taped. A few more months of this training and his mouth will be ready for the biggest of cocks!\nTom should stay gagged for over hour, he doesn't need to speak after all..." 
+  },
 
   "hard_option_kitchen_day_1-8_c": {
     "title": "Kitchen",        
@@ -335,10 +399,9 @@
 
   "feminise_route_day_2": {
      "title": "Bedroom", 
-     "text": "Having moved him upstairs you were able to deal with the mechanic without incident\n **---** THE NEXT DAY **--** \nHe lies on your bed writhing in anger. You have tied a ribbon around his cock in a neat bow, his hair has pink flowers and a hairband in it. His face has been shaved and applied to it, a subtle amount of makeup with long mascara leaden eyelashes.\nYou tied his knees and elbows together and his ankles and wrists, forcing him in an arch and presenting his ass perfectly for you collection of dildos. His mouth bulges under the panties stiffed in there, well they had been laying around so it wasn't a bad place to put them... <span class='speech-player'>So Piper, today I'm going to teach you that a proper woman gets fucked by big cocks. But first some anal training</span> you tell him resolutely. But which plug do you go for?" ,
+     "text": "Having moved him upstairs you were able to deal with the mechanic without incident\n\n **---** THE NEXT DAY **--** \nHe lies on your bed writhing in anger. You have tied a ribbon around his cock in a neat bow, his hair has pink flowers and a hairband in it. His face has been shaved and applied to it, a subtle amount of makeup with long mascara leaden eyelashes.\nYou tied his knees and elbows together and his ankles and wrists, forcing him in an arch and presenting his ass perfectly for you collection of dildos. His mouth bulges under the panties stiffed in there, well they had been laying around so it wasn't a bad place to put them... <span class='speech-player'>So Piper, today I'm going to teach you that a proper woman gets fucked by big cocks. But first some anal training</span> you tell him resolutely." ,
      "options": [
-      {"text": "4 Inch by 3 Inch", "nextScene": "fem_day_2_small"},
-      {"text": "4 Inch by 5 Inch", "nextScene": "fem_day_2_large"}
+      {"text": "Start Training", "nextScene": "fem_day_2_small"}      
      ]
   },
   "fem_day_2_small": {
@@ -357,6 +420,22 @@
       {"text": "Femme Ending", "nextScene": "fem_ending"}      
      ]
   },
+  "fem_day_2_black": {
+    "title": "Bedroom", 
+     "text": "<span class='speech-player'>'Now then Piper, I have a special role for you - from now on you are going to serve ONLY big black cocks and have your own pathetic white clitty locked up permanently.'</span>\n Over the next few days she is made to watch BBC Hypno porn on repeat whilst you train her ass to take your BBC dildos, at the same time her balls are punished by your own fair hand." ,
+     "options": [
+      {"text": "Keep it between you", "nextScene": "bbc_ending"},
+      {"text": "Make her a Snowbunny", "nextScene": "snowbunny_ending"}      
+     ]
+  },
+  "bbc_ending": {
+    "title": "Bedroom", 
+     "text": "From that point on she was trained to only be granted pleasure whilst watching BBC content, and only allowed to fuck BBC dildos. Maybe Piper needs reminding her own cock can never compare to the real deal..." 
+  },
+  "snowbunny_ending": {
+    "title": "Bedroom", 
+     "text": "After Piper had been hypno trained you decide to pimp her out, bringing her to local BDSM clubs, now tattooed as your property and indicating she was a BBC Slut only, you let any black person use her as they pleased, furthering her conditioning."      
+  },
   "fem_day_2_ten": {
     "title": "Bedroom", 
      "text": "<span class='speech-player'>You might enjoy this Piper, but we need to start gaping this pussy.</span> you say sincerely, lubing up her ass and your dildo. Starting slowly the tip enters and you see her boypussy struggle to open for such a large cock, but you perservere and after much lube and thrusting the whole 10 inches is sliding in and out freely a nice contrast to the semi hard cock doing nothing, you don't even see this cock as a sexual tool anymore a flat cage ought to remove it from play you think to yourself.\nAfter some time training her ass you decide it is time for the insane 😈" ,
@@ -369,21 +448,50 @@
     "title": "Bedroom", 
      "text": "You inspect your little slut: hanging with her back facing the floor from a swing ankles tied facing the sky and wrists tied behind her back she sways gently and nervously looks at you, her cock in a tiny cage squeezing her prefectly round balls out. She moans softly through her black bit gag.\nYou approach with the monster buttplug - 12 inches at its max in the middle, this is going to be a fun insertion.\nYou apply generous amounts of lube and begin inserting the huge tip swirling it around to lube up her asshole her eyes widening in anticipation.\nIn the end you need both hands and your body wieght to force it into her, but my god when it's in it looks magnificent. You can only imgaine how full and stretched she feels, you give it a testing pull. Nothing, this isnt moving without help from either of you.\n <span class='speech-player'>Enjoy Piper, you are going to wear this monster all night you dirty slut.</span> hearing that she tries feebly to escape her bonds, but the plug hampers her efforts and you see her locked cock leaking... 'this will be a fun time' you think to yourself." ,
      "options": [
-      {"text": "Make her an anal Slut", "nextScene": "anal_slut_ending"}
+      {"text": "Spank her ass red first", "nextScene": "fem_day_2_ten-4"},
+      {"text": "Insert the dildo", "nextScene": "fem_day_2_ten-5"}
      ]
+  },
+  "fem_day_2_ten-4": {
+    "title": "Bedroom", 
+     "text": "You decide she looks much too comfortable and decide to change this.\nGrabbing your riding crop you start gently tapping her ass and she wiggles knowing what's coming next. Harder you go leaving beautiful red stripes over her ass and she is furiously trying to evade, to no avail...\n For good measure you bust her full balls with a nice big dildo until you determine she has been softened up for the dildo.",
+     "options": [
+      {"text": "Feminised Ending", "nextScene": "fem_ending_2"}    
+     ]
+  },
+  "fem_day_2_ten-5": {
+    "title": "Bedroom", 
+     "text": "<span class='speech-player'>'Well then Piper you dumb slut, are you eager to be filled up'</span>, she nods vigorously, <span class='speech-player'>'Good girl'</span>.\nStarting gently she works with you to slowly fill herself up and you are in amazement how loose she is, the whole thing dissapears into her and you see her shudder in pleaure writhing in her bonds trying to get a good angle. YOu decide to reward her and start fucking her with the tentacle - in and out - over and over, faster and faster until eventually cum spurts out from her tiny cage over the bed and she experiences her first sissygasm.",
+     "options": [
+      {"text": "Feminised Ending", "nextScene": "fem_ending_2"}    
+     ]
+  },
+  "fem_ending_2": {
+    "title": "Bedroom", 
+    "text": "Piper should work on her own ability to sissygasm for the next few hours."    
   },
   "anal_slut_ending": {
     "title": "Bedroom", 
-     "text": "For the next couple of months you train her ass to gape, taking the biggest toys you can find until there is nothing she can't take with ease and her ass is a gaping mess that just begs for cock. \n Piper should be lucky she only has small toys for Goddess to punish her with."    
+    "text": "For the next couple of months you train her ass to gape, taking the biggest toys you can find until there is nothing she can't take with ease and her ass is a gaping mess that just begs for cock. \n Piper should be lucky she only has small toys for Goddess to punish her with."    
+  },
+  
+  "fem_ending":{
+    "title": "Bedroom",
+    "text": "You examine your new girl, always down on her knees wearing thigh highs with high heels locked in place, a flat chastity cage has reduced her cock but she won't be needing it anymore. She follows you around a leash, nipples pierced with bells attached and the tattoo 'Property of Goddess' on her lower back.\nProperly conditioned she takes nothing less than 10 inch cocks in her ass and throat. She hapily spends her time sorting out your needs however they should arise.",
+    "options": [
+      {"text": "Feminised Ending - Piper should start wearing fishnets more often..."}
+    ]
   },
 
-  "fem_ending":{
-  "title": "Bedroom",
-  "text": "You examine your new girl, always down on her knees wearing thigh highs with high heels locked in place, a flat chastity cage has reduced her cock but she won't be needing it anymore. She follows you around a leash, nipples pierced with bells attached and the tattoo 'Property of Goddess' on her lower back.\nProperly conditioned she takes nothing less than 10 inch cocks in her ass and throat. She hapily spends her time sorting out your needs however they should arise.",
-  "options": [
-    {"text": "Feminised Ending - Piper should start wearing fishnets more often..."}
-  ]
-  },
+    "fem_day_2_ten-3": {
+      "title": "Bedroom", 
+       "text": "Now this will be fun, you have a 15 inch long pink tentacle dildo ready for Piper to receive. she is chained by her collar to your bed, hands and feet in a neat line held in place by a metal spreader bar. \nYou admire her form whilst she nervously tries to shift, you wrapped her head in tape with only her nose showing and you take this isolation as an opportunity for maximum teasing... \n." ,
+       "options": [
+        {"text": "Make her an anal Slut", "nextScene": "anal_slut_ending"}
+       ]
+    },
+
+
   "Divider": {"---------------------------------------": "REVERSE SCENES--------------------------------------------------------"},
   "hard_option_kitchen_day_1_reversed": {
     "title": "Kitchen",        
@@ -411,6 +519,40 @@
       { "text": "Move Upstairs", "nextScene": "hard_option_bedroom_day_1_r_doorway" }     
     ]
   },
+  "hard_option_kitchen_day_1-3_r": {
+    "title": "Kitchen",        
+    "text": "You move towards him and stroke his leg, allowing your bust to show. <span class='speech-player'>You know... you're kinda cute</span>, this wasn't a lie, but you'd rather not have let him know that...",
+    "surprise":false,
+    "options": [  
+      {
+        "text": "Try to distract",              
+        "miniGame": {
+          "id": "intellect_check",
+          "difficulty": 1,
+          "onSuccess": "soft_option_kitchen-day_1",
+          "onFailure": "hard_option_kitchen_day_1_reversed-1"         
+        }
+      }    
+    ]
+  },
+  "soft_option_kitchen-day_1": {
+    "title": "Kitchen-Bedroom",        
+    "text": "<span class='speech-npc'>R-really'</span> he stammers, he is clearly surprised to learn this. You are safe for now, maybe he will become submissive to you in a new way then.",
+    "surprise": false,
+    "options": [  
+      { "text": "Move Upstairs", "nextScene": "soft_option_bedroom_day_1" }     
+    ]
+  },
+  "hard_option_bedroom_day_1_r": {
+    "title": "Kitchen-Bedroom",        
+    "text": "<span class='speech-player'>'Let's get you out of the clothes though, I'm sure I have something upstairs'</span>, you start leaving and gesture for him to follow you, before heading out and turning to the stairs. Pausing a couple of seconds and he emerges following you.",
+    "surprise": false,
+    "options": [  
+      { "text": "Move Upstairs", "nextScene": "hard_option_bedroom_day_1_r_doorway" }     
+    ]
+  },
+  
+
   "hard_option_bedroom_day_1_r_doorway": {
     "title": "Bedroom doorway",        
     "text": "You're deep in thought about how to submit him, if the pills failed then maybe some seduction followed by bondage would land you this catch. You pass through and he follows you in.",
@@ -425,12 +567,61 @@
   },
    "hard_option_bedroom_day_1_r_recovered": {
     "title": "Bedroom",        
-    "text": "Free you move to race past him, rush down the stairs and turn to hide in the....",
+    "text": "He is momentarily stunned, what do you do?!!",
     "surprise": false,
     "options": [  
-      { "text": "Main Room", "nextScene": "hard_option_mainRoom_day_1_r" },     
-      { "text": "Back Room", "nextScene": "hard_option_backRoom_day_1_r" }     
+      { "text": "Try to Knock out and punish", "nextScene": "hard_option_bedroom_day_1_r_recovered-1" },     
+      { "text": "Run away", "nextScene": "hard_option_bedroom_day_1_r_recovered-2" }     
     ]
+  },
+   "hard_option_bedroom_day_1_r_recovered-1": {
+    "title": "Bedroom",        
+    "text": "You pick up a nearby book, big and heavy, and thump him with it, knocking him out.",
+    "surprise": false,
+    "options": [  
+      { "text": "Punish", "nextScene": "hard_option_bedroom_day_1_r_recovered-3" },     
+      { "text": "Really Punish", "nextScene": "hard_option_bedroom_day_1_r_recovered-4" }     
+    ]
+  },
+  "hard_option_bedroom_day_1_r_recovered-3": {
+    "title": "Bedroom",        
+    "text": "You step back and view your punished new slave. Laying on his front on your bed, his wrists tied to his shoulders, his ankles to his thighs in a frog tie. His knees and elbows then tied-spread out fastening him in place. You took the liberty of caging his cock and plugging his ass with a nice hook - punishment for nearly taking you down. His neck is loosely tied to this, but when he wakes it will be tightended and he will have to choose between fucking his own ass or choking.",
+    "surprise": false,
+    "options": [  
+      { "text": "Move Upstairs", "nextScene": "hard_option_bedroom_day_2_r" }     
+    ]
+  },
+  "hard_option_bedroom_day_1_r_recovered-4": {
+    "title": "Basement",        
+    "text": "Fastened to the ceiling bar your slave slightly swings in his vertical hogtie, a bar resting where his legs bend, under the knees. His nipples clamped, and his ass hooked, tied to his hands with a very short rope. His cock is free and a his mouth gagged.\n Waking up his starts thrashing but the sharp feel in his ass from the hook quickly stops that.",
+    "surprise": false,
+    "options": [  
+      { "text": "Jerk him off", "nextScene": "hard_option_bedroom_day_1_r_recovered-5" },
+      { "text": "Whip him", "nextScene": "hard_option_bedroom_day_1_r_recovered-6" }     
+    ]
+  },
+  "hard_option_bedroom_day_1_r_recovered-5": {
+    "title": "Basement",        
+    "text": "You start jerking his cock off, feeling it grow in size in your hands, tugging on his hook every now and then until you bring him to the edge several times. On the last edge you go all the way, and ruin his orgasm letting his cum drip down pathetcially over his own face..",
+    "surprise": false,
+    "options": [  
+      { "text": "Jerk him off", "nextScene": "hard_option_bedroom_day_1_r_recovered-5" },
+      { "text": "Whip him", "nextScene": "hard_option_bedroom_day_1_r_recovered-6" }     
+    ]
+  },
+  "hard_option_bedroom_day_1_r_recovered-6": {
+    "title": "Basement",        
+    "text": "<span class='speech-player'>'So you thought you could you fuck with me?'</span> you purr, taking ahold of his cock and gently stroking it before slapping it with such force he starts swaying. You take you whip and step back, the next hour is filled with cracks and thwips as you whip him with all manner of instruments.\n The session ends with him tied to a steel bedframe, his balls wrapped in cord fixed to the ceiling forcing him to arch. He is gagged with a nice ring gag and his ass is stuffed with a large inflatable plug, maxed out. A truly uncomfortable experience. But he will learn now not to ever fuck with you again.",
+    "surprise": false,
+    "options": [  
+      { "text": "Jerk him off", "nextScene": "hard_option_bedroom_day_1_r_recovered-5" },
+      { "text": "Whip him", "nextScene": "hard_option_bedroom_day_1_r_recovered-6" }     
+    ]
+  },
+   "hard_option_bedroom_day_1_r_recovered-2": {
+    "title": "Bedroom",        
+    "text": "You take this chance to dash past him and down the stairs, phone in hand ready to call the police.",
+    "surprise": false    
   },
   "hard_option_bedroom_day_1_r_caught": {
     "title": "Bedroom",        
