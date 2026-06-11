@@ -390,27 +390,30 @@ class AdventureGame {
         }
     }
 
-   resetGame() {
-    // 1. Reset the state object
-    this.state = { 
-        currentStoryFile: './assets/mainScreen.json', 
-        currentScene: 'game_title_screen', 
-        inventory: [] 
-    };
+    resetGame() {
+        // 1. Wipe the persistent save from the browser
+        localStorage.removeItem('adventure_game_save'); 
 
-    // 2. Clear the actual class property
-    this.inventory = []; 
+        // 2. Reset the JavaScript variables
+        this.state = { 
+            currentStoryFile: './assets/mainScreen.json', 
+            currentScene: 'game_title_screen', 
+            inventory: [] 
+        };
+        this.inventory = [];
 
-    // 3. IMPORTANT: Clear the save file in the browser 
-    // Otherwise, the game will load the old inventory from storage
-    localStorage.removeItem('game_save_key'); // Replace 'game_save_key' with whatever you use
+        // 3. Clear the UI (the visual items)
+        const inventoryContainer = document.getElementById('inventory-list'); 
+        if (inventoryContainer) {
+            inventoryContainer.innerHTML = ''; 
+        }
 
-    // 4. Update the save and re-init
-    this.saveGame();
-    this.initGame(); 
-    
-    console.log("Inventory cleared and game reset.");
-}
+        // 4. Save the new "empty" state and re-initialize
+        this.saveGame();
+        this.initGame(); 
+        
+        console.log("Save file deleted and inventory cleared!");
+    }
 }
 
 /**
