@@ -391,10 +391,25 @@ class AdventureGame {
     }
 
     resetGame() {
-        this.state = { currentStoryFile: './assets/mainScreen.json', currentScene: 'game_title_screen', inventory: [] };
+        // 1. Reset your state object
+        this.state = { 
+            currentStoryFile: './assets/mainScreen.json', 
+            currentScene: 'game_title_screen', 
+            inventory: [] 
+        };
+
+        // 2. Synchronize your class properties to match the new state
+        this.pockets = []; // Clear the pockets variable
+        this.currentScene = 'game_title_screen'; // Ensure this matches the state
+        
+        // 3. Clear any localStorage if you are saving/loading progress
+        localStorage.removeItem('your-game-save-key'); 
+
+        // 4. Save and re-initialize
         this.saveGame();
         this.initGame(); 
-        this.pockets = []
+        
+        console.log("Game fully reset.");
     }
 }
 
