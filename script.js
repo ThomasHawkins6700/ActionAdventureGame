@@ -394,6 +394,7 @@ class AdventureGame {
         this.state = { currentStoryFile: './assets/mainScreen.json', currentScene: 'game_title_screen', inventory: [] };
         this.saveGame();
         this.initGame(); 
+        this.pockets = []
     }
 }
 
