@@ -16,7 +16,7 @@ class AdventureGame {
             currentStoryFile: './assets/mainScreen.json', 
             currentScene: 'game_title_screen',           
         };
-        this.player = new Player("Ashton");
+        this.player = new Player("Goddess");
         this.miniGameEngine = new MiniGameEngine(this);
     }
 
@@ -390,27 +390,27 @@ class AdventureGame {
         }
     }
 
-    resetGame() {
-        // 1. Reset your state object
-        this.state = { 
-            currentStoryFile: './assets/mainScreen.json', 
-            currentScene: 'game_title_screen', 
-            inventory: [] 
-        };
+   resetGame() {
+    // 1. Reset the state object
+    this.state = { 
+        currentStoryFile: './assets/mainScreen.json', 
+        currentScene: 'game_title_screen', 
+        inventory: [] 
+    };
 
-        // 2. Synchronize your class properties to match the new state
-        this.pockets = []; // Clear the pockets variable
-        this.currentScene = 'game_title_screen'; // Ensure this matches the state
-        
-        // 3. Clear any localStorage if you are saving/loading progress
-        localStorage.removeItem('your-game-save-key'); 
+    // 2. Clear the actual class property
+    this.inventory = []; 
 
-        // 4. Save and re-initialize
-        this.saveGame();
-        this.initGame(); 
-        
-        console.log("Game fully reset.");
-    }
+    // 3. IMPORTANT: Clear the save file in the browser 
+    // Otherwise, the game will load the old inventory from storage
+    localStorage.removeItem('game_save_key'); // Replace 'game_save_key' with whatever you use
+
+    // 4. Update the save and re-init
+    this.saveGame();
+    this.initGame(); 
+    
+    console.log("Inventory cleared and game reset.");
+}
 }
 
 /**
