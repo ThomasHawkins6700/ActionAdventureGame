@@ -11,10 +11,13 @@ class AdventureGame {
         this.surprisePool = null; 
         this.miniGamePool = null;
         this.isButtonBound = false;
+        this.visitedRandomScenes = [];
+        this.randomSceneIndex = 0;
+        this.isNavigating = false;
 
         this.state = { 
             currentStoryFile: './assets/mainScreen.json', 
-            currentScene: 'game_title_screen',           
+            currentScene: 'game_title_screen',                       
         };
         this.player = new Player("Goddess");
         this.miniGameEngine = new MiniGameEngine(this);
@@ -73,54 +76,49 @@ class AdventureGame {
     };
 
     async loadAssetsPools() {
-        const miniGamesRes = await fetch(`./assets/miniGames.json?t=${Date.now()}`);
-        this.miniGamePool = await miniGamesRes.json();
-        
-        console.log("✅ New Pool Loaded:", this.miniGamePool);
-        // 1. Get the current path (e.g., /ActionAdventureGame/index.html)
-        // 2. We extract the base directory to ensure we always point to the project root
+        // 1. Setup paths
         const pathParts = window.location.pathname.split('/');
-        const repoName = pathParts[1]; // This captures 'ActionAdventureGame'
+        const repoName = pathParts[1]; 
         const baseUrl = `/${repoName}`;
 
-        // Now we build the path using the detected base
-        const miniGamesPath = `${baseUrl}/assets/miniGames.json`;
-        const surprisesPath = `${baseUrl}/assets/surprises.json`;
-
+       
         try {
-            const [miniGamesRes, surprisesRes] = await Promise.all([
-                fetch(miniGamesPath),
-                fetch(surprisesPath)
+           const [miniGamesRes, surprisesRes, debuffsRes] = await Promise.all([
+                fetch('./assets/miniGames.json'),
+                fetch('./assets/surprises.json'),
+                fetch('./assets/debuffs.json')
             ]);
 
-            if (!miniGamesRes.ok || !surprisesRes.ok) {
-                throw new Error(`Failed to load: ${miniGamesRes.status}`);
+
+            if (!miniGamesRes.ok || !surprisesRes.ok || !debuffsRes.ok) {
+                throw new Error("One or more asset files failed to load.");
             }
 
             this.miniGamePool = await miniGamesRes.json();
             this.surprisePool = await surprisesRes.json();
+            this.debuffPool = await debuffsRes.json(); // Assign all
             
-            console.log("Assets loaded! Path used:", miniGamesPath);
+            console.log("✅ All assets loaded successfully.");
         } catch (error) {
-            console.error("Critical Failure:", error);
+            console.error("Critical Failure loading assets:", error);
         }
     }
-   async initGame() {
+    async initGame() {
         this.loadGame();
         
-        // Explicitly define the path for the initial hub
-        const hubPath = "./assets/mainScreen.json";
+        // 1. Load the core story first
+        await this.loadStoryFile("./assets/mainScreen.json");
         
-        await this.loadStoryFile(hubPath);
-        
-        // SAFETY CHECK: If it's still null, stop here to avoid the crash
-        if (!this.storyData) {
-            console.error("Critical Failure: Could not load hub file at", hubPath);
-            return;
-        }
-
+        // 2. Load all secondary assets in one go
         await this.loadAssetsPools();
         
+        // 3. Safety check
+        if (!this.storyData || !this.debuffPool) {
+            console.error("Critical Failure: Assets missing.");
+            return;
+        }
+        
+        // 4. Setup UI and start
         if (!this.isButtonBound) {
             document.getElementById('reset-btn').addEventListener('click', () => this.resetGame());
             this.isButtonBound = true;
@@ -130,15 +128,20 @@ class AdventureGame {
     }
     // Unified Roll Logic
     rollForSurprise(node) {
-        // 1. Only roll if the node actually has a surprise defined
         if (!node.surprise) return null;
 
-        // 2. Perform the roll
-        const d20Roll = Math.floor(Math.random() * 20) + 1;
-        if (d20Roll < 12) return null; // Or use node.surpriseChance
+        let d20Roll = Math.floor(Math.random() * 20) + 1;
+        d20Roll = 20
+        // LOG: See the roll result in the console
+        console.log(`🎲 Surprise Check: Rolled a ${d20Roll} (Target: 12+)`);
 
-        // 3. Return a standard "Surprise Object"
-        // We pull the ID directly from the node or a default
+        if (d20Roll < 10) {
+            console.log("❌ No surprise.");
+            return null;
+        }
+
+        console.log("✅ Roll passed! Triggering surprise:", node.surpriseMiniGameId);
+
         return {
             miniGameId: node.surpriseMiniGameId, 
             onSuccess: node.onSurpriseSuccess,
@@ -154,8 +157,7 @@ class AdventureGame {
         if (this.sceneTimer) clearTimeout(this.sceneTimer);
         const container = document.getElementById('game-container');
         const timerBar = document.getElementById('timer-bar-bg');
-        const timerFill = document.getElementById('timer-bar-fill');
-
+        const timerFill = document.getElementById('timer-bar-fill');      
         // Handle Timed Scene
         if (node.timer) {
             container.classList.add('timed-scene');
@@ -188,12 +190,18 @@ class AdventureGame {
         // 2. Create a temporary container to "wash" the string
         const parser = new DOMParser();
         const doc = parser.parseFromString(node.text, 'text/html');
-        
-        // 3. Move the parsed content into your storyDiv
-        while (doc.body.firstChild) {
-            storyDiv.appendChild(doc.body.firstChild);
+   
+        if (this.state.currentScene === "show_debuff_result") {
+            storyDiv.innerHTML = `<strong>Your fate:</strong> ${this.state.lastDebuff}`;
+        } else {
+            // Use a temp container to "wash" the string to avoid XSS/HTML issues
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(node.text, 'text/html');
+            while (doc.body.firstChild) {
+                storyDiv.appendChild(doc.body.firstChild);
+            }
         }
-        
+
         // 3. Clear and Rebuild Buttons
         const buttonContainer = document.getElementById('choices-container');
         buttonContainer.innerHTML = '';
@@ -217,115 +225,133 @@ class AdventureGame {
     }
 
     // Single source of truth for scene movement
-    handleSceneTransition(sceneId) {
-        const node = this.storyData[sceneId];
-        if (!node) return console.error("❌ Node not found:", sceneId);
+   handleSceneTransition(sceneId) {
+        // 1. Resolve the target ID. If it's "random", ask our helper to pick one.
+        if (this.isNavigating) return;
+        this.isNavigating = true;
 
-        this.state.currentScene = sceneId;
+        console.trace(">>> Navigating to:", sceneId);
+        let targetSceneId = sceneId;
+        if (targetSceneId === "random") {
+            targetSceneId = this.getRandomScene();
+        }
+        
+       if (targetSceneId === "apply_debuff") {
+            const pool = this.debuffPool.failure_results;
+            this.state.lastDebuff = this.getRandomArrayElement(pool);
+            targetSceneId = "show_debuff_result";
+        }
+
+        // 2. Fetch the node
+        const node = this.storyData[targetSceneId];
+        if (!node) {
+            this.isNavigating = false;
+            return console.error("❌ Node not found:", targetSceneId);
+        }
+
+        // DEBUG
+        console.log(">>> Navigating to:", targetSceneId);
+
+        // 3. Update State
+        this.state.currentScene = targetSceneId;
         this.saveGame();
-
-        // 1. Check for Surprise
+        
+        // 4. Check for Surprise
         if (node.surprise === true) {
             const surprise = this.rollForSurprise(node);
             
             if (surprise) {
-                // Logic for SURPRISE B
                 let difficulty = 1;
                 if (Array.isArray(node.surpriseDifficultyRange)) {
                     const [min, max] = node.surpriseDifficultyRange;
                     difficulty = Math.floor(Math.random() * (max - min + 1)) + min;
                 }
 
-                // We hide the standard content temporarily
                 this.render(node, { hideContent: true }); 
 
                 this.miniGameEngine.start(surprise.miniGameId, difficulty, (isSuccess) => {
-                    // Now we navigate to the outcome, NOT the node itself
                     const nextScene = isSuccess ? node.onSurpriseSuccess : node.onSurpriseFailure;
                     this.handleSceneTransition(nextScene);
                 });
-                return; // EXIT: We don't render the default node yet
+                return; // Exit here to wait for mini-game
             }
         }
 
-        // 2. Logic for SAFE B (Default path)
+        // 5. Default Rendering
         this.render(node);
+        this.isNavigating = false;
     }
 
-    async makeChoice(option) {
-        console.log("👉 Button clicked");
+    getRandomScene() {
+        // 1. Your roster (the order you want them to appear)
+        const roster = [
+            "bonds_1", 
+            "bonds_2", 
+            "bonds_3", 
+            "bonds_4", 
+            "bonds_5", 
+            "bonds_6", 
+            "bonds_7", 
+            "bonds_8", 
+            "bonds_9", 
+            "bonds_10", 
+            "bonds_11", 
+            "bonds_12", 
+            "bonds_13", 
+            "bonds_14", 
+            "bonds_15"]; 
 
-        // 1. Handle Item/Energy (Always do this first)
-        if (option.item) {
-            const success = this.player.addItem(option.item);
-            if (success) {
-                this.renderHUD(); // Update UI here
-                this.saveGame();  // Save here
-            }
-        }
-        if (option.energyCost > 0) this.player.modifyEnergy(-option.energyCost);
-        this.renderHUD();
-
-        // 2. Load story file if needed
-        if (option.storyFile) {
-            await this.loadStoryFile(option.storyFile);
-        }
-
-            if (option.miniGame) {       
-                const config = {
-                    ...option.miniGame, 
-                    requiredItem: option.requiredItem 
-                };
-
-            // Now pass this new 'config' object to the engine instead of 'option.miniGame'
-            this.miniGameEngine.start(config, (isSuccess) => {
-                this.processConsumption(config, isSuccess);            
-                const nextScene = isSuccess ? (config.onSuccess || option.nextScene) : (config.onFailure);
-                this.handleSceneTransition(nextScene);
-            });
-        } else if (option.nextScene) {
-            // Use the helper for standard consumption
-            this.processConsumption(option, null);
-            this.handleSceneTransition(option.nextScene);
+        // 2. If we've shown all scenes, return the final ID
+        if (this.randomSceneIndex >= (roster.length/2)) {
+            return "random_final";
         }
 
-        // 3. THE UNIFIED MINI-GAME / TRANSITION LOGIC
-        // We treat miniGame and triggerMiniGame as the same goal
-        const miniGameConfig = option.miniGame || option.triggerMiniGame;
-       
-        if (miniGameConfig) {
-            // Normalize: if it's just a string ID, wrap it in an object
-            const config = typeof miniGameConfig === 'string' ? { id: miniGameConfig } : miniGameConfig;
+        // 3. Get the current scene and increment the counter
+        const targetScene = roster[this.randomSceneIndex];
+        this.randomSceneIndex++;
 
-            this.miniGameEngine.start(config, (isSuccess) => {
-                // A. Consumption Logic
-                const policy = config.consumptionPolicy;
-                const itemToConsume = option.requiredItem; // Your JSON defines this
-                
-                let shouldConsume = false;
-                if (policy === "always") shouldConsume = true;
-                else if (policy === "success" && isSuccess) shouldConsume = true;
-                else if (policy === "failure" && !isSuccess) shouldConsume = true;
+        console.log(`🎲 Playing random scene ${this.randomSceneIndex} of ${roster.length}`);
+        return targetScene;
+    }
 
-                if (shouldConsume && itemToConsume) {
-                    this.player.removeItem(itemToConsume);
-                    this.renderHUD();
-                }
-
-                // B. Navigation Logic
-                // Prioritize: Success/Fail paths > nextScene > default
-                const nextScene = isSuccess 
-                    ? (config.onSuccess || option.nextScene) 
-                    : (config.onFailure || option.failScene);
-
-                this.handleSceneTransition(nextScene);
-            });
-        } 
-        // 4. Standard Transition
-        else {
-            this.handleSceneTransition(option.nextScene);
+async makeChoice(option) { 
+    // 1. Handle Item/Energy (ALWAYS do this first)
+    if (option.item) {
+        if (this.player.addItem(option.item)) {
+            this.renderHUD();
+            this.saveGame();
         }
     }
+    if (option.energyCost > 0) this.player.modifyEnergy(-option.energyCost);
+    this.renderHUD();
+
+    // 2. Load story file if needed
+    if (option.storyFile) {
+        await this.loadStoryFile(option.storyFile);
+    }
+
+    // 3. THE SINGLE SOURCE OF TRUTH FOR NAVIGATION
+    const miniGameConfig = option.miniGame || option.triggerMiniGame;
+
+    if (miniGameConfig) {
+        const config = typeof miniGameConfig === 'string' ? { id: miniGameConfig } : miniGameConfig;
+
+        this.miniGameEngine.start(config, (isSuccess) => {
+            // --- FIX: Pass the original 'option' object here ---
+            this.processConsumption(option, isSuccess); 
+            
+            const nextScene = isSuccess 
+                ? (config.onSuccess || option.nextScene) 
+                : (config.onFailure || option.failScene);
+
+            this.handleSceneTransition(nextScene);
+        });
+    } else {
+        // Standard transition for options without mini-games
+        this.processConsumption(option, null);
+        this.handleSceneTransition(option.nextScene);
+    }
+}
 
     jumpToScene(sceneId) {
         console.log("🚀 Jumping to:", sceneId);
@@ -366,28 +392,40 @@ class AdventureGame {
     // Inside AdventureGame class
     processConsumption(option, isSuccess = null) {
         const item = option.requiredItem;
-        const policy = option.consumptionPolicy || "always"; // Default to always if not specified
+        const policy = option.consumptionPolicy || "always";
+
+        if (!item) return;
 
         let shouldConsume = false;
-        
-        // Logic for mini-game results (if isSuccess is provided)
-        if (isSuccess !== null) {
+
+        // FIX: Check for "always" FIRST, or allow it to override the mini-game result
+        if (policy === "always") {
+            shouldConsume = true;
+        } 
+        // Otherwise, check the mini-game results
+        else if (isSuccess !== null) {
             if (policy === "both") shouldConsume = true;
             else if (policy === "success" && isSuccess) shouldConsume = true;
             else if (policy === "failure" && !isSuccess) shouldConsume = true;
-        } 
-        // Logic for standard transitions (no mini-game)
-        else {
-            if (policy === "always") shouldConsume = true;
         }
 
-        if (shouldConsume && item) {
+        console.log(`🔍 Consumption Check: Item='${item}', Policy='${policy}', Result=${isSuccess}, ShouldConsume=${shouldConsume}`);
+
+        if (shouldConsume) {
             const removed = this.player.removeItem(item);
             if (removed) {
                 this.renderHUD();
                 this.saveGame();
             }
         }
+    }
+
+    getRandomArrayElement(pool) {
+        if (!Array.isArray(pool) || pool.length === 0) return "No results found.";
+        
+        // Generate random index from 0 to pool.length - 1
+        const randomIndex = Math.floor(Math.random() * pool.length);
+        return pool[randomIndex];
     }
 
     resetGame() {
@@ -400,7 +438,10 @@ class AdventureGame {
             currentScene: 'game_title_screen', 
             inventory: [] 
         };
+        
+        // Reset your new tracking variables
         this.inventory = [];
+        this.randomSceneIndex = 0; // Add this line!
 
         // 3. Clear the UI (the visual items)
         const inventoryContainer = document.getElementById('inventory-list'); 
@@ -412,7 +453,7 @@ class AdventureGame {
         this.saveGame();
         this.initGame(); 
         
-        console.log("Save file deleted and inventory cleared!");
+        console.log("Save file deleted, inventory cleared, and random sequence reset!");
     }
 }
 
@@ -837,7 +878,7 @@ class Player {
     constructor(name) {
         this.name = name;
         this.inventory = [];
-        this.maxInventoryCount = 3;
+        
     }
 
     // Logic for items

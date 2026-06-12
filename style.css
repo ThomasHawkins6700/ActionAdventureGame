@@ -62,6 +62,7 @@ body {
     line-height: 1.7;
     font-style: italic;
     color: #cbd5e1;
+    white-space: pre-line;
 }
 
 .speech-npc {
@@ -72,6 +73,11 @@ body {
 .speech-player {
     color: #fbbf24; /* Amber for the player's voice */
     font-weight: 600;
+}
+
+.cmd {
+    color: #f43f5e;
+     font-weight: 600;
 }
 
 /* Base Utility Button Zone (Fixed at bottom) */

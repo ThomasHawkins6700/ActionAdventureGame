@@ -24,7 +24,7 @@
     "surprise": false,
     "options": [  
       { "text": "Yes", "nextScene": "hard_option_kitchen_day_1", "item":"Sleeping Pills" },
-      { "text": "No", "nextScene": "hard_option_kitchen_day_1"}
+      { "text": "No", "nextScene": "soft_option_kitchen_day_1"}
     ]
   },
   "hard_option_kitchen_day_1": {
@@ -491,7 +491,6 @@
        ]
     },
 
-
   "Divider": {"---------------------------------------": "REVERSE SCENES--------------------------------------------------------"},
   "hard_option_kitchen_day_1_reversed": {
     "title": "Kitchen",        
@@ -521,7 +520,7 @@
   },
   "hard_option_kitchen_day_1-3_r": {
     "title": "Kitchen",        
-    "text": "You move towards him and stroke his leg, allowing your bust to show. <span class='speech-player'>You know... you're kinda cute</span>, this wasn't a lie, but you'd rather not have let him know that...",
+    "text": "You move towards him and stroke his leg, allowing your bust to show. <span class='speech-player'>'You know... you're kinda cute'</span>, this wasn't a lie, but you'd rather not have let him know that...",
     "surprise":false,
     "options": [  
       {
@@ -537,33 +536,37 @@
   },
   "soft_option_kitchen-day_1": {
     "title": "Kitchen-Bedroom",        
-    "text": "<span class='speech-npc'>R-really'</span> he stammers, he is clearly surprised to learn this. You are safe for now, maybe he will become submissive to you in a new way then.",
+    "text": "<span class='speech-npc'>'R-really'</span> he stammers, he is clearly surprised to learn this. You are safe for now, maybe he will become submissive to you in a new way then.",
     "surprise": false,
     "options": [  
       { "text": "Move Upstairs", "nextScene": "soft_option_bedroom_day_1" }     
     ]
   },
-  "hard_option_bedroom_day_1_r": {
-    "title": "Kitchen-Bedroom",        
-    "text": "<span class='speech-player'>'Let's get you out of the clothes though, I'm sure I have something upstairs'</span>, you start leaving and gesture for him to follow you, before heading out and turning to the stairs. Pausing a couple of seconds and he emerges following you.",
+  "soft_option_bedroom_day_1": {
+    "title": "Bedroom",        
+    "text": "<span class='speech-player'>'Well, let's get you out of those wet clothes honey, I'm sure I have something upstairs.'</span>, you start leaving and gesture for him to follow you, together you head upstairs making sure your hips are extra seductive - drawing attention to your fat ass.",
     "surprise": false,
     "options": [  
       { "text": "Move Upstairs", "nextScene": "hard_option_bedroom_day_1_r_doorway" }     
     ]
   },
   
-
   "hard_option_bedroom_day_1_r_doorway": {
     "title": "Bedroom doorway",        
-    "text": "You're deep in thought about how to submit him, if the pills failed then maybe some seduction followed by bondage would land you this catch. You pass through and he follows you in.",
+    "text": "You're deep in thought about how to submit him, if the pills failed then maybe some seduction followed by bondage would land you this catch. You pass through and he follows you in.\nYou reach the doorway and open it. A nice tidy and feminine room - perfect for making boys submit.",
     "surprise": true,
     "descriptionOverride":"Suddenly he has an arm around your neck and begins to tighten!!",
     "successTextOverride":"You twist, your knee goes straight to hs groin and your forhead smashes into his mouth, he staggers back cursing.",
     "failureTextOverride":"His grip is too much and his other arm traps yours behind your back, you begin to slip into darknes....",
     "allowedSurpriseEffects": ["reflex_check"],
+    "surpriseMiniGameId": "dot_tap_challenge", 
     "surpriseDifficultyRange": [1, 3],
     "onSurpriseSuccess": "hard_option_bedroom_day_1_r_recovered",
-    "onSurpriseFailure": "hard_option_bedroom_day_1_r_caught"    
+    "onSurpriseFailure": "hard_option_bedroom_day_1_r_caught",
+    "options": [
+      {"text":"Attempt to seduce", "nextScene":"hard_option_bedroom_day_1_r-2"},
+      {"text":"Find clothes and leave him to change", "nextScene":"hard_option_bedroom_day_1_r-3"}      
+    ]    
   },
    "hard_option_bedroom_day_1_r_recovered": {
     "title": "Bedroom",        
@@ -625,11 +628,183 @@
   },
   "hard_option_bedroom_day_1_r_caught": {
     "title": "Bedroom",        
-    "text": "Pressure. \nSound and light fade in slowly\n Tight \nYou see him seated in front of and go to scream - but your words are a muffled nothing that barely travel past your own ears.",
+    "text": "Pressure. \nSound and light fade in slowly\n Tightness \nYou see him seated in front of you and attempt to cry out - but your words are a muffled nothing that barely travel past your own ears.\nYou attempt to move and feel your predicament - your ankles are tied together, your knees, elbows and wrists are all tightly bound together. A rope snakes it way around your shoulders and between your beasts jutting them out. Another rope links this torso rope to your ankle bindings leaving you a pathetic hogtied package. You have been stripped nude, and you assume your panties now reside in your mouth held firm by a large red ball gag.",
     "surprise": false,
     "options": [  
-      { "text": "Move Upstairs", "nextScene": "hard_option_bedroom_day_2_r" }     
+      { "text": "Begin the Bondage ordeal", "nextScene": "bonds_intro" }     
+    ]
+  },
+  "bonds_intro": {
+    "title": "Bedroom",        
+    "text":"This is a fun way to help you cum, whilst being the submissive girl you know you really are. Items in <span class='cmd'>red</span> are your actions you should perform on yourself. They are random so you can replay and have some unpredictablity 😈 \nHappy Reading",
+    "surprise": false,
+    "options": [  
+      { "text": "Begin the Bondage ordeal", "nextScene": "joi_intro" }     
+    ]
+  },
+ "joi_intro": {
+    "title": "Bedroom",        
+    "text": "You invited a stranger in on a cold night whilst snowing out of the kindess of your heart and now look where that has got you.. \nA tied up little plaything to be tormented allll night. <hr> <span class='cmd'>Strip down naked and gather all your toys.</span>",
+    "surprise": false,
+    "options": [  
+      { "text": "Begin the Bondage ordeal", "nextScene": "random" }     
+    ]
+  },
+
+  "bonds_1": {
+    "title": "Bedroom",        
+    "text":"The stranger begins to gently flick your nipples and slap your tits, enjoying the perkiness of them, he even starts sucking them for your pleasure! <hr> <span class='cmd'>Start flicking your nipples and slap your tits gently. Give your nipples 5 hard tugs that make you moan.</span>",
+    "surprise": false,
+    "options": [  
+      { "text": "Continue journey", "nextScene": "random" },     
+      { "text": "I came already", "nextScene": "failed_screen" }     
+    ]
+  },
+  "bonds_2": {
+    "title": "Bedroom",        
+    "text":"Tired of your begging the stranger gags you and starts spanking you harshly. <hr> <span class='cmd'>Put your gag of choice in, or panties if you don't have one... Then use any object to spank your ass 10 times each cheek hard enough to mark. Remove the gag if you want now</span>",
+    "surprise": false,
+    "options": [  
+      { "text": "Continue journey", "nextScene": "random" },     
+      { "text": "I came already", "nextScene": "failed_screen" }     
+    ]
+  },
+   "bonds_3": {
+    "title": "Bedroom",        
+    "text":"The stranger dislikes your freedom - he ties your legs below the knee, at the ankles and even your toes. <hr> <span class='cmd'>Tie yourself the same way and remain like that for the next 10 minutes.</span>",
+    "surprise": false,
+    "options": [  
+      { "text": "Continue journey", "nextScene": "random" },     
+      { "text": "I came already", "nextScene": "failed_screen" }     
+    ]
+  },
+   "bonds_4": {
+     "title":"Bedroom",
+     "text": "The stranger dislikes your freedom - he ties your legs below the knee, at the ankles and even your toes. <hr> <span class='cmd'>Tie yourself the same way and remain like that for the next 10 minutes.</span>",        
+    "surprise": false,
+    "options": [  
+      { "text": "Continue journey", "nextScene": "random" },     
+      { "text": "I came already", "nextScene": "failed_screen" }     
+    ]
+  },
+   "bonds_5": {
+    "title":"Bedroom",
+    "text": "The stranger takes out his big cock and starts to fuck your face with it, until you are a drooling mess.  <hr> <span class='cmd'>Suck your dildo and if possible deepthroat for 5 seconds. If you cannot then attempt to 10 times, making sure to drool over your pathetic tits.</span>",        
+    "surprise": false,
+    "options": [  
+      { "text": "Continue journey", "nextScene": "random" },     
+      { "text": "I came already", "nextScene": "failed_screen" }     
+    ]
+  },
+   "bonds_6": {
+     "title":"Bedroom",
+     "text": "Your wriggling and moaning has annoyed the stranger and he has a task for you to help you focus. Coins and nipples 😈 <hr> <span class='cmd'>stand on your tiptoes, take two coins and use your nipples to hold them against the wall, with your hands behind your back repeat - 'I am a dumb blonde slut' 10 times. If you drop a coin or mess up your chant, start from count 0.</span>",        
+    "surprise": false,
+    "options": [  
+      { "text": "Continue journey", "nextScene": "random" },     
+      { "text": "I came already", "nextScene": "failed_screen" }     
+    ]
+  },
+   "bonds_7": {
+     "title":"Bedroom",
+     "text": "The stranger knows you are an anal slut, he takes out your own plugs and inserts it into your hole. Ignoring your whimpers. <hr> <span class='cmd'>Take your favourite plug, lube it up and insert it for the rest of your session. If you take it out before then you should message Tom and tell him what a loser you are.</span>",        
+    "surprise": false,
+    "options": [  
+      { "text": "Continue journey", "nextScene": "random" },     
+      { "text": "I came already", "nextScene": "failed_screen" }     
+    ]
+  },
+   "bonds_8": {
+     "title":"Bedroom",
+     "text": "THe stranger wants to fuck you plain and simple, he throws you face down on the bed and rails you from behind. <hr> <span class='cmd'>Lay face down on your bed on your knees but shoulders resting on the matress exposing your pussy. Play with your pussy first getting nice and wet as if you were getting ready to recieve a nice juicy cock. Using your dildo, gently fuck yourself getting faster and faster imagining yourself as the object of desire for so many and how they would fuck you to ecstasy. Do this for as long as you desire.</span>",        
+    "surprise": false,
+    "options": [  
+      { "text": "Continue journey", "nextScene": "random" },     
+      { "text": "I came already", "nextScene": "failed_screen" }     
+    ]
+  },
+   "bonds_9": {
+     "title":"Bedroom",
+     "text": "The stranger has you bound tightly now and plays with your desparate pussy until its so wet you leave a trail wherever you are struggling. <hr> <span class='cmd'>Assuming you have easy to remove cuffs, cuff your arms behind your back and struggle whilst vibrating or fucking yourself with a dildo. Do this as long as you want.</span>",        
+    "surprise": false,
+    "options": [  
+      { "text": "Continue journey", "nextScene": "random" },     
+      { "text": "I came already", "nextScene": "failed_screen" }     
+    ]
+  },
+   "bonds_10": {
+     "title":"Bedroom",
+     "text": "The stranger writes on you in marker 'Slut','Bimbo','Cuckqueen' on your torso. On your tits he writes 'Suck','Slap' and 'Milk'.<hr> <span class='cmd'>If bodywriting is a kink or if possible thne replicate the above, if not, skip.</span>",        
+    "surprise": false,
+    "options": [  
+      { "text": "Continue journey", "nextScene": "random" },     
+      { "text": "I came already", "nextScene": "failed_screen" }     
+    ]
+  },
+   "bonds_11": {
+     "title":"Bedroom",
+     "text": "The stranger leaves you tied and forced to watch humiliating videos.<hr> <span class='cmd'>Choose a humiliating video that teaches women to suck cock better and watch this whilst only playing with your nipples.</span>",        
+    "surprise": false,
+    "options": [  
+      { "text": "Continue journey", "nextScene": "random" },     
+      { "text": "I came already", "nextScene": "failed_screen" }     
+    ]
+  },
+   "bonds_12": {
+     "title":"Bedroom",
+     "text": "The stranger returns with icy water and dumps it over you, making you splutter, he shows you yourself in the mirror - a bedraggled, messy looking slut who can barely look herself in the eyes. <hr> <span class='cmd'>If comfortable to do so, douse yourself in icy water and then look at yourself in the mirror, try to hold eye contact for 10 seconds.</span>",        
+    "surprise": false,
+    "options": [  
+      { "text": "Continue journey", "nextScene": "random" },     
+      { "text": "I came already", "nextScene": "failed_screen" }     
+    ]
+  },
+   "bonds_13": {
+     "title":"Bedroom",
+     "text": "The stranger wants you to entertain him and devises some tasks for you to complete.<hr> <span class='cmd'>Try and suck your own nipples, if you can't then message Tom telling him about your inadequate breasts.</span>",        
+    "surprise": false,
+    "options": [  
+      { "text": "Continue journey", "nextScene": "random" },     
+      { "text": "I came already", "nextScene": "failed_screen" }     
+    ]
+  },
+   "bonds_14": {
+     "title":"Bedroom",
+     "text": "The stranger sucks on your toes one by one whilst pulling on your nipples. <hr> <span class='cmd'>Try and suck your own toes if possible, whilst playing with yourself. Really get into sucking and admit you are a dumb foot slave to yourself.</span>",        
+    "surprise": false,
+    "options": [  
+      { "text": "Continue journey", "nextScene": "random" },     
+      { "text": "I came already", "nextScene": "failed_screen" }     
+    ]
+  },
+   "bonds_15": {
+     "title":"Bedroom",
+     "text": "The stranger takes out his cock and lubes it up before fucking your tight asshole. <hr> <span class='cmd'>Ride your dildo - anal penetration. If not possible, maybe you need anal training...</span>",        
+    "surprise": false,
+    "options": [  
+      { "text": "Continue journey", "nextScene": "random" },     
+      { "text": "I came already", "nextScene": "failed_screen" }     
+    ]
+  },
+   "random_final": {
+    "title": "Bedroom",        
+    "text":"Congratulations on making it all the way through! There are a few options and all random for a good self servicing session :)"       
+  },
+  "failed_screen": {
+    "title": "dungeon", 
+    "text": "You loser, you don't deserve any pleasure.",
+    "options": [
+    {
+      "text": "Get your punishment",
+      "nextScene": "apply_debuff"
+    }
+  ]
+  },
+  "show_debuff_result": {
+    "title": "Fate Revealed",
+    "text": "...", 
+    "options": [
+      { "text": "Continue", "nextScene": "game_title_screen" }
     ]
   }
-
 }
