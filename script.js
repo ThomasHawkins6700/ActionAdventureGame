@@ -283,34 +283,17 @@ class AdventureGame {
     }
 
     getRandomScene() {
-        // 1. Your roster (the order you want them to appear)
         const roster = [
-            "bonds_1", 
-            "bonds_2", 
-            "bonds_3", 
-            "bonds_4", 
-            "bonds_5", 
-            "bonds_6", 
-            "bonds_7", 
-            "bonds_8", 
-            "bonds_9", 
-            "bonds_10", 
-            "bonds_11", 
-            "bonds_12", 
-            "bonds_13", 
-            "bonds_14", 
-            "bonds_15"]; 
+            "bonds_1", "bonds_2", "bonds_3", "bonds_4", "bonds_5", 
+            "bonds_6", "bonds_7", "bonds_8", "bonds_9", "bonds_10", 
+            "bonds_11", "bonds_12", "bonds_13", "bonds_14", "bonds_15"
+        ];
 
-        // 2. If we've shown all scenes, return the final ID
-        if (this.randomSceneIndex >= (roster.length/2)) {
-            return "random_final";
-        }
+        // Generate a random integer between 0 and (roster.length - 1)
+        const randomIndex = Math.floor(Math.random() * roster.length);
+        const targetScene = roster[randomIndex];
 
-        // 3. Get the current scene and increment the counter
-        const targetScene = roster[this.randomSceneIndex];
-        this.randomSceneIndex++;
-
-        console.log(`🎲 Playing random scene ${this.randomSceneIndex} of ${roster.length}`);
+        console.log(`🎲 Randomly selected: ${targetScene}`);
         return targetScene;
     }
 
